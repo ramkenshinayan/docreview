@@ -8,5 +8,78 @@
 <body>
     ADMIN
     <p><a href="logout.php">Log Out</a></p>
+       <button onclick="toggleForm('add-user-form')">Add User</button>
+    <button onclick="toggleForm('update-user-form')">Update User</button>
+    <button onclick="toggleForm('delete-user-form')">Delete User</button>
+
+    <!-- Add User Form -->
+    <div class="add-user-form" style="display: none;">
+        <form action="admin.php" method="post">
+            <label for="email">Email:</label>
+            <input type="email" name="email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" required><br>
+
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" required><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" required><br>
+
+            <label for="role">Role:</label>
+            <label for="role">Role:</label>
+            <select name="role" required>
+                <option value="Admin">Admin</option>
+                <option value="Reviewer">Reviewer</option>
+                <option value="Requester">Requester</option>
+            </select><br>
+
+            <input type="submit" name="add_user" value="Add User">
+        </form>
+    </div>
+    
+    <!-- Update User Form -->
+    <div class="update-user-form" style="display: none;">
+        <form action="admin.php" method="post">
+            <label for="email">Email:</label>
+            <input type="email" name="email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" required><br>
+
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" required><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" required><br>
+
+            <label for="role">Role:</label>
+            <select name="role" required>
+                <option value="Admin">Admin</option>
+                <option value="Reviewer">Reviewer</option>
+                <option value="Requester">Requester</option>
+            </select><br>
+            <input type="submit" name="update_user" value="Update User">
+        </form>
+    </div>
+
+    <!-- Delete User Form -->
+    <div class="delete-user-form" style="display: none;">
+        <form action="admin.php" method="post">
+            <label for="delete_user">User Email:</label>
+            <input type="email" name="delete_user" required><br>
+            <input type="submit" value="Delete User">
+        </form>
+    </div>
+
+    <script>
+        function toggleForm(formClass) {
+            var forms = document.querySelectorAll('.' + formClass);
+            forms.forEach(form => {
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+    </script>
 </body>
 </html>
