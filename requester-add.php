@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('includes/requester.php');
 ?>
 
 <!DOCTYPE html>
