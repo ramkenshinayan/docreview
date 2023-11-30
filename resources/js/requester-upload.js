@@ -58,16 +58,18 @@ function uploadFile(name) {
                           </li>`;
       uploadedArea.classList.remove("onprogress");
       uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
-      form.style.cursor = 'default';
     }
   });
-  let data = new FormData(form);
+  var data = new FormData(form);
   xhr.send(data);
+  form.disabled = "true";
+  // fileInput.disabled = true;
+  form.style.cursor = 'default';
 }
 
 function removeFile(file) {
   file.parentNode.parentNode.remove();
-  document.getElementById('uploaded').value = "";
+  fileInput.value = "";
   fileInput.disabled = false;
   form.style.cursor = 'pointer';
 };

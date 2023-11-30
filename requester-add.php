@@ -94,7 +94,7 @@ include('includes/requester.php');
     <div class="home-content">
       <div class="wrapper">
         <form action="includes/upload.php" method="post" enctype="multipart/form-data">
-          <input class="file-input" type="file" name="file" accept=".doc, .docx, .pdf" id="uploaded" hidden>
+          <input class="file-input" type="file" name="file" accept=".doc, .docx, .pdf" hidden>
           <ion-icon name="cloud-upload-outline"></ion-icon>
           <p>Browse File to Upload</p><br>
           <button type="submit" name="upload">Submit</button>
