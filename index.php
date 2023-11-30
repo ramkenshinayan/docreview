@@ -1,21 +1,16 @@
 <?php
+session_start();
 if (isset($_SESSION["user"])) {
-  include("db.php");
-  $email = $_SESSION["user"];
-  $loginDetailsStmt = $conn->query("SELECT * FROM accounts WHERE email=$email");
-  $loginDetailsResult = $loginDetailsStmt->get_result();
-  $loginDetailsRow = $loginDetailsResult->fetch_assoc();
-  if ($loginDetailsRow["role"] == "Admin") {
+  // Identify user role then redirect to corresponding page
+  if ($_SESSION["role"] == "Admin") {
     header("Location: admin-home.php");
   }
-  if ($loginDetailsRow["role"] == "Requester") {
+  if ($_SESSION["role"] == "Requester") {
     header("Location: requester-home.php");
   }
-  if ($loginDetailsRow["role"] == "Reviewer") {
+  if ($_SESSION["role"] == "Reviewer") {
     header("Location: reviewer-home.php");
   }
-} else {
-  session_start();
 }
 ?>
 
@@ -33,6 +28,7 @@ if (isset($_SESSION["user"])) {
 
   <!-- MAIN CSS -->
   <link href="resources/css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 
 <body>
@@ -54,38 +50,7 @@ if (isset($_SESSION["user"])) {
           <input type="password" name="password" required>
           <label>Password</label>
         </div>
-        <div class="remember-forgot">
-          <label><input type="checkbox">Remember me</label>
-          <a href="#">Forgot Password?</a>
-        </div>
         <button type="submit" class="btn" name="login">Login</button>
-        <div class="login-register">
-          <p>Don't have an account?<a href="#" class="register-link"> Register</a></p>
-        </div>
-      </form>
-    </div>
-    <div class="form-box register">
-      <h2>Register</h2>
-      <form action="#">
-        <div class="input-box">
-          <span class="icon"><ion-icon name="person"></ion-icon></span>
-          <input type="text" required>
-          <label>Name</label>
-        </div>
-        <div class="input-box">
-          <span class="icon"><ion-icon name="mail"></ion-icon></span>
-          <input type="email" required>
-          <label>Email</label>
-        </div>
-        <div class="input-box">
-          <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-          <input type="password" required>
-          <label>Password</label>
-        </div>
-        <button type="submit" class="btn">Register</button>
-        <div class="login-register">
-          <p>Have an account?<a href="#" class="login-link"> Login</a></p>
-        </div>
       </form>
     </div>
   </div>
@@ -181,8 +146,17 @@ if (isset($_SESSION["user"])) {
 
   <!-- ABOUT US SECTION -->
   <section class="about-us" id="about-us">
-    <h2>About Us</h2>
-    <img src="assets/school.png">
+    <div class="text-box2">
+      <h2>About Us</h2>
+      <img src="assets/school.png">
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type
+        specimen book. It has survived not only five centuries, but also the leap into
+        electronic typesetting, remaining essentially unchanged. It was popularised
+        in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+        passages, and more recently with desktop publishing software like Aldus
+        PageMaker including versions of Lorem Ipsum. </p>
     </div>
   </section>
 
