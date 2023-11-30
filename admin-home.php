@@ -112,21 +112,50 @@ include("includes/admin.php");
             <span class="text">List of Users</span>
           </div>
           <div class="user-list-data">
+            <table>
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Password</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                while ($row = $result->fetch_assoc()) {
+                  echo "<tr>";
+                  echo "<td>" . $row["email"] . "</td>";
+                  echo "<td>" . $row["password"] . "</td>";
+                  echo "<td>" . $row["firstName"] . "</td>";
+                  echo "<td>" . $row["lastName"] . "</td>";
+                  echo "<td>" . $row["role"] . "</td>";
+                  echo "<td>" . $row["status"] . "</td>";
+                  echo "<td>";
+                  echo "<button class='update-user-btn' data-email='" . $row["email"] . "'>Update</button>";
+                  echo "<button class='delete-user-btn' data-email='" . $row["email"] . "'>Delete</button>";
+                  echo "</td>";
+                  echo "</tr>";
+                }
+                ?>
+              </tbody>
+            </table>
           </div>
+          <button id="addUserBtn">+</button>
         </div>
-      </div>
   </section>
-
   <section class="manage" id="manage">
 
-  </section>
 
+    <!-- CUSTOM JS -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="resources/js/user-home.js"></script>
+    <script src="resources/js/admin-home.js"></script>
 
-  <!-- CUSTOM JS -->
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <script src="resources/js/user-home.js"></script>
-  <script src="resources/js/admin-home.js"></script>
 </body>
 
 </html>
