@@ -1,16 +1,25 @@
 <?php
 session_start();
 if (isset($_SESSION["user"])) {
-    require("db.php");
-    $sql = "SELECT * FROM accounts";
-    $result = $conn->query($sql);
-} else {
-    echo '<script>
-            alert("Log in first.");
+    if ($_SESSION["role"] == "Admin") {
+        echo 'Login Successful';
+    } else {
+        echo '<script>
+            alert("Not allowed.");
             window.location.href="index.php";
             </script>';
-    exit();
+        include("logout.php");
+    }
+} else {
+    echo '<script>
+    alert("Log in first.");
+    window.location.href="index.php";
+    </script>';
 }
+
+require("db.php");
+$sql = "SELECT * FROM accounts";
+$result = $conn->query($sql);
 
 // Number of Users
 $totalUsersResult = $conn->query("SELECT * FROM accounts");
@@ -93,4 +102,3 @@ if (isset($_POST['delete_user'])) {
     }
 }
 $conn->close();
-?>

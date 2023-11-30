@@ -22,6 +22,26 @@ if (isset($_POST["login"])) {
             </script>';
         exit();
     }
+} else {
+    // Identify user role then redirect to corresponding page
+    if ($_SESSION["role"] == "Admin") {
+        echo '<script>
+            alert("A user is already logged in.");
+            window.location.href="../admin-home.php";
+            </script>';
+    }
+    if ($_SESSION["role"] == "Requester") {
+        echo '<script>
+            alert("A user is already logged in.");
+            window.location.href="../requester-home.php";
+            </script>';
+    }
+    if ($_SESSION["role"] == "Reviewer") {
+        echo '<script>
+            alert("A user is already logged in.");
+            window.location.href="../reviewer-home.php";
+            </script>';
+    }
 }
 
 // If a result exists, otherwise prompt invalid
@@ -30,6 +50,7 @@ if ($loginDetailsResult->num_rows > 0) {
     $_SESSION["user"] = $email;
     $_SESSION["fname"] = $loginDetailsRow["firstName"];
     $_SESSION["lname"] = $loginDetailsRow["lastName"];
+    $_SESSION["role"] = $loginDetailsRow["role"];
 
     // Make user online
     $updateStatusStmt = "UPDATE accounts SET status='Online' WHERE email='$email'";
