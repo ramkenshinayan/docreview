@@ -8,7 +8,7 @@ if (isset($_POST["login"])) {
     $password = htmlspecialchars($_POST["password"]);
 
     // Verify login details
-    $loginDetailsStmt = $conn->prepare("SELECT * FROM users WHERE email=? AND password=?");
+    $loginDetailsStmt = $conn->prepare("SELECT * FROM accounts WHERE email=? AND password=?");
     $loginDetailsStmt->bind_param("ss", $email, $password);
     $loginDetailsStmt->execute();
     $loginDetailsResult = $loginDetailsStmt->get_result();
@@ -53,7 +53,7 @@ if ($loginDetailsResult->num_rows > 0) {
     $_SESSION["role"] = $loginDetailsRow["role"];
 
     // Make user online
-    $updateStatusStmt = "UPDATE users SET status='Online' WHERE email='$email'";
+    $updateStatusStmt = "UPDATE accounts SET status='Online' WHERE email='$email'";
     mysqli_query($conn, $updateStatusStmt);
 
     // Identify user role then redirect to corresponding page
