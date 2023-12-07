@@ -1,8 +1,9 @@
 <?php
 session_start();
 require("db.php");
-global $conn;
 $statusMsg = '';
+$email = $_SESSION["user"];
+$date = date("m/d/Y");
 
 if (isset($_POST["upload"])) {
     if (!empty($_FILES["file"]["name"])) {
@@ -16,10 +17,10 @@ if (isset($_POST["upload"])) {
             $content = fread($fp, 16777215);
             $content = addslashes($content);
             fclose($fp);
-            $insert = $conn->query("INSERT INTO document (fileName, file_type, file_path, document) 
-                                        VALUES ('$fileName', '$fileType', '$targetFilePath', '$content')");                         
+            $insert = $conn->query("INSERT INTO document (email, fileName, fileType, uploadDate, content) 
+                                        VALUES ('$email', '$fileName', '$fileType', '$date' ,'$content')");
             if ($insert) {
-                $statusMsg = $fileName . " has been uploaded successfully.";   
+                $statusMsg = $fileName . " has been uploaded successfully.";
                 insertTransaction();
             } else {
                 $statusMsg = "File upload failed, try again.";
@@ -34,8 +35,8 @@ if (isset($_POST["upload"])) {
 
 function insertTransaction() {
     global $conn;
-    $date = date("Y/m/d");
-                $email = $_SESSION["user"];
+    global $email;
+    global $date;
                 $last_id = $conn->insert_id;
                 $process = $conn->query("INSERT INTO transaction (
                     document_id, 

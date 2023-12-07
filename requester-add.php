@@ -15,6 +15,7 @@ include('includes/requester.php');
 
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="resources/css/user-home.css" rel="stylesheet">
   <link href="resources/css/requester-add.css" rel="stylesheet">
 </head>
@@ -101,6 +102,90 @@ include('includes/requester.php');
         </form>
         <section class="progress-area"></section>
         <section class="uploaded-area"></section>
+        <div class="circle-container">
+          <div class="sequenceTitle">
+            <p>Select the Sequence of Review</p>
+          </div>
+          <div class="seq">
+            <div class="circle">1</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Unit</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item" href="#">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="seq">
+            <div class="circle">2</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Unit</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item" href="#">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="seq">
+            <div class="circle">3</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Unit</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item" href="#">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="seq">
+            <div class="circle">4</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Unit</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item" href="#">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="seq">
+            <div class="circle">5</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Unit</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item" href="#">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item" href="#">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
   </section>
 
@@ -108,6 +193,8 @@ include('includes/requester.php');
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
   <script src="resources/js/requester-home.js"></script>
   <script src="resources/js/requester-upload.js"></script>
 </body>

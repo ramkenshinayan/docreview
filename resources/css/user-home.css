@@ -507,3 +507,53 @@ section .details span {
 .uploaded-area ion-icon.fa-check {
 	font-size: 16px;
 }
+
+.sequenceTitle {
+	color: var(--primary-color);
+}
+
+.circle-container {
+	align-items: center;
+}
+
+.seq {
+	display: flex;
+}
+
+.circle {
+	display: flex;
+	width: 50px;
+	height: 50px;
+	background-color: var(--box1-color);
+	color: #fff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	margin: 10px;
+	writing-mode: vertical-rl;
+	text-orientation: upright;
+}
+
+.line {
+	border: 1px dashed var(--box1-color);
+	height: 30px;
+	margin: 0 23px;
+}
+
+.dropdown {
+	display: flex;
+	margin: 10px;
+}
+
+.custom-dropdown-btn {
+	background-color: var(--box1-color);
+	border: none;
+	margin-left: 10px;
+	margin-top: 14px;
+	width: 372px;
+	/* Set your desired width */
+	height: 40px;
+	/* Set your desired height */
+}
