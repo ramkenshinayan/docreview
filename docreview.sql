@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 22, 2023 at 08:20 AM
--- Server version: 5.7.36
--- PHP Version: 7.4.26
+-- Generation Time: Dec 07, 2023 at 12:39 PM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,11 +24,95 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accounts`
+-- Table structure for table `comments`
 --
 
-DROP TABLE IF EXISTS `accounts`;
-CREATE TABLE IF NOT EXISTS `accounts` (
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
+  `commentId` int NOT NULL,
+  `docId` int NOT NULL,
+  `line` int NOT NULL,
+  `content` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `document`
+--
+
+DROP TABLE IF EXISTS `document`;
+CREATE TABLE IF NOT EXISTS `document` (
+  `document_id` int NOT NULL,
+  `email` varchar(25) CHARACTER SET latin1 COLLATE utf8mb3_general_ci NOT NULL,
+  `fileName` varchar(30) CHARACTER SET armscii8 COLLATE utf8mb3_general_ci NOT NULL,
+  `version` int NOT NULL,
+  `file_type` varchar(10) NOT NULL,
+  `uploadDate` date NOT NULL,
+  `content` mediumblob NOT NULL,
+  PRIMARY KEY (`document_id`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `organization`
+--
+
+DROP TABLE IF EXISTS `organization`;
+CREATE TABLE IF NOT EXISTS `organization` (
+  `email` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb3_general_ci NOT NULL,
+  `officeName` varchar(60) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb3_general_ci;
+
+--
+-- Dumping data for table `organization`
+--
+
+INSERT INTO `organization` (`email`, `officeName`) VALUES
+('212222@slu.edu.ph', 'Finance'),
+('212222@slu.edu.ph', 'Finance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviewsequence`
+--
+
+DROP TABLE IF EXISTS `reviewsequence`;
+CREATE TABLE IF NOT EXISTS `reviewsequence` (
+  `reviewID` int NOT NULL,
+  `email` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb3_general_ci NOT NULL,
+  `sequenceOrder` int NOT NULL,
+  `Status` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb3_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviewtransaction`
+--
+
+DROP TABLE IF EXISTS `reviewtransaction`;
+CREATE TABLE IF NOT EXISTS `reviewtransaction` (
+  `reviewID` int NOT NULL,
+  `document_id` int NOT NULL,
+  `email` varchar(25) NOT NULL,
+  `status` varchar(12) NOT NULL,
+  `approved_date` date NOT NULL,
+  PRIMARY KEY (`reviewID`),
+  KEY `documentID` (`document_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
   `firstName` varchar(30) NOT NULL,
@@ -39,55 +123,29 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `accounts`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `accounts` (`email`, `password`, `firstName`, `lastName`, `role`, `status`) VALUES
-('1212579@slu.edu.ph', '123456', 'Ken', 'Shin', 'Admin', ''),
-('2212239@slu.edu.ph', 'vhans2', 'Vhan', 'Lin', 'Requester', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `comment`
---
-
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE IF NOT EXISTS `comment` (
-  `comment_id` int(255) NOT NULL,
-  `comment` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+INSERT INTO `users` (`email`, `password`, `firstName`, `lastName`, `role`, `status`) VALUES
+('123@123.com', '123', '3234', '234', 'Admin', 'Online'),
+('321@321.com', 'asd', 'asd', 'asd', 'Requester', 'Offline'),
+('rev@rev.com', 'rev', 'rev', 'rev', 'Reviewer', 'Offline');
 
 --
--- Table structure for table `document`
+-- Constraints for dumped tables
 --
 
-DROP TABLE IF EXISTS `document`;
-CREATE TABLE IF NOT EXISTS `document` (
-  `document_id` int(255) NOT NULL,
-  `fileName` varchar(30) CHARACTER SET armscii8 NOT NULL,
-  `version` int(50) NOT NULL,
-  `file_type` varchar(10) NOT NULL,
-  `file_path` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+--
+-- Constraints for table `document`
+--
+ALTER TABLE `document`
+  ADD CONSTRAINT `email` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- Table structure for table `transaction`
+-- Constraints for table `reviewtransaction`
 --
-
-DROP TABLE IF EXISTS `transaction`;
-CREATE TABLE IF NOT EXISTS `transaction` (
-  `document_id` int(60) NOT NULL,
-  `email` varchar(25) NOT NULL,
-  `comment_id` int(255) NOT NULL,
-  `status` varchar(12) NOT NULL,
-  `uploaded_date` date NOT NULL,
-  `approved_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE `reviewtransaction`
+  ADD CONSTRAINT `documentID` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
