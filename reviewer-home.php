@@ -104,8 +104,8 @@ $result = $conn->query("SELECT * FROM transaction");
             <th> Approved Date </th>
             </tr>
             <?php
+            $rows = $result->fetch_assoc();
             for ($i = 0; $i < $result->num_rows; $i++) {
-              $rows = $result->fetch_assoc();
             ?>
               <tr>
                 <td><?php echo $rows['document_id']; ?></td>
