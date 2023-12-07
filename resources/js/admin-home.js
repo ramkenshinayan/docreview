@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Update User
 	document.addEventListener('click', function (event) {
-		if (event.target.classList.contains('update-user-btn')) {
+	    if (event.target.classList.contains('update-user-btn')) {
 			let row = event.target.closest('tr');
 			let originalEmail = row.cells[0].textContent;
 			let password = row.cells[1].textContent;
@@ -104,22 +104,22 @@ document.addEventListener('DOMContentLoaded', function () {
 			let status = row.cells[5].textContent;
 
 			row.innerHTML = `
-          <td><input type="text" name="email" value="${originalEmail}"></td>
-          <td><input type="text" name="password" value="${password}"></td>
-          <td><input type="text" name="firstName" value="${firstName}"></td>
-          <td><input type="text" name="lastName" value="${lastName}"></td>
-          <td>
-              <select name="role" value="${role}">
-                  <option value="Admin" ${role === 'Admin' ? 'selected' : ''}>Admin</option>
-                  <option value="Requester" ${role === 'Requester' ? 'selected' : ''}>Requester</option>
-                  <option value="Reviewer" ${role === 'Reviewer' ? 'selected' : ''}>Reviewer</option>
-              </select>
-          </td>
-          <td>${status}</td>
-          <td>
-            <button class='save-user-btn'>Save</button>
-            <button class='cancel-update-btn'>Cancel</button>
-          </td>`;
+            <td><input type="text" name="email" value="${originalEmail}"></td>
+            <td><input type="text" name="password" value="${password}"></td>
+            <td><input type="text" name="firstName" value="${firstName}"></td>
+            <td><input type="text" name="lastName" value="${lastName}"></td>
+            <td>
+                <select name="role">
+                    <option value="Admin" ${role === 'Admin' ? 'selected' : ''}>Admin</option>
+                    <option value="Requester" ${role === 'Requester' ? 'selected' : ''}>Requester</option>
+                    <option value="Reviewer" ${role === 'Reviewer' ? 'selected' : ''}>Reviewer</option>
+                </select>
+            </td>
+            <td>${status}</td>
+            <td>
+                <button class='save-user-btn'>Save</button>
+                <button class='cancel-update-btn'>Cancel</button>
+            </td>`;
 
 			row.querySelector('.save-user-btn').addEventListener('click', function () {
 				let updatedEmail = row.querySelector('input[name="email"]').value;
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				let updatedFirstName = row.querySelector('input[name="firstName"]').value;
 				let updatedLastName = row.querySelector('input[name="lastName"]').value;
 				let updatedRole = row.querySelector('select[name="role"]').value;
-
+	
 				let xhr = new XMLHttpRequest();
 				xhr.open('POST', 'includes/admin.php', true);
 				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					'&lastName=' + encodeURIComponent(updatedLastName) +
 					'&role=' + encodeURIComponent(updatedRole));
 			});
-
+	
 			row.querySelector('.cancel-update-btn').addEventListener('click', function () {
 				location.reload();
 			});
