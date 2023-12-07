@@ -46,7 +46,7 @@ if (isset($_POST["login"])) {
 
 // If a result exists, otherwise prompt invalid
 if ($loginDetailsResult->num_rows > 0) {
-    // Initialize session to user's details
+    // Initialize session with user's details
     $_SESSION["user"] = $email;
     $_SESSION["fname"] = $loginDetailsRow["firstName"];
     $_SESSION["lname"] = $loginDetailsRow["lastName"];
