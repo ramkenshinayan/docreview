@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 07, 2023 at 12:39 PM
+-- Generation Time: Dec 07, 2023 at 12:47 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `commentId` int NOT NULL,
-  `docId` int NOT NULL,
+  `documentId` int NOT NULL,
   `line` int NOT NULL,
   `content` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 DROP TABLE IF EXISTS `document`;
 CREATE TABLE IF NOT EXISTS `document` (
-  `document_id` int NOT NULL,
-  `email` varchar(25) CHARACTER SET latin1 COLLATE utf8mb3_general_ci NOT NULL,
-  `fileName` varchar(30) CHARACTER SET armscii8 COLLATE utf8mb3_general_ci NOT NULL,
+  `documentId` int NOT NULL,
+  `email` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `fileName` varchar(30) CHARACTER SET armscii8 COLLATE armscii8_general_ci NOT NULL,
   `version` int NOT NULL,
-  `file_type` varchar(10) NOT NULL,
+  `fileType` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `uploadDate` date NOT NULL,
   `content` mediumblob NOT NULL,
-  PRIMARY KEY (`document_id`),
+  PRIMARY KEY (`documentId`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS `document` (
 
 DROP TABLE IF EXISTS `organization`;
 CREATE TABLE IF NOT EXISTS `organization` (
-  `email` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb3_general_ci NOT NULL,
+  `email` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `officeName` varchar(60) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb3_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `organization`
@@ -82,11 +82,11 @@ INSERT INTO `organization` (`email`, `officeName`) VALUES
 
 DROP TABLE IF EXISTS `reviewsequence`;
 CREATE TABLE IF NOT EXISTS `reviewsequence` (
-  `reviewID` int NOT NULL,
-  `email` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb3_general_ci NOT NULL,
+  `reviewId` int NOT NULL,
+  `email` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `sequenceOrder` int NOT NULL,
   `Status` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb3_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -96,13 +96,13 @@ CREATE TABLE IF NOT EXISTS `reviewsequence` (
 
 DROP TABLE IF EXISTS `reviewtransaction`;
 CREATE TABLE IF NOT EXISTS `reviewtransaction` (
-  `reviewID` int NOT NULL,
-  `document_id` int NOT NULL,
+  `reviewId` int NOT NULL,
+  `documentId` int NOT NULL,
   `email` varchar(25) NOT NULL,
   `status` varchar(12) NOT NULL,
-  `approved_date` date NOT NULL,
-  PRIMARY KEY (`reviewID`),
-  KEY `documentID` (`document_id`)
+  `approvedDate` date NOT NULL,
+  PRIMARY KEY (`reviewId`),
+  KEY `documentID` (`documentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -145,7 +145,7 @@ ALTER TABLE `document`
 -- Constraints for table `reviewtransaction`
 --
 ALTER TABLE `reviewtransaction`
-  ADD CONSTRAINT `documentID` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `documentID` FOREIGN KEY (`documentId`) REFERENCES `document` (`documentId`) ON DELETE RESTRICT ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
