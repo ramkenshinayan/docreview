@@ -18,5 +18,5 @@ if (isset($_SESSION["user"])) {
 }
 
 require("db.php");
-$sql = "SELECT * FROM accounts";
+$sql = "SELECT * FROM users";
 $result = $conn->query($sql);
