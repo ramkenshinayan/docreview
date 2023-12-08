@@ -39,30 +39,22 @@ include('includes/requester.php');
       <div class="menu">
         <ul class="menu-links">
           <li class="nav-link">
-            <a href="requester-home.php">
-              <ion-icon name="home-outline"></ion-icon>
-              <span class="text nav-text">Home</span>
-            </a>
+              <a href="user-home.html">
+                  <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
           <li class="nav-link">
-            <a href="#">
-              <ion-icon name="document-outline"></ion-icon>
-              <span class="text nav-text">View Requests</span>
-            </a>
+              <a href="requester-view.html">
+                  <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
           <li class="nav-link">
-            <a href="requester-add.php">
-              <ion-icon name="document-attach-outline"></ion-icon>
-              <span class="text nav-text">Add Requests</span>
-            </a>
+              <a href="requester-add.html">
+                  <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
           <li class="nav-link">
-            <a href="#">
-              <ion-icon name="document-text-outline"></ion-icon>
-              <span class="text nav-text">Track Requests</span>
-            </a>
+              <a href="requester-track.html">
+                  <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
           </li>
-        </ul>
+      </ul>
       </div>
       <div class="bottom-content">
         <li class="">
@@ -89,7 +81,7 @@ include('includes/requester.php');
     <div class="top">
       <div class="profile-details">
         <img src="assets/school.png" alt="">
-        <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
+        <!-- <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> -->
         <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
       </div>
     </div>
@@ -101,141 +93,132 @@ include('includes/requester.php');
             <ion-icon name="cloud-upload-outline"></ion-icon>
             <p>Browse File to Upload</p><br>
           </div>
-
-          
+          <button type="submit" name="upload">Submit</button>
         </form>
-        <div>
-          <div class="circle-container">
-            <div class="sequenceTitle"><p>Select the Sequence of Review</p></div>
-            <div class="seq">
-              <div class="circle">1</div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Reviewer
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Unit</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
-                  <li><a class="dropdown-item">Office for Legal Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
-                </ul>
-              </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Name of Reviewer
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
-              </ul>
-            </div>
-            <div class="seq">
-              <div class="circle">2</div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Reviwer
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Unit</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
-                  <li><a class="dropdown-item">Office for Legal Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
-                </ul>
-              </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Name of Reviewer
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
-              </ul>
-            </div>
-            <div class="seq">
-              <div class="circle">3</div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Reviwer
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Unit</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
-                  <li><a class="dropdown-item">Office for Legal Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
-                </ul>
-              </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Name of Reviewer
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
-              </ul>
-            </div>
-
-            <div class="seq">
-              <div class="circle">4</div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Reviwer
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Unit</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
-                  <li><a class="dropdown-item">Office for Legal Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
-                </ul>
-              </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Name of Reviewer
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
-              </ul>
-            </div>
-
-            <div class="seq">
-              <div class="circle">5</div>
-              <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Reviwer
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item">Unit</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
-                  <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
-                  <li><a class="dropdown-item">Office for Legal Affairs</a></li>
-                  <li><a class="dropdown-item"">Office of the Vice President for Administration</a></li>
-                </ul>
-              </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Name of Reviewer
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        
-        <!-- <button type="submit" name="upload">Submit</button> -->
-        <div class="submitButton">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
-            Submit
-          </button>
-        </div>
-
         <section class="progress-area"></section>
         <section class="uploaded-area"></section>
+      </div>
+      <div class="seqOrder">
+        <div class="circle-container">
+          <div class="sequenceTitle"><p>Select the Sequence of Review</p></div>
+          <div class="seq">
+            <div class="circle">1</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviewer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item">Unit</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Name of Reviewer
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item">Valiant</a></li>
+              <li><a class="dropdown-item">Kenshin</a></li>
+              <li><a class="dropdown-item">Faye</a></li>
+            </ul>
+          </div>
+          <div class="seq">
+            <div class="circle">2</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item">Unit</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Name of Reviewer
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item">Valiant</a></li>
+              <li><a class="dropdown-item">Kenshin</a></li>
+              <li><a class="dropdown-item">Faye</a></li>
+            </ul>
+          </div>
+          <div class="seq">
+            <div class="circle">3</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item">Unit</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Name of Reviewer
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item">Valiant</a></li>
+              <li><a class="dropdown-item">Kenshin</a></li>
+              <li><a class="dropdown-item">Faye</a></li>
+            </ul>
+          </div>
+
+          <div class="seq">
+            <div class="circle">4</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item">Unit</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Name of Reviewer
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item">Valiant</a></li>
+              <li><a class="dropdown-item">Kenshin</a></li>
+              <li><a class="dropdown-item">Faye</a></li>
+            </ul>
+          </div>
+
+          <div class="seq">
+            <div class="circle">5</div>
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Reviwer
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item">Unit</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
+                <li><a class="dropdown-item">Office for Legal Affairs</a></li>
+                <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Name of Reviewer
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item">Valiant</a></li>
+              <li><a class="dropdown-item">Kenshin</a></li>
+              <li><a class="dropdown-item">Faye</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
   </section>
 
