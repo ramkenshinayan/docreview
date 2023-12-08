@@ -2,7 +2,7 @@
 $servername = "localhost";
 $dbuser = "root";
 $dbpass = "";
-$dbname = "docrev";
+$dbname = "docreview";
 
 $conn = new mysqli($servername, $dbuser, $dbpass, $dbname);
 
