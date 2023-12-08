@@ -3,8 +3,12 @@ const form = document.querySelector("form"),
   progressArea = document.querySelector(".progress-area"),
   uploadedArea = document.querySelector(".uploaded-area");
 
+let fileInProgress = false;
+
 form.addEventListener("click", () => {
-  fileInput.click();
+  if (!fileInProgress) {
+    fileInput.click();
+  }
 });
 
 fileInput.onchange = ({ target }) => {
@@ -53,18 +57,24 @@ function uploadFile(name) {
                             </div>
                             <ion-icon name="checkmark-outline"></ion-icon>
                             <div class="removefile">
-                            <button onclick="removeFile(this);">Remove</button>
+                              <button onclick="removeFile(this);">Remove</button>
                             </div>
                           </li>`;
       uploadedArea.classList.remove("onprogress");
       uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+      fileInput.disabled = false; 
     }
   });
+
+  xhr.addEventListener("loadend", () => {
+    form.disabled = false;
+  });
+
   var data = new FormData(form);
   xhr.send(data);
-  form.disabled = "true";
-  // fileInput.disabled = true;
-  form.style.cursor = 'default';
+  form.disabled = true;
+  fileInput.disabled = true;
+  fileInProgress = true; 
 }
 
 function removeFile(file) {
@@ -72,9 +82,10 @@ function removeFile(file) {
   fileInput.value = "";
   fileInput.disabled = false;
   form.style.cursor = 'pointer';
+  fileInProgress = false;
 };
 
 document.getElementById('closeModalButton').addEventListener('click', function () {
   // Replace 'your-homepage.html' with the actual URL of your homepage
-  window.location.href = 'requester-home.html';
+  window.location.href = 'requester-home.php';
 });

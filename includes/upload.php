@@ -21,7 +21,7 @@ if (isset($_POST["upload"])) {
                                         VALUES ('$email', '$fileName', '$fileType', '$date' ,'$content')");
             if ($insert) {
                 $statusMsg = $fileName . " has been uploaded successfully.";
-                insertTransaction();
+                // insertTransaction();
             } else {
                 $statusMsg = "File upload failed, try again.";
             }
@@ -33,29 +33,30 @@ if (isset($_POST["upload"])) {
     }
 }
 
-function insertTransaction() {
-    global $conn;
-    global $email;
-    global $date;
-                $last_id = $conn->insert_id;
-                $process = $conn->query("INSERT INTO transaction (
-                    document_id, 
-                    email, 
-                    comment_id, 
-                    status, 
-                    uploaded_date, 
-                    approved_date) 
-                VALUES (
-                    '$last_id', 
-                    '$email',
-                    '0',
-                    'pending',
-                    '$date',
-                    'n/a'
-                    )");
-}
+// function insertTransaction() {
+//     global $conn;
+//     global $email;
+//     global $date;
+//                 $last_id = $conn->insert_id;
+//                 $process = $conn->query("INSERT INTO transaction (
+//                     document_id, 
+//                     email, 
+//                     comment_id, 
+//                     status, 
+//                     uploaded_date, 
+//                     approved_date) 
+//                 VALUES (
+//                     '$last_id', 
+//                     '$email',
+//                     '0',
+//                     'pending',
+//                     '$date',
+//                     'n/a'
+//                     )");
+// }
 
 echo "<script>
         alert('$statusMsg');
-        window.location.href='../requester-add.php';
+        window.location.href='../requester-home.php';
         </script>";
+?>
