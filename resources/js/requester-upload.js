@@ -73,3 +73,8 @@ function removeFile(file) {
   fileInput.disabled = false;
   form.style.cursor = 'pointer';
 };
+
+document.getElementById('closeModalButton').addEventListener('click', function () {
+  // Replace 'your-homepage.html' with the actual URL of your homepage
+  window.location.href = 'requester-home.html';
+});
