@@ -434,7 +434,7 @@ body.dark .switch::before {
     display: flex;
     background: linear-gradient(0deg, var(--primary-color-light) 0%, var(--primary-color) 100%);
     width: 98%;
-    height: 230px;
+    height: 240px;
     border-radius: 10px;
     box-shadow: 7px 7px 12px rgba(0,0,0,0.05);
     margin-bottom: 20px;
@@ -443,7 +443,7 @@ body.dark .switch::before {
 .banner h3{
     margin-top: 80px;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 32px;
     margin-left: 150px;
 }
 
