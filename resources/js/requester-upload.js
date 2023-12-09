@@ -84,7 +84,8 @@ document.getElementById('closeModalButton').addEventListener('click', function (
 document.addEventListener('DOMContentLoaded', function() {
   const allDropdowns = document.querySelectorAll('.seq');
   const chosenOptions = new Set();
-  let chosenDropdowns = 0;
+  let chosenReviewerDropdowns = 0;
+  let chosenNameOfReviewerDropdowns = 0;
 
   allDropdowns.forEach(function(seq, index) {
     const dropdownItems = seq.querySelectorAll('.dropdown-item');
@@ -97,15 +98,15 @@ document.addEventListener('DOMContentLoaded', function() {
       item.addEventListener('click', function(event) {
         const selectedReviewer = event.target.textContent;
 
-        // Check if the user has chosen in the previous dropdown
-        if (chosenDropdowns < index) {
-          alert("Please choose in the previous reviewer first.");
+        // Check if the user has chosen in the previous reviewer dropdowns
+        if (chosenReviewerDropdowns < index || chosenNameOfReviewerDropdowns < index) {
+          alert("Please choose in the previous reviewer and name of reviewer first.");
           return;
         }
 
-        if (!chosenOptions.has(selectedReviewer) && chosenDropdowns <= index) {
+        if (!chosenOptions.has(selectedReviewer) && chosenReviewerDropdowns <= index) {
           chosenOptions.add(selectedReviewer);
-          chosenDropdowns = index + 1;
+          chosenReviewerDropdowns = index + 1;
 
           reviewerTitleBtn.textContent = selectedReviewer;
 
@@ -119,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             li.innerHTML = `<a class="dropdown-item">${name}</a>`;
             li.addEventListener('click', function() {
               nameOfReviewerBtn.textContent = name; // Update the title with the selected name
+              chosenNameOfReviewerDropdowns = index + 1;
             });
             nameOfReviewerDropdown.appendChild(li);
           });
@@ -141,8 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
-
 
 function getReviewerNamesFromDatabase(reviewer) {
   // For this example, returning a static list of names
