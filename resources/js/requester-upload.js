@@ -95,6 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
       item.addEventListener('click', function(event) {
         const selectedReviewer = event.target.textContent;
 
+        // Check if the user has chosen in the previous dropdown
+        if (chosenDropdowns < index) {
+          alert("Please choose in the previous reviewer first.");
+          return;
+        }
+
         if (!chosenOptions.has(selectedReviewer) && chosenDropdowns <= index) {
           chosenOptions.add(selectedReviewer);
           chosenDropdowns = index + 1;
@@ -133,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
 
 
 function getReviewerNamesFromDatabase(reviewer) {
