@@ -101,13 +101,8 @@ include('includes/requester.php');
             <span class="text">List of Documents</span>
         </div>
 
-        <div class="wrap">
-          <div class="search">
-              <input type="text" class="searchTerm" placeholder="What are you looking for?">
-              <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-            </button>
-          </div>
+        <div class="search-box">
+           <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
         </div>
         
         <!-- filter-->
