@@ -55,7 +55,7 @@ include('includes/requester.php');
             </a>
           </li>
           <li class="nav-link">
-            <a href="#">
+            <a href="requester-track.php">
               <ion-icon name="document-text-outline"></ion-icon>
               <span class="text nav-text">Track Requests</span>
             </a>
