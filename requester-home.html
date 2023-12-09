@@ -16,6 +16,7 @@ include('includes/requester.php');
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="resources/css/user-home.css" rel="stylesheet">
+  <link href="resources/css/requester-home.css" rel="stylesheet">
 </head>
 
 <body>
@@ -97,6 +98,23 @@ include('includes/requester.php');
           <ion-icon name="bar-chart-outline" class="content-icon"></ion-icon>
           <span class="text">Home</span>
         </div>
+        <div class="boxes">
+          <div class="box box1">
+          <ion-icon name="refresh-outline" class="box-icon"></ion-icon> 
+          <span class="text">Documents Pending</span>
+          <span class="number" id="total-docs"></span>
+          </div>
+          <div class="box box2">
+          <ion-icon name="checkmark-done-outline" class="box-icon"></ion-icon>
+          <span class="text">Documents Approved</span>
+          <span class="number" id="review-docs"></span>
+          </div>
+          <div class="box box3">
+          <ion-icon name="trash-bin-outline" class="box-icon"></ion-icon> 
+          <span class="text">Documents Disapproved</span>
+          <span class="number" id="late-docs"></span>
+          </div>
+      </div>
       </div>
   </section>
 
