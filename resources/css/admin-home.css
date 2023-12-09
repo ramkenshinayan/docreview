@@ -1,25 +1,44 @@
 body.dark {
-	--body-color: #18191A;
-	--sidebar-color: #242526;
-	--primary-color: #38B6FF;
-	--primary-color-light: #3A3B3C;
-	--toggle-color: #FFF;
-	--text-color: #CCC;
-	--box1-color: #3A3B3C;
+    --body-color: #18191A;
+    --sidebar-color: #242526;
+    --primary-color: #38B6FF;
+    --primary-color-light: #3A3B3C;
+    --toggle-color: #FFF;
+    --text-color: #CCC;
+    --box1-color: #3A3B3C;
 }
 
-.user-list-data table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+.searchbar {
+    height: 5vh;
+    float: right;
+    margin-top: 30px;
+    margin-right: 30px;
+    width: 30vh;
+    display: flex;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+.searchbar:hover input {
+    width: 400px;
+}
 
-.user-list-data th, .user-list-data td {
-    border: 2px solid var(--text-color); 
-    padding: 8px;
-    text-align: left;
-    color: var(--text-color);
+.searchbar input {
+    width: 0;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    transition: 0.8s;
+    background: transparent;
+}
+
+.searchbar ion-icon {
+    color: black;
+    font-size: 20px;
 }
 
 .user-actions {
@@ -51,15 +70,29 @@ body.dark {
     display: block;
 }
 
+#addUserBtn {
+  background-color: #08a1e7;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 25px 0px;
+  cursor: pointer;
+}
+
 .dropdown-content a:hover {
     background-color: #f1f1f1;
 }
 
+/* Show dropdown on hover */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.user-list-data button {
+.container-table button {
     width: 100px;
     padding: 5px 10px;
     margin-left: 10px;
@@ -68,3 +101,4 @@ body.dark {
     background: var(--primary-color);
     color: var(--body-color);
 }
+
