@@ -38,7 +38,7 @@ $result = $conn->query("SELECT * FROM transaction");
       <div class="menu">
         <ul class="menu-links">
           <li class="nav-link">
-            <a href="#">
+            <a href="#requester-view.php">
               <ion-icon name="file-tray-stacked-outline"></ion-icon>
               <span class="text nav-text">View Approvals</span>
             </a>

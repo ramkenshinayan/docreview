@@ -45,7 +45,7 @@ include('includes/requester.php');
             </a>
           </li>
           <li class="nav-link">
-            <a href="#">
+            <a href="requester-view.php">
               <ion-icon name="document-outline"></ion-icon>
               <span class="text nav-text">View Requests</span>
             </a>
