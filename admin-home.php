@@ -111,7 +111,7 @@ include("includes/admin.php");
             <ion-icon name="people-outline" class="content-icon"></ion-icon>
             <span class="text">List of Users</span>
           </div>
-          <div class="user-list-data">
+          <div class="container-table">
             <table>
               <thead>
                 <tr>
