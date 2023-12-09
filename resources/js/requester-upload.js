@@ -3,12 +3,8 @@ const form = document.querySelector("form"),
   progressArea = document.querySelector(".progress-area"),
   uploadedArea = document.querySelector(".uploaded-area");
 
-let fileInProgress = false;
-
 form.addEventListener("click", () => {
-  if (!fileInProgress) {
-    fileInput.click();
-  }
+  fileInput.click();
 });
 
 fileInput.onchange = ({ target }) => {
@@ -57,24 +53,18 @@ function uploadFile(name) {
                             </div>
                             <ion-icon name="checkmark-outline"></ion-icon>
                             <div class="removefile">
-                              <button onclick="removeFile(this);">Remove</button>
+                            <button onclick="removeFile(this);">Remove</button>
                             </div>
                           </li>`;
       uploadedArea.classList.remove("onprogress");
       uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
-      fileInput.disabled = false; 
     }
   });
-
-  xhr.addEventListener("loadend", () => {
-    form.disabled = false;
-  });
-
   var data = new FormData(form);
   xhr.send(data);
-  form.disabled = true;
-  fileInput.disabled = true;
-  fileInProgress = true; 
+  form.disabled = "true";
+  // fileInput.disabled = true;
+  form.style.cursor = 'default';
 }
 
 function removeFile(file) {
@@ -82,10 +72,89 @@ function removeFile(file) {
   fileInput.value = "";
   fileInput.disabled = false;
   form.style.cursor = 'pointer';
-  fileInProgress = false;
 };
 
 document.getElementById('closeModalButton').addEventListener('click', function () {
   // Replace 'your-homepage.html' with the actual URL of your homepage
-  window.location.href = 'requester-home.php';
+  window.location.href = 'request-home.html';
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const allDropdowns = document.querySelectorAll('.seq');
+  const chosenOptions = new Set();
+  let chosenDropdowns = 0;
+
+  allDropdowns.forEach(function(seq, index) {
+    const dropdownItems = seq.querySelectorAll('.dropdown-item');
+    const reviewerTitleBtn = seq.querySelector('.custom-dropdown-btn');
+    const nameOfReviewerBtn = seq.querySelector('#name-of-reviewer-btn');
+    const nameOfReviewerDropdown = seq.querySelector('#name-of-reviewer-dropdown');
+    const subsequentDropdowns = document.querySelectorAll(`.seq:nth-child(n + ${index + 2}) .dropdown-item`);
+
+    dropdownItems.forEach(function(item) {
+      item.addEventListener('click', function(event) {
+        const selectedReviewer = event.target.textContent;
+
+        // Check if the user has chosen in the previous dropdown
+        if (chosenDropdowns < index) {
+          alert("Please choose in the previous reviewer first.");
+          return;
+        }
+
+        if (!chosenOptions.has(selectedReviewer) && chosenDropdowns <= index) {
+          chosenOptions.add(selectedReviewer);
+          chosenDropdowns = index + 1;
+
+          reviewerTitleBtn.textContent = selectedReviewer;
+
+          // Fetch reviewer names from the database
+          const reviewerNames = getReviewerNamesFromDatabase(selectedReviewer);
+
+          // Populate the name of reviewer dropdown
+          nameOfReviewerDropdown.innerHTML = '';
+          reviewerNames.forEach(function(name) {
+            const li = document.createElement('li');
+            li.innerHTML = `<a class="dropdown-item">${name}</a>`;
+            li.addEventListener('click', function() {
+              nameOfReviewerBtn.textContent = name; // Update the title with the selected name
+            });
+            nameOfReviewerDropdown.appendChild(li);
+          });
+
+          dropdownItems.forEach(function(dropdownItem) {
+            if (dropdownItem.textContent === selectedReviewer) {
+              dropdownItem.style.pointerEvents = 'none';
+              dropdownItem.style.color = 'grey';
+            }
+          });
+
+          subsequentDropdowns.forEach(function(subsequentItem) {
+            if (subsequentItem.textContent === selectedReviewer) {
+              subsequentItem.style.pointerEvents = 'none';
+              subsequentItem.style.color = 'grey';
+            }
+          });
+        }
+      });
+    });
+  });
+});
+
+
+
+function getReviewerNamesFromDatabase(reviewer) {
+  // For this example, returning a static list of names
+  if (reviewer === 'Unit') {
+    return ['John Doe', 'Jane Smith'];
+  } else if (reviewer === 'Office of the Vice President for Academic Affairs') {
+    return ['Alice Johnson', 'Bob Williams'];
+  } else if (reviewer === 'Office of the Vice President for Finance') {
+    return ['Eva Brown', 'Michael Davis'];
+  } else if (reviewer === 'Office for Legal Affairs') {
+    return ['Olivia Wilson', 'William Garcia'];
+  } else if (reviewer === 'Office of the Vice President for Administration') {
+    return ['Sophia Martinez', 'David Rodriguez'];
+  } else {
+    return [];
+  }
+}
