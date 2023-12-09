@@ -10,7 +10,9 @@ const sort = document.querySelector(".sort-box"),
 	sortItems = document.querySelectorAll(".sort-items"),
 	filterItems = document.querySelectorAll(".filter-items"),
 
-	documentName = document.querySelector(".name");
+	documentName = document.querySelector(".name"),
+	searchInput = document.querySelector(".search-box");
+
 
 	//EXPAND SORT
 	for (let i = 0; i < sortCol.length; i++) {
@@ -31,15 +33,14 @@ const sort = document.querySelector(".sort-box"),
 		}
 	}
 
-
 	//SORT CHANGE
 	sortBtn.addEventListener("click", () => {
 		sortBtn.classList.toggle("open");
-		applySort();
+		
 	});
 	filterBtn.addEventListener("click", () => {
 		filterBtn.classList.toggle("open");
-		applyFilter();
+		
 	});
 
 	//SORT SELECTION
@@ -78,22 +79,9 @@ const sort = document.querySelector(".sort-box"),
         item.addEventListener("click", () => {
 			item.classList.toggle("selected");
 			document.querySelectorAll(" .filter-items.selected");
+			updateURL();
         });
     });
-
-	function applyFilter() {
-		const selectedFilter = document.querySelector(".filter-select .filter-items.selected");
-		const filterValue = selectedFilter ? selectedFilter.innerText : null;
-	
-		if (filterValue) {
-			fetch(`/data?filter=${encodeURIComponent(filterValue)}`)
-				.then(response => response.json())
-				.then(data => {
-					updateReviews(data.reviews);
-				})
-				.catch(error => console.error('Error fetching data:', error));
-		}
-	}
 
 
 	//sorted
@@ -114,72 +102,33 @@ const sort = document.querySelector(".sort-box"),
 			}
 	
 			document.querySelectorAll(".sort-select .sort-items.selected");
+			updateURL();
 
 		});
 	});
 
-	function applySort() {
-		const selectedSort = document.querySelector(".sort-select .sort-items.selected");
-		const sortValue = selectedSort ? selectedSort.innerText : null;
-	
-		if (sortValue) {
-			fetch(`/data?sort=${encodeURIComponent(sortValue)}`)
-				.then(response => response.json())
-				.then(data => {
-					updateReviews(data.reviews);
-				})
-				.catch(error => console.error('Error fetching data:', error));
-		}
-	}	
+	function updateURL() {
+    const selectedSort = document.querySelector(".sort-select .sort-items.selected");
+    const selectedFilter = document.querySelector(".filter-select .filter-items.selected");
+    const searchTerm = searchInput.value.trim();
 
-	//update content
-	function updateReviews(reviews) {
-		const reviewsContainer = document.querySelector('.history');
-		reviewsContainer.innerHTML = ''; 
+    let queryString = "";
+    if (selectedSort) {
+        queryString += `sort=${encodeURIComponent(selectedSort.innerText)}&`;
 	
-		if (reviews && reviews.length > 0) {
-			reviews.forEach(review => {
-				const reviewBox = document.createElement('div');
-				reviewBox.classList.add('box');
-				reviewBox.id = `box-${review.id}`;
-	
-				const content = document.createElement('div');
-				content.classList.add('content');
-	
-				const nameHeader = document.createElement('h1');
-				nameHeader.classList.add('name');
-				nameHeader.textContent = review.DocumentName;
-	
-				const uploadDateParagraph = document.createElement('p');
-				uploadDateParagraph.textContent = 'Upload Date: ';
-	
-				const uploadDateSpan = document.createElement('span');
-				uploadDateSpan.textContent = new Date(review.UploadDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-	
-				uploadDateParagraph.appendChild(uploadDateSpan);
-	
-				const reviewDateParagraph = document.createElement('p');
-				reviewDateParagraph.textContent = 'Review Date: ';
-	
-				const reviewDateSpan = document.createElement('span');
-				reviewDateSpan.textContent = new Date(review.ReviewDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-	
-				reviewDateParagraph.appendChild(reviewDateSpan);
-	
-				content.appendChild(nameHeader);
-				content.appendChild(uploadDateParagraph);
-				content.appendChild(reviewDateParagraph);
-	
-				const statusHeader = document.createElement('h3');
-				statusHeader.classList.add('status');
-				statusHeader.textContent = review.ApprovalStatus;
-	
-				reviewBox.appendChild(content);
-				reviewBox.appendChild(statusHeader);
-	
-				reviewsContainer.appendChild(reviewBox);
-			});
-		} else {
-			reviewsContainer.innerHTML = '<p>No reviews available</p>';
-		}
-	}
+    }
+    if (selectedFilter) {
+        queryString += `filter=${encodeURIComponent(selectedFilter.innerText)}&`;
+		
+    }
+    if (searchTerm) {
+        queryString += `search=${encodeURIComponent(searchTerm)}&`;
+    }
+
+    // Remove the trailing '&' if present
+    queryString = queryString.replace(/&$/, '');
+
+    const newURL = window.location.pathname + (queryString ? `?${queryString}` : "");
+    history.pushState(null, null, newURL);
+	location.reload();
+}

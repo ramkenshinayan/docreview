@@ -27,7 +27,7 @@
 
 .sort-box,
 .filter-box {
-    position: absolute;
+    position: relative;
     max-width: 320px;
     z-index: 1;
     width: 10%;
