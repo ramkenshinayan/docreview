@@ -61,6 +61,7 @@ function uploadFile(name) {
     }
   });
   var data = new FormData(form);
+  data.append("uploadDate", new Date().toLocaleString()); 
   xhr.send(data);
   form.disabled = "true";
   // fileInput.disabled = true;
@@ -69,6 +70,7 @@ function uploadFile(name) {
 
 function removeFile(file) {
   file.parentNode.parentNode.remove();
+  
   fileInput.value = "";
   fileInput.disabled = false;
   form.style.cursor = 'pointer';
