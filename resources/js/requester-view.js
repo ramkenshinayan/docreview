@@ -1,10 +1,4 @@
-const body = document.querySelector("body"),
-	sidebar = body.querySelector(".sidebar"),
-	toggle = body.querySelector(".toggle"),
-	modeSwitch = body.querySelector(".mode"),
-	modeText = body.querySelector(".mode-text"),
-
-	sort = document.querySelector(".sort-box"),
+const sort = document.querySelector(".sort-box"),
 	sortBtn = sort.querySelector(".sort-btn"),
 	sortAll = sort.querySelectorAll(".sort"),
 	sortCol = document.getElementsByClassName("sort-btn"),
@@ -18,20 +12,6 @@ const body = document.querySelector("body"),
 
 	documentName = document.querySelector(".name");
 
-	toggle.addEventListener("click", () =>{
-		sidebar.classList.toggle("close");
-	});
-
-	modeSwitch.addEventListener("click", () =>{
-		body.classList.toggle("dark");
-
-		if (body.classList.contains("dark")){
-			modeText.innerText = "Light Mode";
-		} else {
-			modeText.innerText = "Dark Mode";
-		}
-	});
-	
 	//EXPAND SORT
 	for (let i = 0; i < sortCol.length; i++) {
 		sortCol[i].addEventListener("click", toggleActive);

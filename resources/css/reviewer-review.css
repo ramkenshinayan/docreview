@@ -29,14 +29,15 @@
 }
 
 .approvals {
-	background-color: #F5F5F5;
-	border: 1px solid #DDDDDD;
-	border-radius: 10px;
+	background-color: var(--primary-color-light);
+	border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+	border-radius: 10px 0 0 10px;
 	color: var(--text-color);
-	font-size: 18px;
+	font-size: 12px;
 	left: -1px;
-	padding: 10px 7px 5px;
-	height:450px;
+	padding: 10px;
+	height:500px;
 	overflow-y: auto;
 }
 

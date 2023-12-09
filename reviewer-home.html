@@ -10,28 +10,40 @@
     <!-- MAIN CSS-->
     <link href="resources/css/user-home.css" rel="stylesheet">
 </head>
+<!-- SIDE BAR -->
 <nav class="sidebar close">
+    <!-- SIDE BAR HEADER -->
     <header>
-        <div class="image-text"><span class="image"><img src="assets/slu_logo.png" alt="logo"></span>
-            <div class="text header-text"><span class="name">Saint Louis University</span><span class="task">Document Review Tracker</span></div>
+        <div class="image-text">
+          <span class="image">
+            <img src="assets/slu_logo.png" alt="logo">
+          </span>
+          <div class="text header-text">
+            <span class="name">Saint Louis University</span>
+            <span class="task">Document Review Tracker</span>
+          </div>
         </div>
-        <ion-icon class="toggle" name="chevron-forward-outline"></ion-icon>
-    </header>
+        <ion-icon name="chevron-forward-outline" class="toggle"></ion-icon>
+      </header>
+    <!-- MENU -->
     <div class="menu-bar">
         <div class="menu">
             <ul class="menu-links">
+                <!-- HOME LINK -->
                 <li class="nav-link">
-                  <a href="#">
+                  <a href="reviewer-home.html">
                     <ion-icon name="home-outline"></ion-icon>
                     <span class="text nav-text">Home</span>
                   </a>
                 </li>
+                <!-- TRANSACTION LIST LINK -->
                 <li class="nav-link">
                   <a href="reviewer-view.html">
                     <ion-icon name="file-tray-stacked-outline"></ion-icon>
                     <span class="text nav-text">View Approvals</span>
                   </a>
                 </li>
+                <!-- REVIEWING DOCS LINK -->
                 <li class="nav-link">
                   <a href="reviewer-review.html">
                     <ion-icon name="checkbox-outline"></ion-icon>
@@ -41,10 +53,12 @@
               </ul>
         </div>
         <div class="bottom-content">
+            <!-- LOGOUT -->
             <li>
                 <a href="#">
                     <ion-icon name="log-out-outline"></ion-icon><span class="text nav-text">Logout</span></a>
             </li>
+            <!-- TOGGLE MODES -->
             <li class="mode">
                 <div class="moon-sun">
                     <ion-icon class="moon" name="moon-outline"></ion-icon>
@@ -56,6 +70,7 @@
     </div>
 </nav>
 <section class="home">
+    <!-- HEADER -->
     <div class="top">
         <div class="search-box">
             <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
@@ -67,14 +82,15 @@
         <div class="overview">
             <div class="title">
                 <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Home</span>
-                </div>
+            </div>
             <div class="banner">
                 <h3>Welcome Back, <span><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> ! <span>
-                    <a href="requester-add.html" class="get-started-btn">
+                    <a href="reviewer-review.html" class="get-started-btn">
                     <button type="button">Get Started</button>
                     </a></span></h3>
                 <img src="assets\home-img.png" alt="home">
-                </div>
+            </div>
+        <!-- DASHBOARD -->
         <div class="boxes">
             <div class="box box1">
             <ion-icon name="documents-outline" class="box-icon"></ion-icon> 
@@ -97,6 +113,6 @@
 <!-- CUSTOM JS-->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule="" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="resources/js/reviewer-home.js"></script>
+<script src="resources/js/user-home.js"></script>
 </body>
 </html>

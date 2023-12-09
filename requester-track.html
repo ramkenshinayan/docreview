@@ -15,7 +15,9 @@
 </head>
 
 <body>
+  <!-- SIDE BAR -->
   <nav class="sidebar close">
+    <!-- SIDE BAR HEADER -->
     <header>
       <div class="image-text">
         <span class="image">
@@ -31,18 +33,22 @@
     <div class="menu-bar">
       <div class="menu">
         <ul class="menu-links">
+          <!-- HOME LINK -->
           <li class="nav-link">
-              <a href="user-home.html">
+              <a href="requester-home.html">
                   <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
+          <!-- TRANSACTION LIST LINK -->
           <li class="nav-link">
               <a href="requester-view.html">
                   <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
+          <!-- UPLOADING LINK -->
           <li class="nav-link">
               <a href="requester-add.html">
                   <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
+          <!-- TRACKING LINK -->
           <li class="nav-link">
               <a href="requester-track.html">
                   <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
@@ -50,12 +56,14 @@
       </ul>
       </div>
       <div class="bottom-content">
+        <!-- LOG OUT -->
         <li class="">
           <a href="includes/logout.php">
             <ion-icon name="log-out-outline"></ion-icon>
             <span class="text nav-text">Logout</span>
           </a>
         </li>
+        <!-- TOGGLE MODES -->
         <li class="mode">
           <div class="moon-sun">
             <ion-icon name="moon-outline" class="moon"></ion-icon>
@@ -71,18 +79,19 @@
   </nav>
 
   <section class="home">
+    <!-- HEADER -->
     <div class="top">
-      <div class="profile-details">
-        <img src="assets/school.png" alt="">
-        <!-- <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> -->
-        <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
-      </div>
+      <div class="search-box">
+        <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
+        <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
+        <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
+    </div>
     </div>
 
     <div class="home-content">
       <div class="overview">
         <div class="title">
-          <ion-icon name="bar-chart-outline" class="content-icon">Tracking</ion-icon>
+          <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Track Requests</span>
         </div>
         <!-- PROGRESS BAR-->
         <div class="right-container">
@@ -99,7 +108,7 @@
                 <p id="reviewer-5"></p>
             </div>
           </div>
-            <!-- CONTETN-->
+            <!-- TRACKING CONTETN-->
             <div class="content">
                 <h3 class="status">You have not selected a document.</h3>
                 <div id="upload-container" class="wrapper">
@@ -107,17 +116,11 @@
                 </div>
             </div>
         </div>
+        <!-- DOCUMENT LIST -->
         <div class="left-container">
           <input type="radio" id="radioButton" name="radioGroup">
           <label for="radioButton">Document Name <br> Document ID</label>
-          <input type="radio" id="radioButton2" name="radioGroup">
-          <label for="radioButton2">Document Name <br> Document ID</label>
-          <input type="radio" id="radioButton3" name="radioGroup">
-          <label for="radioButton3">Document Name <br> Document ID</label>
-          <input type="radio" id="radioButton4" name="radioGroup">
-          <label for="radioButton4">Document Name <br> Document ID</label>
-          <input type="radio" id="radioButton5" name="radioGroup">
-          <label for="radioButton5">Document Name <br> Document ID</label>
+          <!-- dynamically added document list -->
         </div>
     </div>
   </section>

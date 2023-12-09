@@ -450,6 +450,7 @@ body.dark .switch::before {
     font-weight: bold;
     font-size: 32px;
     margin-left: 150px;
+	color: var(--text-color);
 }
 
 .banner img{
@@ -466,6 +467,7 @@ body.dark .switch::before {
     border-radius: 10px;
     background-color: var(--primary-color-light);
     margin-top: 15px;
+	color: var(--text-color);
 }
 
 a.get-started-btn {
