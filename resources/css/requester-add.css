@@ -159,8 +159,17 @@ section .details span {
 	margin: 10px;
 }
 
-.custom-dropdown-btn {
-	background-color: var(--box1-color);
+.office-dropdown {
+    background-color: var(--box1-color);
+	border: none;
+	margin-left: 10px;
+	margin-top: 14px;
+	width: 372px; /* Set your desired width */
+	height: 40px; /* Set your desired height */
+  }
+
+  .reviewer-dropdown {
+    background-color: var(--box1-color);
 	border: none;
 	margin-left: 10px;
 	margin-top: 14px;

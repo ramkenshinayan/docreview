@@ -109,40 +109,51 @@ include('includes/requester.php');
                             <p>Select the Sequence of Review</p>
                         </div>
                         <?php
-                        $numSections = 5;
-                        for ($i = 1; $i <= $numSections; $i++) {
-                            ?>
-                            <div class="seq">
-                                <div class="circle"><?php echo $i; ?></div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Reviwer
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <?php
-                                        $sql = "SELECT DISTINCT officeName FROM organization";
-                                        $result = $conn->query($sql);
+$numSections = 5;
+for ($i = 1; $i <= $numSections; $i++) {
+    ?>
+    <div class="seq">
+        <div class="circle"><?php echo $i; ?></div>
+        <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn office-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onchange="loadReviewers()">
+    Office names
+</button>
+            <ul class="dropdown-menu">
+                      <?php
+                      $sql = "SELECT DISTINCT officeName FROM organization";
+                      $result = $conn->query($sql);
 
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                                $officeName = $row["officeName"];
-                                                echo "<li><a class='dropdown-item'>$officeName</a></li>";
-                                            }
-                                        }
-                                        ?>
-                                    </ul>
-                                </div>
-                                <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Name of Reviewer
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item">Valiant</a></li>
-                                    <li><a class="dropdown-item">Kenshin</a></li>
-                                    <li><a class="dropdown-item">Faye</a></li>
-                                </ul>
-                            </div>
-                            <?php
-                        }
+                      if ($result->num_rows > 0) {
+                          while ($row = $result->fetch_assoc()) {
+                              $officeName = $row["officeName"];
+                              echo "<li><a class='dropdown-item' onclick='updateReviewerText(\"$officeName\", $i)'>$officeName</a></li>";
+                          }
+                      }
+                      ?>
+                        </ul>
+                        </div>
+                        <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn reviewer-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="reviewerDropdown<?php echo $i; ?>">
+    Name of Reviewer
+</button>
+<ul class="dropdown-menu reviewer-dropdown-menu" id="reviewerDropdownMenu<?php echo $i; ?>">
+    <?php
+    // Fetch reviewers based on the selected office name
+    if (isset($officeName)) {
+      $sqlReviewers = "SELECT firstName, lastName FROM users WHERE email IN (SELECT email FROM organization WHERE officeName = '$officeName')";
+      $resultReviewers = $conn->query($sqlReviewers);
+  
+      if ($resultReviewers->num_rows > 0) {
+          while ($rowReviewer = $resultReviewers->fetch_assoc()) {
+              $reviewerName = $rowReviewer["firstName"] . ' ' . $rowReviewer["lastName"];
+              echo "<li><a class='dropdown-item' onclick='selectReviewer(\"$reviewerName\", $i)'>$reviewerName</a></li>";
+          }
+      }
+  }
+    ?>
+</ul>
+                    </div>
+                    <?php
+                }
                         ?>
                     </div>
                 </div>
@@ -170,7 +181,7 @@ include('includes/requester.php');
         </div>
     </div>
   </div>  
-  
+
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -178,9 +189,10 @@ include('includes/requester.php');
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
   <script src="resources/js/requester-home.js"></script>
   <script src="resources/js/requester-upload.js"></script>
+  <script src="resources/js/requester-add.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
 
+</body>
 </html>
