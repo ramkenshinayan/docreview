@@ -105,22 +105,20 @@ include('includes/requester.php');
             </div>
                 
             <!--transactions-->
-            <div class="history">
-                <!-- <p>No reviews available</p> -->
-                
+            <div class="history">              
                 <?php
                 try {
                     $sql = "SELECT reviewtransaction.*, document.fileName AS DocumentName, document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId";
 
                     // Filtering
                     if (isset($_GET['filter'])) {
-                        $filterValue = $_GET['filter']; // Sanitize as needed
+                        $filterValue = $_GET['filter']; 
                         $sql .= " WHERE status = '$filterValue'";
                     }
 
                     // Sorting
                     if (isset($_GET['sort'])) {
-                        $sortValue = $_GET['sort']; // Sanitize as needed
+                        $sortValue = $_GET['sort']; 
                         switch ($sortValue) {
                             case 'Name (A-Z)':
                                 $sql .= " ORDER BY document.fileName ASC";
@@ -139,8 +137,7 @@ include('includes/requester.php');
 
                     // Searching
                     if (isset($_GET['search'])) {
-                        $searchTerm = $_GET['search']; // Sanitize as needed
-                        // Assuming 'fileName' is the column you want to search
+                        $searchTerm = $_GET['search']; 
                         $sql .= " WHERE document.fileName LIKE '%$searchTerm%'";
                     }
 
@@ -148,7 +145,6 @@ include('includes/requester.php');
 
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            // Output HTML directly for each row
                             echo '<div class="box" id="box-' . $row['reviewId'] . '">';
                             echo '<div class="content">';
                             echo '<h1 class="name">' . $row['DocumentName'] . '</h1>';
@@ -160,7 +156,6 @@ include('includes/requester.php');
                             }
                             echo '<h3 class="status">' . $row['status'] . '</h3>';
                             echo '</div>';
-                            echo '</div>';
                         }
                     } else {
                         echo '<p>No reviews available</p>';
@@ -170,8 +165,6 @@ include('includes/requester.php');
                     echo '<p>Error: ' . $e->getMessage() . '</p>';
                 }
                 ?>
-
-              
             </div>
         </div>
     </section>
