@@ -1,8 +1,3 @@
-<?php
-session_start();
-include('includes/requester.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,12 +10,14 @@ include('includes/requester.php');
 
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
-  <link href="resources/css/user-home.css" rel="stylesheet">
-  <link href="resources/css/requester-home.css" rel="stylesheet">
+  <link href="resources\css\user-home.css" rel="stylesheet">
+  <link href="resources\css\requester-home.css" rel="stylesheet">
 </head>
 
 <body>
+  <!-- SIDE BAR -->
   <nav class="sidebar close">
+    <!-- SIDE BAR HEADER -->
     <header>
       <div class="image-text">
         <span class="image">
@@ -36,39 +33,37 @@ include('includes/requester.php');
     <div class="menu-bar">
       <div class="menu">
         <ul class="menu-links">
+          <!-- HOME LINK -->
           <li class="nav-link">
-            <a href="requester-home.php">
-              <ion-icon name="home-outline"></ion-icon>
-              <span class="text nav-text">Home</span>
-            </a>
+              <a href="requester-home.html">
+                  <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
+          <!-- TRANSACTION LIST LINK -->
           <li class="nav-link">
-            <a href="requester-view.php">
-              <ion-icon name="document-outline"></ion-icon>
-              <span class="text nav-text">View Requests</span>
-            </a>
+              <a href="requester-view.html">
+                  <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
+          <!-- UPLOADING LINK -->
           <li class="nav-link">
-            <a href="requester-add.php">
-              <ion-icon name="document-attach-outline"></ion-icon>
-              <span class="text nav-text">Add Requests</span>
-            </a>
+              <a href="requester-add.html">
+                  <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
+          <!-- TRACKING LINK -->
           <li class="nav-link">
-            <a href="#">
-              <ion-icon name="document-text-outline"></ion-icon>
-              <span class="text nav-text">Track Requests</span>
-            </a>
+              <a href="requester-track.html">
+                  <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
           </li>
-        </ul>
+      </ul>
       </div>
       <div class="bottom-content">
+        <!-- LOG OUT -->
         <li class="">
           <a href="includes/logout.php">
             <ion-icon name="log-out-outline"></ion-icon>
             <span class="text nav-text">Logout</span>
           </a>
         </li>
+        <!-- TOGGLE MODES -->
         <li class="mode">
           <div class="moon-sun">
             <ion-icon name="moon-outline" class="moon"></ion-icon>
@@ -84,12 +79,13 @@ include('includes/requester.php');
   </nav>
 
   <section class="home">
+    <!-- HEADER -->
     <div class="top">
-      <div class="profile-details">
-        <img src="assets/school.png" alt="">
-        <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
-        <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
-      </div>
+      <div class="search-box">
+        <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
+        <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
+        <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
+    </div>
     </div>
 
     <div class="home-content">
@@ -98,7 +94,13 @@ include('includes/requester.php');
           <ion-icon name="bar-chart-outline" class="content-icon"></ion-icon>
           <span class="text">Home</span>
         </div>
-
+        <div class="banner">
+          <h3>Welcome Back, <span><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> ! <span>
+              <a href="reviewer-review.html" class="get-started-btn">
+              <button type="button">Get Started</button>
+              </a></span></h3>
+          <img src="assets\home-img.png" alt="home">
+      </div>
         <div class="boxes">
           <div class="box box1">
             <ion-icon name="file-tray-full-outline" class="box-icon"></ion-icon>
@@ -106,7 +108,7 @@ include('includes/requester.php');
             <span class="number" id="pending-approvals"></span>
           </div>
           <div class="box box2">
-            <ion-icon name="close-outline" class="box-icon"></ion-icon>
+            <ion-icon name="trash-bin-outline" class="box-icon"></ion-icon>
             <span class="text">Rejected Approvals</span>
             <span class="number" id="rejected approvals"></span>
           </div>
@@ -180,6 +182,7 @@ include('includes/requester.php');
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="resources/js/user-home.js"></script>
   <script src="resources/js/requester-home.js"></script>
 </body>
 

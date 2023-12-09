@@ -469,6 +469,7 @@ body.dark .switch::before {
     background-color: var(--primary-color-light);
     margin-top: 15px;
 	color: var(--text-color);
+	font-size: 18px;
 }
 
 a.get-started-btn {
