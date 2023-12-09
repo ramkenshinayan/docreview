@@ -16,6 +16,7 @@ include('includes/requester.php');
   <!-- MAIN CSS -->
   <link href="resources/css/user-home.css" rel="stylesheet">
   <link href="resources/css/requester-view.css" rel="stylesheet">
+  <link href="resources/css/requester-home.css" rel="stylesheet">
 </head>
 
 <body>
@@ -93,10 +94,6 @@ include('includes/requester.php');
 
     <div class="home-content">
         <div class="overview">
-            <div class="title">
-            <ion-icon name="bar-chart-outline" class="content-icon"></ion-icon>
-            <span class="text">Home</span>
-            </div>
         </div>
 
         <div class="title">
@@ -104,6 +101,15 @@ include('includes/requester.php');
             <span class="text">List of Documents</span>
         </div>
 
+        <div class="wrap">
+          <div class="search">
+              <input type="text" class="searchTerm" placeholder="What are you looking for?">
+              <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        
         <!-- filter-->
         <div class="filter-box">
             <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
@@ -113,7 +119,8 @@ include('includes/requester.php');
                     <li class="filter-items">Disapproved</li>
                 </ul>
         </div>
-                <!-- sort-->
+        
+        <!-- sort-->
         <div class="sort-box">
             <div class="sort-btn">Sort<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
                 <ul class="sort-select">
@@ -123,6 +130,35 @@ include('includes/requester.php');
                         <li class="sort-items">Date (DESC)</li>
                 </ul>
         </div>
+
+        <!--transactions-->
+        <div class="history">
+          <p>No reviews available</p>
+        </div>
+
+        <div class="container-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Version</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+                <td>Cell 4</td>
+                <td>Cell 5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
     </div>
   </section>
 

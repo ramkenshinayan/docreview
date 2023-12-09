@@ -100,6 +100,23 @@ include('includes/requester.php');
         </div>
       </div>
 
+      <div class="boxes">
+          <div class="box box1">
+            <ion-icon name="file-tray-full-outline" class="box-icon"></ion-icon>
+            <span class="text">Pending Approvals</span>
+            <span class="number" id="pending-approvals"></span>
+          </div>
+          <div class="box box2">
+            <ion-icon name="close-outline" class="box-icon"></ion-icon>
+            <span class="text">Rejected Approvals</span>
+            <span class="number" id="rejected approvals"></span>
+          </div>
+          <div class="box box3">
+            <ion-icon name="documents-outline" class="box-icon"></ion-icon>
+            <span class="text">Total Approvals</span>
+            <span class="number" id="total-approvals"></span>
+          </div>
+      </div>
       
       <div class="title">
           <ion-icon name="document-text-outline" class="content-icon"></ion-icon>
