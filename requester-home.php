@@ -16,6 +16,7 @@ include('includes/requester.php');
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="resources/css/user-home.css" rel="stylesheet">
+  <link href="resources/css/requester-home.css" rel="stylesheet">
 </head>
 
 <body>
@@ -98,6 +99,63 @@ include('includes/requester.php');
           <span class="text">Home</span>
         </div>
       </div>
+
+      
+      <div class="title">
+          <ion-icon name="document-text-outline" class="content-icon"></ion-icon>
+          <span class="text">List of Documents</span>
+        </div>
+
+      <div class="container-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Version</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+                <td>Cell 4</td>
+                <td>Cell 5</td>
+              </tr>
+              <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+                <td>Cell 4</td>
+                <td>Cell 5</td>
+              </tr>
+              <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+                <td>Cell 4</td>
+                <td>Cell 5</td>
+              </tr>
+              <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+                <td>Cell 4</td>
+                <td>Cell 5</td>
+              </tr>
+              <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+                <td>Cell 3</td>
+                <td>Cell 4</td>
+                <td>Cell 5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
   </section>
 
 
