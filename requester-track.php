@@ -5,6 +5,7 @@ include('includes/requester.php');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +16,6 @@ include('includes/requester.php');
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="resources/css/user-home.css" rel="stylesheet">
-  <link href="resources/css/requester-view.css" rel="stylesheet">
   <link href="resources/css/requester-home.css" rel="stylesheet">
 </head>
 
@@ -94,67 +94,31 @@ include('includes/requester.php');
 
     <div class="home-content">
         <div class="overview">
+            <div class="title">
+            <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon>
+            <span class="text">Track Requests</span>
+            </div>
         </div>
-
-        <div class="title">
-            <ion-icon name="document-text-outline" class="content-icon"></ion-icon>
-            <span class="text">List of Documents</span>
+        <div class="label">
+            <p id="reviewer-1"></p>
+            <p id="reviewer-2"></p>
+            <p id="reviewer-3"></p>
+            <p id="reviewer-4"></p>
+            <p id="reviewer-5"></p>
         </div>
-
-        <div class="searchbar">
-          <input type="text" placeholder="Search...">
-          <ion-icon name="search-outline"></ion-icon>
+        <!-- TRACKING CONTETN-->
+        <div class="content">
+            <h3 class="status">You have not selected a document.</h3>
+            <div id="upload-container" class="wrapper">
+                <!-- dynamically added upload form -->
+            </div>
         </div>
-        
-        <!-- filter-->
-        <div class="filter-box">
-            <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
-                <ul class="filter-select">
-                    <li class="filter-items">Approved</li>
-                    <li class="filter-items">Pending</li>
-                    <li class="filter-items">Disapproved</li>
-                </ul>
+        <!-- DOCUMENT LIST -->
+        <div class="left-container">
+          <input type="radio" id="radioButton" name="radioGroup">
+          <label for="radioButton">Document Name <br> Document ID</label>
+          <!-- dynamically added document list -->
         </div>
-        
-        <!-- sort-->
-        <div class="sort-box">
-            <div class="sort-btn">Sort<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
-                <ul class="sort-select">
-                        <li class="sort-items">Name (A-Z)</li>
-                        <li class="sort-items">Name (Z-A)</li>
-                        <li class="sort-items">Date (ASC)</li>
-                        <li class="sort-items">Date (DESC)</li>
-                </ul>
-        </div>
-
-        <!--transactions-->
-        <div class="history">
-          <p>No reviews available</p>
-        </div>
-
-        <div class="container-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Version</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
-                <td>Cell 3</td>
-                <td>Cell 4</td>
-                <td>Cell 5</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
     </div>
   </section>
 
@@ -163,6 +127,6 @@ include('includes/requester.php');
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="resources/js/requester-home.js"></script>
-  <script src="resources/js/requester-view.js"></script>
 </body>
+
 </html>

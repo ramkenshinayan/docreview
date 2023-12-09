@@ -57,7 +57,7 @@ include('includes/requester.php');
             </a>
           </li>
           <li class="nav-link">
-            <a href="#">
+            <a href="requester-track.php">
               <ion-icon name="document-text-outline"></ion-icon>
               <span class="text nav-text">Track Requests</span>
             </a>
@@ -94,8 +94,11 @@ include('includes/requester.php');
       </div>
     </div>
     <div class="home-content">
-    
-    <div class="wrapper">
+      <div class="title">
+        <ion-icon name="document-text-outline" class="content-icon"></ion-icon>
+        <span class="text">Upload Document</span>
+      </div>
+      <div class="wrapper">
         <form action="includes/upload.php" method="post" enctype="multipart/form-data">
           <div class="file-upload">
             <input class="file-input" type="file" name="file" accept=".doc, .docx, .pdf" hidden>
