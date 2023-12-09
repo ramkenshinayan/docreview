@@ -2,7 +2,7 @@
 session_start();
 require("includes/db.php");
 include("includes/reviewer.php");
-$result = $conn->query("SELECT * FROM transaction");
+// $result = $conn->query("SELECT * FROM transaction");
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +18,7 @@ $result = $conn->query("SELECT * FROM transaction");
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="resources/css/user-home.css" rel="stylesheet">
+  <link href="resources/css/requester-view.css" rel="stylesheet">
 </head>
 
 <body>
@@ -126,6 +127,7 @@ $result = $conn->query("SELECT * FROM transaction");
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="resources/js/requester-home.js"></script>
+  <script src="resources/js/user-home.js"></script>
 </body>
 
 </html>
