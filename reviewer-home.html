@@ -9,7 +9,6 @@
     <link rel="icon" type="image/png" href="assets/slu_logo.png">
     <!-- MAIN CSS-->
     <link href="resources/css/user-home.css" rel="stylesheet">
-    <link href="resources/css/reviewer-home.css" rel="stylesheet">
 </head>
 <nav class="sidebar close">
     <header>
@@ -68,6 +67,13 @@
         <div class="overview">
             <div class="title">
                 <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Home</span>
+                </div>
+            <div class="banner">
+                <h3>Welcome Back, <span><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> ! <span>
+                    <a href="requester-add.html" class="get-started-btn">
+                    <button type="button">Get Started</button>
+                    </a></span></h3>
+                <img src="assets\home-img.png" alt="home">
                 </div>
         <div class="boxes">
             <div class="box box1">

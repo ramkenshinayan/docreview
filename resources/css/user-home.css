@@ -429,3 +429,40 @@ body.dark .switch::before {
   color: #fff;
   background: #6990F2;
 }
+
+.banner{
+    display: flex;
+    background: linear-gradient(0deg, var(--primary-color-light) 0%, var(--primary-color) 100%);
+    width: 98%;
+    height: 230px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 12px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.banner h3{
+    margin-top: 80px;
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 150px;
+}
+
+.banner img{
+    height: 250px;
+    float: right;
+    margin-left: auto;
+    margin-right: 150px;
+}
+
+.banner button{
+    display: block;
+    width: 200px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: var(--primary-color-light);
+    margin-top: 15px;
+}
+
+a.get-started-btn {
+    text-decoration: none;
+}
