@@ -16,13 +16,15 @@ include('includes/requester.php');
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <link href="resources/css/user-home.css" rel="stylesheet">
+<!--   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="resources/css/user-home.css" rel="stylesheet"> 
   <link href="resources/css/requester-add.css" rel="stylesheet">
 </head>
 
 <body>
+  <!-- SIDE BAR -->
   <nav class="sidebar close">
+    <!-- SIDE BAR HEADER -->
     <header>
       <div class="image-text">
         <span class="image">
@@ -35,42 +37,41 @@ include('includes/requester.php');
       </div>
       <ion-icon name="chevron-forward-outline" class="toggle"></ion-icon>
     </header>
+    <!-- MENU -->
     <div class="menu-bar">
       <div class="menu">
         <ul class="menu-links">
+          <!-- HOME LINK -->
           <li class="nav-link">
-            <a href="requester-home.php">
-              <ion-icon name="home-outline"></ion-icon>
-              <span class="text nav-text">Home</span>
-            </a>
+              <a href="requester-home.html">
+                  <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
+          <!-- TRANSACTION LIST LINK -->
           <li class="nav-link">
-            <a href="#">
-              <ion-icon name="document-outline"></ion-icon>
-              <span class="text nav-text">View Requests</span>
-            </a>
+              <a href="requester-view.html">
+                  <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
+          <!-- UPLOADING FILES LINK -->
           <li class="nav-link">
-            <a href="requester-add.php">
-              <ion-icon name="document-attach-outline"></ion-icon>
-              <span class="text nav-text">Add Requests</span>
-            </a>
+              <a href="requester-add.html">
+                  <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
+          <!-- TRACKING LINK -->
           <li class="nav-link">
-            <a href="#">
-              <ion-icon name="document-text-outline"></ion-icon>
-              <span class="text nav-text">Track Requests</span>
-            </a>
+              <a href="requester-track.html">
+                  <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
           </li>
-        </ul>
+      </ul>
       </div>
       <div class="bottom-content">
+        <!-- LOG OUT -->
         <li class="">
           <a href="includes/logout.php">
             <ion-icon name="log-out-outline"></ion-icon>
             <span class="text nav-text">Logout</span>
           </a>
         </li>
+        <!-- TOGGLE MODES -->
         <li class="mode">
           <div class="moon-sun">
             <ion-icon name="moon-outline" class="moon"></ion-icon>
@@ -86,14 +87,19 @@ include('includes/requester.php');
   </nav>
 
   <section class="home">
+    <!-- HEADER -->
     <div class="top">
-      <div class="profile-details">
-        <img src="assets/school.png" alt="">
-        <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
-        <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
-      </div>
+      <div class="search-box">
+        <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
+        <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
+        <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
+    </div>
     </div>
     <div class="home-content">
+      <div class="title">
+        <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Add Request</span>
+      </div>
+      <!-- UPLOAD FILES -->
       <div class="wrapper">
         <form action="includes/upload.php" method="post" enctype="multipart/form-data">
           <div class="file-upload">
@@ -101,11 +107,14 @@ include('includes/requester.php');
             <ion-icon name="cloud-upload-outline"></ion-icon>
             <p>Browse File to Upload</p><br>
           </div>
-
-          
+          <button type="submit" name="upload">Submit</button>
         </form>
-        <div>
-          <div class="circle-container">
+        <section class="progress-area"></section>
+        <section class="uploaded-area"></section>
+      </div>
+      <!-- ORG/PEOPLE DROPDOWNS -->
+      <div class="seqOrder">
+        <div class="circle-container">
             <div class="sequenceTitle"><p>Select the Sequence of Review</p></div>
             <div class="seq">
               <div class="circle">1</div>
@@ -121,13 +130,11 @@ include('includes/requester.php');
                   <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
                 </ul>
               </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="name-of-reviewer-btn">
                 Name of Reviewer
               </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
+              <ul class="dropdown-menu" id="name-of-reviewer-dropdown">
+                <!-- Names of reviewers will be dynamically populated here -->
               </ul>
             </div>
             <div class="seq">
@@ -144,13 +151,11 @@ include('includes/requester.php');
                   <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
                 </ul>
               </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="name-of-reviewer-btn">
                 Name of Reviewer
               </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
+              <ul class="dropdown-menu" id="name-of-reviewer-dropdown">
+                <!-- Names of reviewers will be dynamically populated here -->
               </ul>
             </div>
             <div class="seq">
@@ -167,13 +172,11 @@ include('includes/requester.php');
                   <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
                 </ul>
               </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="name-of-reviewer-btn">
                 Name of Reviewer
               </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
+              <ul class="dropdown-menu" id="name-of-reviewer-dropdown">
+                <!-- Names of reviewers will be dynamically populated here -->
               </ul>
             </div>
 
@@ -191,13 +194,11 @@ include('includes/requester.php');
                   <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
                 </ul>
               </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="name-of-reviewer-btn">
                 Name of Reviewer
               </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
+              <ul class="dropdown-menu" id="name-of-reviewer-dropdown">
+                <!-- Names of reviewers will be dynamically populated here -->
               </ul>
             </div>
 
@@ -212,30 +213,17 @@ include('includes/requester.php');
                   <li><a class="dropdown-item">Office of the Vice President for Academic Affairs</a></li>
                   <li><a class="dropdown-item">Office of the Vice President for Finance</a></li>
                   <li><a class="dropdown-item">Office for Legal Affairs</a></li>
-                  <li><a class="dropdown-item"">Office of the Vice President for Administration</a></li>
+                  <li><a class="dropdown-item">Office of the Vice President for Administration</a></li>
                 </ul>
               </div>
-              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="name-of-reviewer-btn">
                 Name of Reviewer
               </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Valiant</a></li>
-                <li><a class="dropdown-item">Kenshin</a></li>
-                <li><a class="dropdown-item">Faye</a></li>
+              <ul class="dropdown-menu" id="name-of-reviewer-dropdown">
+                <!-- Names of reviewers will be dynamically populated here -->
               </ul>
             </div>
           </div>
-        </div>
-        
-        <!-- <button type="submit" name="upload">Submit</button> -->
-        <div class="submitButton">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
-            Submit
-          </button>
-        </div>
-
-        <section class="progress-area"></section>
-        <section class="uploaded-area"></section>
       </div>
   </section>
 
@@ -264,7 +252,7 @@ include('includes/requester.php');
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <script src="resources/js/requester-home.js"></script>
+  <script src="resources/js/user-home.js"></script>
   <script src="resources/js/requester-upload.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

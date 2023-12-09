@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
@@ -9,18 +9,22 @@
     <link rel="icon" type="image/png" href="assets/slu_logo.png">
     <!-- MAIN CSS-->
     <link href="resources/css/user-home.css" rel="stylesheet">
-    <link href="resources/css/reviewer-view.css" rel="stylesheet">
 </head>
 <!-- SIDE BAR -->
-<body>
 <nav class="sidebar close">
     <!-- SIDE BAR HEADER -->
     <header>
-        <div class="image-text"><span class="image"><img src="assets/slu_logo.png" alt="logo"></span>
-            <div class="text header-text"><span class="name">Saint Louis University</span><span class="task">Document Review Tracker</span></div>
+        <div class="image-text">
+          <span class="image">
+            <img src="assets/slu_logo.png" alt="logo">
+          </span>
+          <div class="text header-text">
+            <span class="name">Saint Louis University</span>
+            <span class="task">Document Review Tracker</span>
+          </div>
         </div>
-        <ion-icon class="toggle" name="chevron-forward-outline"></ion-icon>
-    </header>
+        <ion-icon name="chevron-forward-outline" class="toggle"></ion-icon>
+      </header>
     <!-- MENU -->
     <div class="menu-bar">
         <div class="menu">
@@ -77,32 +81,32 @@
     <div class="home-content">
         <div class="overview">
             <div class="title">
-                <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Request History</span>
-            <!-- filter-->
-            <div class="filter-box">
-                <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
-                <ul class="filter-select">
-                    <li class="filter-items">Approved</li>
-                    <li class="filter-items">Pending</li>
-                    <li class="filter-items">Disapproved</li>
-                </ul>
+                <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Home</span>
             </div>
-             <!-- sort-->
-            <div class="sort-box">
-                <div class="sort-btn">Sort<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
-                <ul class="sort-select">
-                    <li class="sort-items">Name (A-Z)</li>
-                    <li class="sort-items">Name (Z-A)</li>
-                    <li class="sort-items">Date (ASC)</li>
-                    <li class="sort-items">Date (DESC)</li>
-                </ul>
+            <div class="banner">
+                <h3>Welcome Back, <span><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> ! <span>
+                    <a href="reviewer-review.html" class="get-started-btn">
+                    <button type="button">Get Started</button>
+                    </a></span></h3>
+                <img src="assets\home-img.png" alt="home">
             </div>
-        </div>        
-        </div>
-            
-        <!--transactions-->
-        <div class="history">
-            <p>No reviews available</p>
+        <!-- DASHBOARD -->
+        <div class="boxes">
+            <div class="box box1">
+            <ion-icon name="documents-outline" class="box-icon"></ion-icon> 
+            <span class="text">Total Documents</span>
+            <span class="number" id="total-docs"></span>
+            </div>
+            <div class="box box2">
+            <ion-icon name="mail-unread-outline" class="box-icon"></ion-icon>
+            <span class="text">Documents to be Reviewed</span>
+            <span class="number" id="review-docs"></span>
+            </div>
+            <div class="box box3">
+            <ion-icon name="stopwatch-outline" class="box-icon"></ion-icon>
+            <span class="text">Overdue Reviews</span>
+            <span class="number" id="late-docs"></span>
+            </div>
         </div>
     </div>
 </section>
@@ -110,6 +114,5 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule="" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="resources/js/user-home.js"></script>
-<script src="resources/js/reviewer-view.js"></script>
 </body>
 </html>
