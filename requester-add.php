@@ -16,8 +16,7 @@ include('includes/requester.php');
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
- <link href="resources/css/user-home.css" rel="stylesheet">
+  <link href="resources/css/user-home.css" rel="stylesheet">
   <link href="resources/css/requester-add.css" rel="stylesheet">
 </head>
 
@@ -107,64 +106,68 @@ include('includes/requester.php');
           </div>
           <button type="submit" name="upload">Submit</button>
         </form>
-       
-        <div class="circle-container">
-          <div class="sequenceTitle">
-            <p>Select the Sequence of Review</p>
-          </div>
-            <?php
-              $numSections = 5;
-                for ($i = 1; $i <= $numSections; $i++) {
-            ?>
-            <div class="seq">
-            <div class="circle">
-              <?php echo $i; ?></div>
-            <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn office-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onchange="loadReviewers()">
-            Office names
-            </button>
-              <ul class="dropdown-menu">
-                <?php
-                  $sql = "SELECT DISTINCT officeName FROM organization";
-                  $result = $conn->query($sql);
-
-                  if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                    $officeName = $row["officeName"];
-                    echo "<li><a class='dropdown-item' onclick='updateReviewerText(\"$officeName\", $i)'>$officeName</a></li>";
-                    }
-                  }
-                ?>
-              </ul>
-                </div>
-                  <button type="button" class="btn btn-secondary dropdown-toggle custom-dropdown-btn reviewer-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="reviewerDropdown<?php echo $i; ?>">
-                    Name of Reviewer
-                  </button>
-                  <ul class="dropdown-menu reviewer-dropdown-menu" id="reviewerDropdownMenu<?php echo $i; ?>">
-                  <?php
-                  // Fetch reviewers based on the selected office name
-                  if (isset($officeName)) {
-                    $sqlReviewers = "SELECT firstName, lastName FROM users WHERE email IN (SELECT email FROM organization WHERE officeName = '$officeName')";
-                    $resultReviewers = $conn->query($sqlReviewers);
-                          
-                  if ($resultReviewers->num_rows > 0) {
-                      while ($rowReviewer = $resultReviewers->fetch_assoc()) {
-                      $reviewerName = $rowReviewer["firstName"] . ' ' . $rowReviewer["lastName"];
-                      echo "<li><a class='dropdown-item' onclick='selectReviewer(\"$reviewerName\", $i)'>$reviewerName</a></li>";
-                      }
-                    }
-                  }
-                  ?>
-                </ul>
-                </div>
-                <?php
-                }
-                ?>
-                </div>
-        </div>
 
         <section class="progress-area"></section>
         <section class="uploaded-area"></section>
+
+        <div class="table-container">
+          <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Office Name</th>
+                    <th>Reviewer Names</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sql = "SELECT DISTINCT officeName FROM organization";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $count = 1;
+                    $reviewersData = [];
+
+                    while ($row = $result->fetch_assoc()) {
+                        if ($count > 5) {
+                            break; 
+                        }
+                        $officeName = $row["officeName"];
+                        $reviewerSql = "SELECT firstName, lastName FROM users WHERE email IN (SELECT email FROM organization WHERE officeName = '$officeName')";
+                        $reviewerResult = $conn->query($reviewerSql);
+                        $reviewers = [];
+                        while ($reviewerRow = $reviewerResult->fetch_assoc()) {
+                            $reviewers[] = $reviewerRow["firstName"] . ' ' . $reviewerRow["lastName"];
+                        }
+                        $reviewersData[$officeName] = $reviewers;
+                        echo "<tr>";
+                        echo "<td>$count</td>";
+                        echo "<td>";
+                        echo "<select name='officeSelect$count' class='office-select'>";
+                        echo "<option value='' selected>Select Office</option>";
+
+                        $officeSql = "SELECT DISTINCT officeName FROM organization";
+                        $officeResult = $conn->query($officeSql);
+
+                        while ($officeRow = $officeResult->fetch_assoc()) {
+                            $currentOffice = $officeRow["officeName"];
+                            echo "<option value='$currentOffice'>$currentOffice</option>";
+                        }
+                        echo "</select>";
+                        echo "</td>";
+                        echo "<td>";
+                        echo "<span class='reviewer-names'></span>";
+                        echo "</td>";
+                        echo "</tr>";
+                        $count++;
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>No data available</td></tr>";
+                }
+                ?>
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div>
@@ -194,13 +197,40 @@ include('includes/requester.php');
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <script src="resources/js/requester-home.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- <script src="resources/js/requester-home.js"></script> -->
   <script src="resources/js/requester-upload.js"></script>
   <script src="resources/js/requester-add.js"></script>
   <script src="resources/js/user-home.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  
+<script>
+    var reviewersData = <?php echo json_encode($reviewersData); ?>;
+    var selectedOffices = [];
+
+    $(document).ready(function () {
+        $(".office-select").change(function () {
+            var selectedOffice = $(this).val();
+            var reviewerNames = reviewersData[selectedOffice] || [];
+            var reviewerHtml = reviewerNames.map(function (name) {
+                return '<option>' + name + '</option>';
+            }).join('');
+
+            // Replace the existing dropdown with the reviewer names dropdown
+            $(this).closest('tr').find('.reviewer-names').html('<select class="reviewer-dropdown">' + '<option value="" selected>Select Reviewer Name</option>' + reviewerHtml + '</select>');
+
+            // Disable the selected office in all other dropdowns, excluding "Select Office"
+            $(".office-select").not(this).find("option[value='" + selectedOffice + "']").prop("disabled", true);
+        });
+
+        // Trigger change event on page load to initialize default dropdown
+        $(".office-select").change();
+    });
+  </script>
 
 </body>
 </html>
