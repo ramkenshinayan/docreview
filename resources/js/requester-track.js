@@ -13,23 +13,23 @@ checkRadio();
 function checkRadio() {
     const radioButtons = document.querySelectorAll('input[name="radioGroup"]');
     radioButtons.forEach(radioButton => {
-        const documentNameDisplay = document.querySelector('.content h3');
+    const documentNameDisplay = document.querySelector('.content h3');
 
-        radioButton.addEventListener('change', function () {
-            let queryString = '';
-            if (this.checked) {
-                const labelContent = document.querySelector(`label[for="${this.id}"]`).innerText;
-                //const documentName = labelContent.split('\n')[0].trim(); 
-                const documentId = labelContent.split('\n')[1].trim();
+    radioButton.addEventListener('change', function () {
+        let queryString = '';
+        if (this.checked) {
+            const labelContent = document.querySelector(`label[for="${this.id}"]`).innerText;
+            const documentName = labelContent.split('\n')[0].trim(); // Assumes the document ID is on the second line
+            const documentId = labelContent.split('\n')[1].trim();
 
-                //queryString += `document=${encodeURIComponent(documentName)}&`; this is for adding url param
-                //history.pushState({}, null, `?${queryString}`);
-        
-                rightContainer.style.backgroundColor = '#38B6FF';
-                trackingDoc(data, documentId);
-            }
-        });
+            queryString += `document=${encodeURIComponent(documentName)}&`;
+            history.pushState({}, null, `?${queryString}`);
+            
+            rightContainer.style.backgroundColor = '#38B6FF';
+            trackingDoc(data, documentId);
+        }
     });
+});
 }
 
 function trackingDoc(data, documentId){
@@ -37,7 +37,7 @@ function trackingDoc(data, documentId){
         console.log(review.reviewId);
         console.log(documentId);
         if(documentId == review.reviewId){
-            if(review.status === 'Pending'){
+          if(review.status === 'Pending'){
                 pending(review);
             } else if (review.status === 'Disapproved') {
                 disapproved(review);

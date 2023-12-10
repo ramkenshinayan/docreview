@@ -15,12 +15,14 @@ include('includes/requester.php');
 
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
-  <link href="resources/css/user-home.css" rel="stylesheet">
-  <link href="resources/css/requester-home.css" rel="stylesheet">
+  <link href="resources\css\user-home.css" rel="stylesheet">
+  <link href="resources\css\requester-home.css" rel="stylesheet">
 </head>
 
 <body>
+  <!-- SIDE BAR -->
   <nav class="sidebar close">
+    <!-- SIDE BAR HEADER -->
     <header>
       <div class="image-text">
         <span class="image">
@@ -36,39 +38,37 @@ include('includes/requester.php');
     <div class="menu-bar">
       <div class="menu">
         <ul class="menu-links">
+          <!-- HOME LINK -->
           <li class="nav-link">
-            <a href="requester-home.php">
-              <ion-icon name="home-outline"></ion-icon>
-              <span class="text nav-text">Home</span>
-            </a>
+              <a href="requester-home.html">
+                  <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
+          <!-- TRANSACTION LIST LINK -->
           <li class="nav-link">
-            <a href="requester-view.php">
-              <ion-icon name="document-outline"></ion-icon>
-              <span class="text nav-text">View Requests</span>
-            </a>
+              <a href="requester-view.html">
+                  <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
+          <!-- UPLOADING LINK -->
           <li class="nav-link">
-            <a href="requester-add.php">
-              <ion-icon name="document-attach-outline"></ion-icon>
-              <span class="text nav-text">Add Requests</span>
-            </a>
+              <a href="requester-add.html">
+                  <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
+          <!-- TRACKING LINK -->
           <li class="nav-link">
-            <a href="requester-track.php">
-              <ion-icon name="document-text-outline"></ion-icon>
-              <span class="text nav-text">Track Requests</span>
-            </a>
+              <a href="requester-track.html">
+                  <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
           </li>
-        </ul>
+      </ul>
       </div>
       <div class="bottom-content">
+        <!-- LOG OUT -->
         <li class="">
           <a href="includes/logout.php">
             <ion-icon name="log-out-outline"></ion-icon>
             <span class="text nav-text">Logout</span>
           </a>
         </li>
+        <!-- TOGGLE MODES -->
         <li class="mode">
           <div class="moon-sun">
             <ion-icon name="moon-outline" class="moon"></ion-icon>
@@ -84,12 +84,13 @@ include('includes/requester.php');
   </nav>
 
   <section class="home">
+    <!-- HEADER -->
     <div class="top">
-      <div class="profile-details">
-        <img src="assets/school.png" alt="">
-        <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
-        <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
-      </div>
+      <div class="search-box">
+        <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
+        <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
+        <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
+    </div>
     </div>
 
     <div class="home-content">
@@ -98,83 +99,83 @@ include('includes/requester.php');
           <ion-icon name="bar-chart-outline" class="content-icon"></ion-icon>
           <span class="text">Home</span>
         </div>
+        <div class="banner">
+          <h3>Welcome Back, <span><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> ! <span>
+              <a href="reviewer-review.html" class="get-started-btn">
+              <button type="button">Get Started</button>
+              </a></span></h3>
+          <img src="assets\home-img.png" alt="home">
       </div>
+      <?php 
+        // Check if the user is logged in and has the appropriate role
+        if (isset($_SESSION["user"]) && $_SESSION["role"] == "Requester") {
+          // Get the email from the session
+          $userEmail = $_SESSION["user"];
+        } else {
+          echo '<script>
+              alert("Not allowed or not logged in.");
+              window.location.href="index.php";
+          </script>';
+          include("logout.php");
+        }
+
+        $pendingResult = $conn->query("SELECT COUNT(d.documentId) AS pendingDocumentCount
+        FROM document d
+        JOIN reviewtransaction rt ON d.documentId = rt.documentId
+        WHERE rt.status = 'Pending';
+        ");
+        $pending = $pendingResult->num_rows;
+
+        $rejectedResult = $conn->query("SELECT COUNT(d.documentId) AS rejectedDocumentCount
+        FROM document d
+        JOIN reviewtransaction rt ON d.documentId = rt.documentId
+        WHERE rt.status = 'Disapproved';"
+        ); 
+        $rejected = $rejectedResult->num_rows;
+
+        $approvedResult = $conn->query("SELECT COUNT(d.documentId) AS approvedDocumentCount
+        FROM document d
+        JOIN reviewtransaction rt ON d.documentId = rt.documentId
+        WHERE rt.status = 'Approved';
+        ");
+        $approved = $approvedResult->num_rows;
+
+        $totalDocumentsResult = $conn->query("SELECT COUNT(documentId) FROM document WHERE email = '$userEmail'; ");
+        $totalDocuments = $totalDocumentsResult->num_rows;
+
+        $recentUploadsResult = $conn->query("SELECT COUNT(documentId) FROM document WHERE email = '$userEmail' AND uploadDate BETWEEN CURDATE() - INTERVAL 1 WEEK AND CURDATE();");
+        $recentUploads = $recentUploadsResult->num_rows;
+
+      ?>
 
       <div class="boxes">
           <div class="box box1">
             <ion-icon name="file-tray-full-outline" class="box-icon"></ion-icon>
             <span class="text">Pending Approvals</span>
-            <span class="number" id="pending-approvals"></span>
+            <span class="number" id="pending-approvals"><?php echo $pending ?></span>
           </div>
           <div class="box box2">
             <ion-icon name="close-outline" class="box-icon"></ion-icon>
             <span class="text">Rejected Approvals</span>
-            <span class="number" id="rejected approvals"></span>
+            <span class="number" id="rejected approvals"><?php echo $rejected ?></span>
           </div>
           <div class="box box3">
             <ion-icon name="documents-outline" class="box-icon"></ion-icon>
             <span class="text">Total Approvals</span>
-            <span class="number" id="total-approvals"></span>
+            <span class="number" id="total-approvals"><?php echo $approved ?></span>
+          </div>
+          <div class="box box4">
+            <ion-icon name="documents-outline" class="box-icon"></ion-icon>
+            <span class="text">Total Documents</span>
+            <span class="number" id="total-documents"><?php echo $totalDocuments ?></span>
+          </div>
+          <div class="box box5">
+            <ion-icon name="documents-outline" class="box-icon"></ion-icon>
+            <span class="text">Documents Uploaded in the Past Week</span>
+            <span class="number" id="total-documents"><?php echo $recentUploads ?></span>
           </div>
       </div>
-      
-      <div class="title">
-          <ion-icon name="document-text-outline" class="content-icon"></ion-icon>
-          <span class="text">List of Documents</span>
-        </div>
-
-      <div class="container-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Version</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
-                <td>Cell 3</td>
-                <td>Cell 4</td>
-                <td>Cell 5</td>
-              </tr>
-              <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
-                <td>Cell 3</td>
-                <td>Cell 4</td>
-                <td>Cell 5</td>
-              </tr>
-              <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
-                <td>Cell 3</td>
-                <td>Cell 4</td>
-                <td>Cell 5</td>
-              </tr>
-              <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
-                <td>Cell 3</td>
-                <td>Cell 4</td>
-                <td>Cell 5</td>
-              </tr>
-              <tr>
-                <td>Cell 1</td>
-                <td>Cell 2</td>
-                <td>Cell 3</td>
-                <td>Cell 4</td>
-                <td>Cell 5</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
   </section>
-
 
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

@@ -10,8 +10,8 @@ const sort = document.querySelector(".sort-box"),
 	sortItems = document.querySelectorAll(".sort-items"),
 	filterItems = document.querySelectorAll(".filter-items"),
 
-	documentName = document.querySelector(".name"),
-	searchInput = document.querySelector(".search-box");
+	documentName = document.querySelector(".name");
+	//searchInput = document.querySelector(".search-box");
 
 
 	//EXPAND SORT
@@ -78,6 +78,7 @@ const sort = document.querySelector(".sort-box"),
 	filterItems.forEach(item => {
         item.addEventListener("click", () => {
 			item.classList.toggle("selected");
+			console.log(item);
 			document.querySelectorAll(" .filter-items.selected");
 			updateURL();
         });
@@ -94,6 +95,7 @@ const sort = document.querySelector(".sort-box"),
 			});
 	
 			item.classList.toggle("selected");
+			console.log(item);
 	
 			const selectedItem = document.querySelector(".sort-select .sort-items.selected");
 	
@@ -110,20 +112,19 @@ const sort = document.querySelector(".sort-box"),
 	function updateURL() {
     const selectedSort = document.querySelector(".sort-select .sort-items.selected");
     const selectedFilter = document.querySelector(".filter-select .filter-items.selected");
-    const searchTerm = searchInput.value.trim();
+
 
     let queryString = "";
     if (selectedSort) {
         queryString += `sort=${encodeURIComponent(selectedSort.innerText)}&`;
-	
     }
     if (selectedFilter) {
         queryString += `filter=${encodeURIComponent(selectedFilter.innerText)}&`;
 		
     }
-    if (searchTerm) {
-        queryString += `search=${encodeURIComponent(searchTerm)}&`;
-    }
+    // if (searchTerm) {
+    //     queryString += `search=${encodeURIComponent(searchTerm)}&`;
+    // }
 
     // Remove the trailing '&' if present
     queryString = queryString.replace(/&$/, '');

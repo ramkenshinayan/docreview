@@ -118,53 +118,46 @@ include('includes/requester.php');
                 
                 
                 <?php
-                  $documentName = isset($_GET['document']) ? $_GET['document'] : null;
-
-                  $stmt = $conn->prepare("SELECT documentId FROM document WHERE fileName = ?");
-                  $stmt->bind_param("s", $documentName);
-                  $stmt->execute();
-                  $stmt->bind_result($documentId);
-                  $stmt->fetch();
-                  $stmt->close();
-
-                  
-                  if ($documentId !== null) {
-                  
-
-                    $sql = "SELECT MIN(rs.sequenceOrder) AS minSequenceOrder, rs.status, rs.reviewId, org.officeName
-                    FROM reviewsequence rs
-                    JOIN organization org ON rs.email = org.email
-                    WHERE rs.reviewId IN (SELECT reviewId FROM reviewtransaction) 
-                    AND (rs.status = 'Pending' OR rs.status = 'Disapproved')
-                    GROUP BY rs.reviewId, rs.status, org.officeName;";
+                    $sql = "SELECT DISTINCT reviewtransaction.reviewId, reviewtransaction.*, document.fileName AS DocumentName, 
+                    document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId;";
                     $result = $conn->query($sql);
-
-                    $data = array();
-
-                    if ($result && $result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $data[] = array(
-                                'reviewId' => $row['reviewId'],
-                                'minOrder' => $row['minSequenceOrder'],
-                                'status' => $row['status'],
-                                'officeName' => $row['officeName']
-                            );
+ 
+                    while ($row = $result->fetch_assoc()) {
+                      $documentId = $row['documentId'];
+                      if ($documentId !== null) {
+                        $sql = "SELECT MIN(rs.sequenceOrder) AS minSequenceOrder, rs.status, rs.reviewId, org.officeName
+                        FROM reviewsequence rs
+                        JOIN organization org ON rs.email = org.email
+                        WHERE rs.reviewId IN (SELECT reviewId FROM reviewtransaction) 
+                        AND (rs.status = 'Pending' OR rs.status = 'Disapproved')
+                        GROUP BY rs.reviewId, rs.status, org.officeName;";
+                        $result = $conn->query($sql);
+  
+                        $data = array();
+  
+                        if ($result && $result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $data[] = array(
+                                    'reviewId' => $row['reviewId'],
+                                    'minOrder' => $row['minSequenceOrder'],
+                                    'status' => $row['status'],
+                                    'officeName' => $row['officeName']
+                                );
+                            }
                         }
-                    }
-                    
-                    $jsonData = json_encode($data);
-                    
-                    echo '<script>';
-                    echo 'var data = ' . $jsonData . ';';
-                    echo '</script>';
-
-                  } else {
-                      echo '<p>Document ID not found.</p>';
-                  }
+                        
+                        $jsonData = json_encode($data);
+                        
+                        echo '<script>';
+                        echo ' const data = ' . $jsonData . ';';
+                        echo '</script>';
+        
+                      } 
+                    }         
                   ?>
-                <div id="upload-container" class="wrapper">
-                  <h3 class="status">You have not selected a document.</h3>
-                </div>
+                  <div id="upload-container" class="wrapper">
+                    <h3 class="status">You have not selected a document.</h3>
+                  </div>
             </div>
         </div>
         <!-- DOCUMENT LIST -->
