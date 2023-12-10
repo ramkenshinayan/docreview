@@ -15,12 +15,14 @@ include('includes/requester.php');
 
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
-  <link href="resources/css/user-home.css" rel="stylesheet">
-  <link href="resources/css/requester-home.css" rel="stylesheet">
+  <link href="resources\css\user-home.css" rel="stylesheet">
+  <link href="resources\css\requester-track.css" rel="stylesheet">
 </head>
 
 <body>
+  <!-- SIDE BAR -->
   <nav class="sidebar close">
+    <!-- SIDE BAR HEADER -->
     <header>
       <div class="image-text">
         <span class="image">
@@ -36,39 +38,37 @@ include('includes/requester.php');
     <div class="menu-bar">
       <div class="menu">
         <ul class="menu-links">
+          <!-- HOME LINK -->
           <li class="nav-link">
-            <a href="requester-home.php">
-              <ion-icon name="home-outline"></ion-icon>
-              <span class="text nav-text">Home</span>
-            </a>
+              <a href="requester-home.html">
+                  <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
+          <!-- TRANSACTION LIST LINK -->
           <li class="nav-link">
-            <a href="requester-view.php">
-              <ion-icon name="document-outline"></ion-icon>
-              <span class="text nav-text">View Requests</span>
-            </a>
+              <a href="requester-view.html">
+                  <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
+          <!-- UPLOADING LINK -->
           <li class="nav-link">
-            <a href="requester-add.php">
-              <ion-icon name="document-attach-outline"></ion-icon>
-              <span class="text nav-text">Add Requests</span>
-            </a>
+              <a href="requester-add.html">
+                  <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
+          <!-- TRACKING LINK -->
           <li class="nav-link">
-            <a href="requester-track.php">
-              <ion-icon name="document-text-outline"></ion-icon>
-              <span class="text nav-text">Track Requests</span>
-            </a>
+              <a href="requester-track.html">
+                  <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
           </li>
-        </ul>
+      </ul>
       </div>
       <div class="bottom-content">
+        <!-- LOG OUT -->
         <li class="">
           <a href="includes/logout.php">
             <ion-icon name="log-out-outline"></ion-icon>
             <span class="text nav-text">Logout</span>
           </a>
         </li>
+        <!-- TOGGLE MODES -->
         <li class="mode">
           <div class="moon-sun">
             <ion-icon name="moon-outline" class="moon"></ion-icon>
@@ -84,40 +84,110 @@ include('includes/requester.php');
   </nav>
 
   <section class="home">
+    <!-- HEADER -->
     <div class="top">
-      <div class="profile-details">
-        <img src="assets/school.png" alt="">
-        <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
-        <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
-      </div>
+      <div class="search-box">
+        <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
+        <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
+        <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
+    </div>
     </div>
 
     <div class="home-content">
-        <div class="overview">
-            <div class="title">
-            <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon>
-            <span class="text">Track Requests</span>
+      <div class="overview">
+        <div class="title">
+          <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Track Requests</span>
+        </div>
+        <!-- PROGRESS BAR-->
+        <div class="right-container">
+            <div class ="container">
+            <div class="steps"><span class="circle">1</span><span class="circle">2</span><span class="circle">3</span><span class="circle">4</span><span class="circle">5</span>
+                <div class="progress-bar"><span class="indicator"></span></div>
             </div>
-        </div>
-        <div class="label">
-            <p id="reviewer-1"></p>
-            <p id="reviewer-2"></p>
-            <p id="reviewer-3"></p>
-            <p id="reviewer-4"></p>
-            <p id="reviewer-5"></p>
-        </div>
-        <!-- TRACKING CONTETN-->
-        <div class="content">
-            <h3 class="status">You have not selected a document.</h3>
-            <div id="upload-container" class="wrapper">
-                <!-- dynamically added upload form -->
+          
+            <div class="label">
+                <p id="reviewer-1"></p>
+                <p id="reviewer-2"></p>
+                <p id="reviewer-3"></p>
+                <p id="reviewer-4"></p>
+                <p id="reviewer-5"></p>
+            </div>
+          </div>
+            <!-- TRACKING CONTETN-->
+            <div class="content">
+                
+                
+                <?php
+                  $documentName = isset($_GET['document']) ? $_GET['document'] : null;
+
+                  $stmt = $conn->prepare("SELECT documentId FROM document WHERE fileName = ?");
+                  $stmt->bind_param("s", $documentName);
+                  $stmt->execute();
+                  $stmt->bind_result($documentId);
+                  $stmt->fetch();
+                  $stmt->close();
+
+                  
+                  if ($documentId !== null) {
+                  
+
+                    $sql = "SELECT MIN(rs.sequenceOrder) AS minSequenceOrder, rs.status, rs.reviewId, org.officeName
+                    FROM reviewsequence rs
+                    JOIN organization org ON rs.email = org.email
+                    WHERE rs.reviewId IN (SELECT reviewId FROM reviewtransaction) 
+                    AND (rs.status = 'Pending' OR rs.status = 'Disapproved')
+                    GROUP BY rs.reviewId, rs.status, org.officeName;";
+                    $result = $conn->query($sql);
+
+                    $data = array();
+
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $data[] = array(
+                                'reviewId' => $row['reviewId'],
+                                'minOrder' => $row['minSequenceOrder'],
+                                'status' => $row['status'],
+                                'officeName' => $row['officeName']
+                            );
+                        }
+                    }
+                    
+                    $jsonData = json_encode($data);
+                    
+                    echo '<script>';
+                    echo 'var data = ' . $jsonData . ';';
+                    echo '</script>';
+
+                  } else {
+                      echo '<p>Document ID not found.</p>';
+                  }
+                  ?>
+                <div id="upload-container" class="wrapper">
+                  <h3 class="status">You have not selected a document.</h3>
+                </div>
             </div>
         </div>
         <!-- DOCUMENT LIST -->
         <div class="left-container">
-          <input type="radio" id="radioButton" name="radioGroup">
-          <label for="radioButton">Document Name <br> Document ID</label>
-          <!-- dynamically added document list -->
+        <form method="POST" action="requester-track.php">
+        <?php
+          $sql = "SELECT DISTINCT reviewtransaction.reviewId, reviewtransaction.*, document.fileName AS DocumentName, document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId;";
+
+          $result = $conn->query($sql);
+          $counter = 1;
+
+         
+          while ($row = $result->fetch_assoc()) {
+            $documentId = $row['documentId'];
+            // echo '<input type="radio" id="radioButton' . $row['documentId'] . '" name="radioGroup">';
+            // echo '<label for="radioButton' . $row['documentId'] . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
+            echo '<input type="radio" id="radioButton' . $counter . '" name="radioGroup">';
+            echo '<label for="radioButton' . $counter . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
+            $counter++;
+          } 
+        ?>
+        </div>
+        </form>
         </div>
     </div>
   </section>
@@ -126,8 +196,7 @@ include('includes/requester.php');
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <script src="resources/js/requester-home.js"></script>
-  <script src="resources/js/user-home.js"></script>
-</body>
-
+  <script src="resources\js\user-home.js"></script>
+  <script src="resources\js\requester-track.js"></script>
+  </body>
 </html>
