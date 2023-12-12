@@ -40,22 +40,22 @@ include('includes/requester.php');
         <ul class="menu-links">
           <!-- HOME LINK -->
           <li class="nav-link">
-              <a href="requester-home.html">
+              <a href="requester-home.php">
                   <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
           <!-- TRANSACTION LIST LINK -->
           <li class="nav-link">
-              <a href="requester-view.html">
+              <a href="requester-view.php">
                   <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
           <!-- UPLOADING LINK -->
           <li class="nav-link">
-              <a href="requester-add.html">
+              <a href="requester-add.php">
                   <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
           <!-- TRACKING LINK -->
           <li class="nav-link">
-              <a href="requester-track.html">
+              <a href="requester-track.php">
                   <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
           </li>
       </ul>
@@ -101,7 +101,7 @@ include('includes/requester.php');
         </div>
         <div class="banner">
           <h3>Welcome Back, <span><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> ! <span>
-              <a href="reviewer-review.html" class="get-started-btn">
+              <a href="requester-view.php" class="get-started-btn">
               <button type="button">Get Started</button>
               </a></span></h3>
           <img src="assets\home-img.png" alt="home">
