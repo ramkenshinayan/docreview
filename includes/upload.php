@@ -32,6 +32,33 @@ if (isset($_POST["upload"])) {
 
             $insert = $conn->query("INSERT INTO document (documentId, email, fileName, version, fileType, uploadDate, content) 
                                         VALUES ('$documentId', '$email', '$fileName', '$version', '$fileType', '$date' ,'$content')");
+            $insert = $conn->query("INSERT INTO reviewtransaction (reviewId, documentId, email, status, approvedDate) 
+                                        VALUES ('$documentId', '$documentId', '$email', 'ongoing', 'Y-m-d')");
+            
+            for ($i = 1; $i <= 6; $i++) {
+                $selectedOffice = $_POST["officeSelect" . $i];
+        
+           
+                $dataSql = "SELECT email FROM organization WHERE officeName = ?";
+                    
+                $dataStmt = $conn->prepare($dataSql);
+                $dataStmt->bind_param("s", $selectedOffice);
+                $dataStmt->execute();
+                $dataResult = $dataStmt->get_result();
+                    
+                $dataRow = $dataResult->fetch_assoc();
+                $revEmail = $dataRow["email"];
+                $sequenceOrder = $i;
+                    
+                $dataStmt->close();
+                    
+                $status = ($i == 1) ? 'ongoing' : 'standby';
+               
+                $insert =  $conn->query("INSERT INTO reviewsequence (reviewId, email, sequenceOrder, Status) 
+                                        VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status')");
+                
+            }        
+
             if ($insert) {
                 $statusMsg = $fileName . " has been uploaded successfully.";
             } else {
