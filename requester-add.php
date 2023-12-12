@@ -129,7 +129,7 @@ include('includes/requester.php');
                     $reviewersData = [];
 
                     while ($row = $result->fetch_assoc()) {
-                        if ($count > 6) {
+                        if ($count > 5) {
                             break; 
                         }
                         $officeName = $row["officeName"];
