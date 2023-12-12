@@ -35,7 +35,7 @@ if (isset($_POST["upload"])) {
             $insert = $conn->query("INSERT INTO reviewtransaction (reviewId, documentId, email, status, approvedDate) 
                                         VALUES ('$documentId', '$documentId', '$email', 'ongoing', 'Y-m-d')");
             
-            for ($i = 1; $i <= 6; $i++) {
+            for ($i = 1; $i <= 5; $i++) {
                 $selectedOffice = $_POST["officeSelect" . $i];
         
            
