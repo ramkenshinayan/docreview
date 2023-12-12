@@ -3,7 +3,7 @@ session_start();
 include('includes/requester.php');
 ?>
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -32,22 +32,22 @@ include('includes/requester.php');
                 <ul class="menu-links">
                     <!-- HOME LINK -->
                     <li class="nav-link">
-                        <a href="requester-home.php">
+                        <a href="requester-home.html">
                             <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
                     </li>
                     <!-- TRANSACTION LIST LINK -->
                     <li class="nav-link">
-                        <a href="requester-view.php">
+                        <a href="requester-view.html">
                             <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
                     </li>
                     <!-- UPLOADING LINK -->
                     <li class="nav-link">
-                        <a href="requester-add.php">
+                        <a href="requester-add.html">
                             <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
                     </li>
                     <!-- TRACKING LINK -->
                     <li class="nav-link">
-                        <a href="requester-track.php">
+                        <a href="requester-track.html">
                             <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
                     </li>
                 </ul>
@@ -86,9 +86,9 @@ include('includes/requester.php');
                 <div class="filter-box">
                     <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
                     <ul class="filter-select">
-                        <li class="filter-items">ongoing</li>
-                        <li class="filter-items">approved</li>
-                        <li class="filter-items">rejected</li>
+                        <li class="filter-items">Approved</li>
+                        <li class="filter-items">Pending</li>
+                        <li class="filter-items">Disapproved</li>
                     </ul>
                 </div>
                 <!-- sort-->
@@ -111,14 +111,32 @@ include('includes/requester.php');
                     $sql = "SELECT reviewtransaction.*, document.fileName AS DocumentName, document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId";
 
                     // Filtering
-                    if (isset($_GET['filter'])) {
-                        $filterValue = $_GET['filter']; 
-                        $sql .= " WHERE status = '$filterValue'";
+                    $conditions = array(); 
+                    $filterParameters = array('filter1', 'filter2', 'filter3');
+
+                    foreach ($filterParameters as $param) {
+                        if (isset($_GET[$param])) {
+                            $filterValues = $_GET[$param];
+
+                            if (is_array($filterValues)) {
+                                $filterConditions = array();
+                                foreach ($filterValues as $filterValue) {
+                                    $filterConditions[] = "status = '$filterValue'";
+                                }
+                                $conditions[] = '(' . implode(" OR ", $filterConditions) . ')';
+                            } else {
+                                $conditions[] = "status = '$filterValues'";
+                            }
+                        }
+                    }
+
+                    if (!empty($conditions)) {
+                        $sql .= " WHERE " . implode(" OR ", $conditions);
                     }
 
                     // Sorting
                     if (isset($_GET['sort'])) {
-                        $sortValue = $_GET['sort']; 
+                        $sortValue = $_GET['sort'];
                         switch ($sortValue) {
                             case 'Name (A-Z)':
                                 $sql .= " ORDER BY document.fileName ASC";
@@ -135,34 +153,30 @@ include('includes/requester.php');
                         }
                     }
 
-                    // Searching
-                    if (isset($_GET['search'])) {
-                        $searchTerm = $_GET['search']; 
-                        $sql .= " WHERE document.fileName LIKE '%$searchTerm%'";
-                    }
-
                     $result = $conn->query($sql);
-
+                    $data = array();
+                
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            echo '<div class="box" id="box-' . $row['reviewId'] . '">';
-                            echo '<div class="content">';
-                            echo '<h1 class="name">' . $row['DocumentName'] . '</h1>';
-                            echo '<p>Upload Date: <span>' . date('F j, Y', strtotime($row['UploadDate'])) . '</span></p>';
-                            if($row['approvedDate'] != 'null'){
-                            echo '<p>Approved Date: <span>' .  date('F j, Y', strtotime($row['approvedDate'])) . '</span></p></div>';
-                            } else {
-                                echo '<p>Approved Date: Not yet Approved</p></div>';
-                            }
-                            echo '<h3 class="status">' . $row['status'] . '</h3>';
-                            echo '</div>';
+                            $data[] = array(
+                                'DocumentName' => $row['DocumentName'],
+                                'UploadDate' => date('F j, Y', strtotime($row['UploadDate'])),
+                                'ApprovedDate' => ($row['approvedDate'] != 'null') ? date('F j, Y', strtotime($row['approvedDate'])) : 'Not yet Approved',
+                                'Status' => $row['status']
+                            );
                         }
                     } else {
-                        echo '<p>No reviews available</p>';
+                        $data['message'] = 'No reviews available';
                     }
+                
+                    $jsonData = json_encode($data);
+                    echo '<script>';
+                    echo ' var data = ' . $jsonData . ';';
+                    echo ' var sqlquery =  " ' . $sql . ' " ;';
+                    echo '</script>';
                 } catch (Exception $e) {
                     header('HTTP/1.1 500 Internal Server Error');
-                    echo '<p>Error: ' . $e->getMessage() . '</p>';
+                    echo json_encode(array('error' => 'Error: ' . $e->getMessage()));
                 }
                 ?>
             </div>
@@ -172,6 +186,7 @@ include('includes/requester.php');
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="resources/js/user-home.js"></script>
-    <script src="resources\js\requester-view.js"></script>
+    <!-- <script src="resources\js\requester-view.js"></script> -->
+    <script src="another-history.js"></script>
 </body>
 </html>

@@ -40,22 +40,22 @@ include('includes/requester.php');
         <ul class="menu-links">
           <!-- HOME LINK -->
           <li class="nav-link">
-              <a href="requester-home.php">
+              <a href="requester-home.html">
                   <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
           </li>
           <!-- TRANSACTION LIST LINK -->
           <li class="nav-link">
-              <a href="requester-view.php">
+              <a href="requester-view.html">
                   <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
           </li>
           <!-- UPLOADING LINK -->
           <li class="nav-link">
-              <a href="requester-add.php">
+              <a href="requester-add.html">
                   <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
           </li>
           <!-- TRACKING LINK -->
           <li class="nav-link">
-              <a href="requester-track.php">
+              <a href="requester-track.html">
                   <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
           </li>
       </ul>
@@ -115,45 +115,40 @@ include('includes/requester.php');
           </div>
             <!-- TRACKING CONTETN-->
             <div class="content">
-                
-                
                 <?php
                     $sql = "SELECT DISTINCT reviewtransaction.reviewId, reviewtransaction.*, document.fileName AS DocumentName, 
-                    document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId;";
+                    document.uploadDate as UploadDate, document.content FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId;";
                     $result = $conn->query($sql);
  
                     while ($row = $result->fetch_assoc()) {
                       $documentId = $row['documentId'];
                       if ($documentId !== null) {
-                        $sql = "SELECT MIN(rs.sequenceOrder) AS minSequenceOrder, rs.status, rs.reviewId, org.officeName
-                        FROM reviewsequence rs
-                        JOIN organization org ON rs.email = org.email
-                        WHERE rs.reviewId IN (SELECT reviewId FROM reviewtransaction) 
-                        AND (rs.status = 'Pending' OR rs.status = 'Disapproved')
-                        GROUP BY rs.reviewId, rs.status, org.officeName;";
+                        $sql = "SELECT MIN(rs.sequenceOrder) AS minSequenceOrder, rs.status, rs.reviewId, org.officeName, d.content 
+                        FROM reviewsequence rs JOIN organization org ON rs.email = org.email JOIN reviewtransaction rt ON rs.reviewId = rt.reviewId
+                        JOIN document d ON rt.documentId = d.documentId WHERE (rs.status = 'Pending' OR rs.status = 'Disapproved')
+                        GROUP BY rs.reviewId, rs.status, org.officeName, d.content;";
                         $result = $conn->query($sql);
   
                         $data = array();
-  
                         if ($result && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $data[] = array(
                                     'reviewId' => $row['reviewId'],
                                     'minOrder' => $row['minSequenceOrder'],
                                     'status' => $row['status'],
-                                    'officeName' => $row['officeName']
+                                    'officeName' => $row['officeName'],
+                                    'pdfContent' => base64_encode($row['content'])
                                 );
                             }
                         }
                         
                         $jsonData = json_encode($data);
-                        
+
                         echo '<script>';
                         echo ' const data = ' . $jsonData . ';';
                         echo '</script>';
-        
                       } 
-                    }         
+                    }                      
                   ?>
                   <div id="upload-container" class="wrapper">
                     <h3 class="status">You have not selected a document.</h3>
@@ -169,11 +164,8 @@ include('includes/requester.php');
           $result = $conn->query($sql);
           $counter = 1;
 
-         
           while ($row = $result->fetch_assoc()) {
             $documentId = $row['documentId'];
-            // echo '<input type="radio" id="radioButton' . $row['documentId'] . '" name="radioGroup">';
-            // echo '<label for="radioButton' . $row['documentId'] . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
             echo '<input type="radio" id="radioButton' . $counter . '" name="radioGroup">';
             echo '<label for="radioButton' . $counter . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
             $counter++;
@@ -184,7 +176,6 @@ include('includes/requester.php');
         </div>
     </div>
   </section>
-
 
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

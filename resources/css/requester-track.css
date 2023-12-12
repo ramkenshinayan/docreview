@@ -157,7 +157,7 @@
 
 /* MAIN CONTENT HERE */
 .content {
-    height: 350px;
+    height: 400px;
 }
 
 .content img {
@@ -167,24 +167,29 @@
 }
 
 .content h3 {
-    padding-top: 40px;
+    padding-top: 20px;
     text-transform: uppercase;
     color: var(--primary-color)
 }
 
+.content p {
+    margin: 10px;
+}
+
+
 /* FORMS */
 .wrapper {
     border-radius: 20px;
-    padding-left:100px;
-    padding-right: 100px;
     margin-left: auto;
     margin-right: auto;
 }
 .wrapper form{
     display: flex;
     cursor: pointer;
-    margin: 30px 0;
+    margin: 20px 0;
     align-items: center;
+    margin-left:100px;
+    margin-right: 100px;
     justify-content: center;
     flex-direction: column;
     border-radius: 5px;
@@ -202,6 +207,12 @@ form p{
     font-size: 16px;
 }
 
+.wrapper iframe{
+    width: 100%;
+    height: 750px;
+}
+
+
 /* CONTENT CONTAINER */
 .content button {
     width: 150px;
@@ -211,7 +222,6 @@ form p{
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin: 10px;
 }
 .content {
     margin: 20px 100px 0 100px;
@@ -226,7 +236,8 @@ form p{
     float: right;
     background-color: var(--primary-color-light);
     border-radius: 0 10px 10px 0;
-    height: 500px;
+    height: 1200px;
+    margin-bottom: 20px;
 }
 
 /* RADIO BUTTONS */
@@ -236,6 +247,7 @@ form p{
     height: 95%;
     background-color: var(--primary-color-light);
 	border-radius: 20px;
+    margin-bottom: 20px;
 }
 
 .left-container {
@@ -247,7 +259,7 @@ form p{
 	font-size: 12px;
 	left: -1px;
 	padding: 10px 0 7px 5px;
-	height:500px;
+	height:1200px;
 	overflow-y: auto;
 }
 

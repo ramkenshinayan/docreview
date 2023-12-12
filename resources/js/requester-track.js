@@ -19,7 +19,7 @@ function checkRadio() {
         let queryString = '';
         if (this.checked) {
             const labelContent = document.querySelector(`label[for="${this.id}"]`).innerText;
-            const documentName = labelContent.split('\n')[0].trim(); // Assumes the document ID is on the second line
+            const documentName = labelContent.split('\n')[0].trim(); 
             const documentId = labelContent.split('\n')[1].trim();
 
             queryString += `document=${encodeURIComponent(documentName)}&`;
@@ -111,6 +111,10 @@ function disapproved(data) {
 
     var submitBtn = document.createElement('button');
     var submitText = document.createTextNode('Submit');
+
+    var viewText = document.createElement('p');
+    viewText.textContent = 'View the needed revisions below.';
+
     submitBtn.appendChild(submitText);
 
     uploadContainer.appendChild(statusText);
@@ -121,7 +125,13 @@ function disapproved(data) {
     form.appendChild(lineBreak);
     uploadContainer.appendChild(form);
     uploadContainer.appendChild(submitBtn);
+    uploadContainer.appendChild(viewText);
 
+    const iframe = document.createElement('iframe');
+    iframe.src = `data:application/pdf;base64,${data.pdfContent}`;
+
+    uploadContainer.appendChild(iframe);
+ 
     circles.forEach((circle, index) => {
         circle.classList.remove('circle-pending', 'circle-disapproved');
         if (index + 1 == data.minOrder) {
