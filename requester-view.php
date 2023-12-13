@@ -1,8 +1,6 @@
 <?php
-session_start();
 include('includes/requester.php');
 ?>
-
 
 <html lang="en">
 <head>
@@ -32,22 +30,22 @@ include('includes/requester.php');
                 <ul class="menu-links">
                     <!-- HOME LINK -->
                     <li class="nav-link">
-                        <a href="requester-home.html">
+                        <a href="requester-home.php">
                             <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
                     </li>
                     <!-- TRANSACTION LIST LINK -->
                     <li class="nav-link">
-                        <a href="requester-view.html">
+                        <a href="requester-view.php">
                             <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
                     </li>
                     <!-- UPLOADING LINK -->
                     <li class="nav-link">
-                        <a href="requester-add.html">
+                        <a href="requester-add.php">
                             <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
                     </li>
                     <!-- TRACKING LINK -->
                     <li class="nav-link">
-                        <a href="requester-track.html">
+                        <a href="requester-track.php">
                             <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
                     </li>
                 </ul>

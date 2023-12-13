@@ -71,27 +71,6 @@ if (isset($_POST["upload"])) {
         $statusMsg = 'No file selected.';
     }
 }
-// function insertTransaction() {
-//     global $conn;
-//     global $email;
-//     global $date;
-//                 $last_id = $conn->insert_id;
-//                 $process = $conn->query("INSERT INTO transaction (
-//                     document_id, 
-//                     email, 
-//                     comment_id, 
-//                     status, 
-//                     uploaded_date, 
-//                     approved_date) 
-//                 VALUES (
-//                     '$last_id', 
-//                     '$email',
-//                     '0',
-//                     'pending',
-//                     '$date',
-//                     'n/a'
-//                     )");
-// }
 
 echo "<script>
         alert('$statusMsg');

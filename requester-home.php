@@ -1,24 +1,20 @@
 <?php
-session_start();
 include('includes/requester.php');
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="SLU Document Review Tracker">
   <title>SLU Document Review Tracker</title>
-
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="resources\css\user-home.css" rel="stylesheet">
   <link href="resources\css\requester-home.css" rel="stylesheet">
 </head>
-
 <body>
   <!-- SIDE BAR -->
   <nav class="sidebar close">
@@ -82,7 +78,6 @@ include('includes/requester.php');
       </div>
     </div>
   </nav>
-
   <section class="home">
     <!-- HEADER -->
     <div class="top">
@@ -92,7 +87,6 @@ include('includes/requester.php');
         <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
     </div>
     </div>
-
     <div class="home-content">
       <div class="overview">
         <div class="title">
@@ -147,7 +141,6 @@ include('includes/requester.php');
         $recentUploads = $recentUploadsResult->num_rows;
 
       ?>
-
       <div class="boxes">
           <div class="box box1">
             <ion-icon name="file-tray-full-outline" class="box-icon"></ion-icon>
@@ -176,12 +169,10 @@ include('includes/requester.php');
           </div>
       </div>
   </section>
-
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="resources/js/requester-home.js"></script>
   <script src="resources/js/user-home.js"></script>
 </body>
-
 </html>
