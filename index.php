@@ -54,14 +54,12 @@ if (isset($_SESSION["user"])) {
       </form>
     </div>
   </div>
-
   <!-- HERO SECTION -->
   <section class="hero" id="home">
     <h2>Get your Documents<br>Reviewed for Approval!</h2>
     <p>Document review approval services for<br>Saint Louis University.</p>
     <a href="#request" class="ctas-button">GET STARTED</a>
   </section>
-
   <!-- REQUEST SECTION -->
   <section class="request" id="request">
     <div class="row">
@@ -103,7 +101,6 @@ if (isset($_SESSION["user"])) {
       </div>
     </div>
   </section>
-
   <!-- TRACKER SECTION -->
   <section class="tracker" id="tracker">
     <h2>Tracker</h2>
@@ -143,7 +140,6 @@ if (isset($_SESSION["user"])) {
       </div>
     </div>
   </section>
-
   <!-- ABOUT US SECTION -->
   <section class="about-us" id="about-us">
     <div class="text-box2">
@@ -159,11 +155,9 @@ if (isset($_SESSION["user"])) {
         PageMaker including versions of Lorem Ipsum. </p>
     </div>
   </section>
-
   <?php
   include("footer.html");
   ?>
-
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

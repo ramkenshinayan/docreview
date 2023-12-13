@@ -5,21 +5,18 @@ include('includes/requester.php');
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="SLU Document Review Tracker">
   <title>SLU Document Review Tracker</title>
-
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="resources/css/user-home.css" rel="stylesheet">
   <link href="resources/css/requester-add.css" rel="stylesheet">
 </head>
-
 <body>
 <nav class="sidebar close">
     <header>
@@ -83,7 +80,6 @@ include('includes/requester.php');
       </div>
     </div>
   </nav>
-
   <section class="home">
     <div class="top">
       <div class="profile-details">
@@ -98,18 +94,16 @@ include('includes/requester.php');
         <span class="text">Upload Document</span>
       </div>
       <div class="wrapper">
-        <form action="includes/upload.php" method="post" enctype="multipart/form-data">
+        <form id="upbox" action="includes/upload.php" method="post" enctype="multipart/form-data">
           <div class="file-upload">
             <input class="file-input" type="file" name="file" accept=".doc, .docx, .pdf" hidden>
             <ion-icon name="cloud-upload-outline"></ion-icon>
             <p>Browse File to Upload</p><br>
           </div>
-          <button type="submit" name="upload">Submit</button>
+          <button id="subbtn" type="submit" name="upload">Submit</button>
         </form>
-
         <section class="progress-area"></section>
         <section class="uploaded-area"></section>
-
         <div class="table-container">
           <table class="table">
             <thead>
@@ -123,11 +117,9 @@ include('includes/requester.php');
                 <?php
                 $sql = "SELECT DISTINCT officeName FROM organization";
                 $result = $conn->query($sql);
-
                 if ($result->num_rows > 0) {
                     $count = 1;
                     $reviewersData = [];
-
                     while ($row = $result->fetch_assoc()) {
                         if ($count > 5) {
                             break; 
@@ -169,10 +161,8 @@ include('includes/requester.php');
           </table>
         </div>
       </div>
-
     </div>
   </section>
-
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -191,7 +181,6 @@ include('includes/requester.php');
         </div>
     </div>
   </div>  
-
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -205,9 +194,6 @@ include('includes/requester.php');
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
-  
 <script>
     var reviewersData = <?php echo json_encode($reviewersData); ?>;
     var selectedOffices = [];

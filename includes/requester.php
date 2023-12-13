@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION["user"])) {
     if ($_SESSION["role"] == "Requester") {
-        echo 'Login Successful';
+        // echo 'Login Successful';
     } else {
         echo '<script>
             alert("Not allowed.");

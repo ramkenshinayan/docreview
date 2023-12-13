@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('includes/requester.php');
 ?>
 
@@ -12,13 +11,11 @@ include('includes/requester.php');
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="SLU Document Review Tracker">
   <title>SLU Document Review Tracker</title>
-
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="resources\css\user-home.css" rel="stylesheet">
   <link href="resources\css\requester-track.css" rel="stylesheet">
 </head>
-
 <body>
   <!-- SIDE BAR -->
   <nav class="sidebar close">
@@ -82,7 +79,6 @@ include('includes/requester.php');
       </div>
     </div>
   </nav>
-
   <section class="home">
     <!-- HEADER -->
     <div class="top">
@@ -92,7 +88,6 @@ include('includes/requester.php');
         <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
     </div>
     </div>
-
     <div class="home-content">
       <div class="overview">
         <div class="title">
@@ -104,7 +99,6 @@ include('includes/requester.php');
             <div class="steps"><span class="circle">1</span><span class="circle">2</span><span class="circle">3</span><span class="circle">4</span><span class="circle">5</span>
                 <div class="progress-bar"><span class="indicator"></span></div>
             </div>
-          
           </div>
             <!-- TRACKING CONTETN-->
             <div class="content">
@@ -160,8 +154,8 @@ include('includes/requester.php');
                               fclose($fp);
                   
                               $update = $conn->query("UPDATE document SET version = '$result+1', content =  '$content' WHERE documentId = '$documentId';");
-                              $update = $conn->("UPDATE reviewsequence AS rs JOIN reviewtransaction AS rt ON rs.reviewId = rt.reviewId JOIN document AS d ON rt.documentId = d.documentId
-                              SET rs.Status = 'ongoing' WHERE d.documentId = '$documentId';");
+                              $update = $conn->query("UPDATE reviewsequence AS rs JOIN reviewtransaction AS rt ON rs.reviewId = rt.reviewId JOIN document 
+                              AS d ON rt.documentId = d.documentId SET rs.Status = 'ongoing' WHERE d.documentId = '$documentId';");
 
                               if ($update) {
                                   $statusMsg = $fileName . " has been uploaded successfully.";
@@ -202,7 +196,6 @@ include('includes/requester.php');
         </div>
     </div>
   </section>
-
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

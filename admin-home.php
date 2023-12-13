@@ -5,21 +5,17 @@ include("includes/admin.php");
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="SLU Document Review Tracker">
   <title>SLU Document Review Tracker</title>
-
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
-
   <!-- MAIN CSS -->
   <link href="resources/css/user-home.css" rel="stylesheet">
   <link href="resources/css/admin-home.css" rel="stylesheet">
 </head>
-
 <body>
   <nav class="sidebar close">
     <header>
@@ -71,7 +67,6 @@ include("includes/admin.php");
       </div>
     </div>
   </nav>
-
   <section class="home" id="home">
     <div class="top">
       <div class="profile-details">
@@ -81,7 +76,6 @@ include("includes/admin.php");
           <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
       </div>
     </div>
-
     <div class="home-content">
       <div class="overview">
         <div class="title">
@@ -105,7 +99,6 @@ include("includes/admin.php");
             <span class="number" id="offline-users"><?php echo $offlineUsers ?></span>
           </div>
         </div>
-
         <div class="user-list">
           <div class="title">
             <ion-icon name="people-outline" class="content-icon"></ion-icon>
@@ -116,7 +109,6 @@ include("includes/admin.php");
               <thead>
                 <tr>
                   <th>Email</th>
-                  <th>Password</th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Role</th>
@@ -129,7 +121,6 @@ include("includes/admin.php");
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr>";
                   echo "<td>" . $row["email"] . "</td>";
-                  echo "<td>" . $row["password"] . "</td>";
                   echo "<td>" . $row["firstName"] . "</td>";
                   echo "<td>" . $row["lastName"] . "</td>";
                   echo "<td>" . $row["role"] . "</td>";
@@ -148,14 +139,10 @@ include("includes/admin.php");
         </div>
   </section>
   <section class="manage" id="manage">
-
-
     <!-- CUSTOM JS -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="resources/js/user-home.js"></script>
     <script src="resources/js/admin-home.js"></script>
-
 </body>
-
 </html>
