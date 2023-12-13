@@ -12,7 +12,6 @@ const sort = document.querySelector(".sort-box"),
 
 	documentName = document.querySelector(".name");
 
-
 	//EXPAND SORT
 	for (let i = 0; i < sortCol.length; i++) {
 		sortCol[i].addEventListener("click", toggleActive);
@@ -52,7 +51,7 @@ const sort = document.querySelector(".sort-box"),
 		option.addEventListener("click", () => {changeIcon(option, filterBtn)})
 	});
 
-	//Function for 
+	//Function for changing icon/text
 	function changeIcon(option, button){
 		let selected = option.innerText;
 		button.innerText = selected;
@@ -72,8 +71,139 @@ const sort = document.querySelector(".sort-box"),
 		iconSpan.appendChild(expandImg);
 		sortBtn.appendChild(iconSpan);
 	}
+  
+	// sort
+    sortItems.forEach(item => {
+        item.addEventListener("click", () => {
+            const sortValue = item.textContent.trim();
 
-	//update content
+            // Update the URL parameter for sort
+            updateSortUrlParameter('sort', [sortValue]);
+
+            // Remove "selected" class from all items
+            sortItems.forEach(otherItem => otherItem.classList.remove("selected"));
+
+            // Add "selected" class to the clicked item
+            item.classList.add("selected");
+
+            // Save the selected sort item in local storage
+            localStorage.setItem('selectedSortItem', sortValue);
+
+            // Update the reviews
+            updateReviews(data);
+        });
+    });
+
+	//filtered
+    const filterMappings = {
+        "Approved": "filter1",
+        "Pending": "filter2",
+        "Disapproved": "filter3"
+    };
+
+    filterItems.forEach(item => {
+        item.addEventListener("click", () => {
+            const filterValue = item.textContent.trim();
+            const selectedFilterKey = filterMappings[filterValue];
+            const selectedFilters = getUrlParameter(selectedFilterKey) || [];
+
+            // Toggle the filter
+            const updatedFilters = selectedFilters.includes(filterValue)
+                ? selectedFilters.filter(value => value !== filterValue)
+                : [...selectedFilters, filterValue];
+
+            updateFilterUrlParameter(selectedFilterKey, updatedFilters);
+
+            // Toggle the "selected" class
+            item.classList.toggle("selected", updatedFilters.includes(filterValue));
+
+            // Save all selected filter items in local storage
+            localStorage.setItem('selectedFilterItems', JSON.stringify(updatedFilters));
+
+            updateReviews(data);
+        });
+    });
+
+    //retain filter/sort selection
+    document.addEventListener('DOMContentLoaded', () => {
+        const selectedSortValue = localStorage.getItem('selectedSortItem');
+        if (selectedSortValue) {
+            const selectedSortItem = [...sortItems].find(item => item.textContent.trim() === selectedSortValue);
+            if (selectedSortItem) {
+                selectedSortItem.classList.add('selected');
+            }
+        }
+
+        const selectedFilterItems = JSON.parse(localStorage.getItem('selectedFilterItems')) || [];
+        selectedFilterItems.forEach(selectedFilterValue => {
+            const selectedFilterItem = [...filterItems].find(item => item.textContent.trim() === selectedFilterValue);
+            if (selectedFilterItem) {
+                selectedFilterItem.classList.add('selected');
+            }
+        });
+    });
+
+	// highlight selected filters
+	const highlightSelection = () => {
+		const selectedFilters = getUrlParameter('filter');
+
+		const filterItems = document.querySelectorAll('.filter-items');
+		filterItems.forEach(item => {
+			if (selectedFilters && selectedFilters.includes(item.textContent)) {
+				item.classList.add('selected');
+			} else {
+				item.classList.remove('selected');
+			}
+		});
+	};
+
+    const getUrlParameter = (name) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paramValues = urlParams.getAll(name);
+        return paramValues.length === 0 ? null : paramValues;
+    };
+    
+
+	const updateFilterUrlParameter = (key, values) => {
+		const urlParams = new URLSearchParams(window.location.search);
+	
+		urlParams.delete(key);
+	
+		if (values) {
+			values.forEach((value, index) => {
+				if (value.trim() !== "") {
+					urlParams.append(key, value);
+				}
+			});
+		}
+	
+		const newUrl = window.location.pathname + '?' + urlParams.toString();
+		history.pushState(null, null, newUrl);
+	};
+
+	const updateSortUrlParameter = (key, values) => {
+		const urlParams = new URLSearchParams(window.location.search);
+	
+		if (values) {
+			urlParams.delete(key);
+	
+			values.forEach(value => {
+				if (!urlParams.getAll(key).includes(value)) {
+					urlParams.append(key, value);
+				}
+			});
+		}
+	
+		const newUrl = window.location.pathname + '?' + urlParams.toString();
+		history.pushState(null, null, newUrl);
+		// location.reload();
+		updateReviews(data);
+		console.log(data);
+	};	
+
+
+    updateReviews(data);
+
 	function updateReviews(reviews) {
 		const reviewsContainer = document.querySelector('.history');
 		reviewsContainer.innerHTML = ''; 
@@ -125,159 +255,4 @@ const sort = document.querySelector(".sort-box"),
 		}
 	}
 
-const getUrlParameter = (name) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paramValues = urlParams.getAll(name);
-    return paramValues.length === 0 ? null : paramValues;
-};
-
-
-updateReviews(data);
-
-
-const highlightSelection = () => {
-    const selectedFilters = getUrlParameter('filter');
-    const selectedSort = getUrlParameter('sort');
-
-    const filterItems = document.querySelectorAll('.filter-items');
-    filterItems.forEach(item => {
-        if (selectedFilters && selectedFilters.includes(item.textContent)) {
-            item.classList.add('selected');
-        } else {
-            item.classList.remove('selected');
-        }
-    });
-
-    // Highlight selected sort
-    const sortItems = document.querySelectorAll('.sort-items');
-    sortItems.forEach(item => {
-        if (item.textContent === selectedSort) {
-            item.classList.add('selected');
-        } else {
-            item.classList.remove('selected');
-        }
-    });
-    updateReviews(data);
-};
-
-
-highlightSelection();
-
-const filterMappings = {
-    "Approved": "filter1",
-    "Pending": "filter2",
-    "Disapproved": "filter3"
-};
-
-document.querySelectorAll('.filter-items').forEach(item => {
-    item.addEventListener('click', () => {
-        const filterValue = item.textContent;
-        const selectedFilterKey = filterMappings[filterValue];
-        const selectedFilters = getUrlParameter(selectedFilterKey) || [];
-
-        const updatedFilters = selectedFilters.includes(filterValue)
-            ? selectedFilters.filter(value => value !== filterValue)
-            : [...selectedFilters, filterValue];
-
-        updateFilterUrlParameter(selectedFilterKey, updatedFilters);
-        
-        highlightSelection();
-        updateReviews(data);
-    });
-});
-
-const updateFilterUrlParameter = (key, values) => {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    urlParams.delete(key);
-
-    if (values) {
-        values.forEach((value, index) => {
-            if (value.trim() !== "") {
-                urlParams.append(key, value);
-            }
-        });
-    }
-
-    const newUrl = window.location.pathname + '?' + urlParams.toString();
-    history.pushState(null, null, newUrl);
-};
-
-
-
-document.querySelectorAll('.sort-items').forEach(item => {
-    item.addEventListener("click", () => {
-        document.querySelectorAll('.sort-items').forEach(otherItem => {
-            if (otherItem !== item) {
-                otherItem.classList.remove("selected");
-            }
-        });
-
-        item.classList.toggle("selected");
-    });
-});
-
-// sorted
-document.querySelectorAll('.sort-items').forEach(item => {
-    item.addEventListener('click', () => {
-        const sortValue = item.textContent;
-        updateSortUrlParameter('sort', [sortValue]); 
-        highlightSelection();
-    });
-});
-
-
-
-document.querySelectorAll('.sort-items').forEach(item => {
-    item.addEventListener("click", () => {
-        document.querySelectorAll('.sort-items').forEach(otherItem => {
-            if (otherItem !== item) {
-                otherItem.classList.remove("selected");
-            }
-        });
-
-        item.classList.toggle("selected");
-    });
-});
-
-// function to change icon
-function changeIcon(option, button) {
-    let selected = option.innerText;
-    button.innerText = selected;
-
-    const existingIcon = button.querySelector('.icon');
-    if (existingIcon) {
-        existingIcon.remove();
-    }
-
-    // add icon
-    const iconSpan = document.createElement('span');
-    iconSpan.className = 'icon';
-
-    const expandImg = document.createElement('ion-icon');
-    expandImg.name = "chevron-up-outline";
-
-    iconSpan.appendChild(expandImg);
-    button.appendChild(iconSpan);
-}
-
-
-const updateSortUrlParameter = (key, values) => {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    if (values) {
-        urlParams.delete(key);
-
-        values.forEach(value => {
-            if (!urlParams.getAll(key).includes(value)) {
-                urlParams.append(key, value);
-            }
-        });
-    }
-
-    const newUrl = window.location.pathname + '?' + urlParams.toString();
-    history.pushState(null, null, newUrl);
-    // location.reload();
-    updateReviews(data);
-    console.log(data);
-};
+  
