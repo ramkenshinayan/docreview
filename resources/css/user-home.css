@@ -323,6 +323,7 @@ body.dark .switch::before {
 
 
 .top .profile-details{
+	float: right;
 	 display: flex;
 	 align-items: center;
 	 background: var(--primary-color-light);

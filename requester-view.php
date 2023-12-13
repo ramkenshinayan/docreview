@@ -32,22 +32,22 @@ include('includes/requester.php');
                 <ul class="menu-links">
                     <!-- HOME LINK -->
                     <li class="nav-link">
-                        <a href="requester-home.html">
+                        <a href="requester-home.php">
                             <ion-icon name="home-outline"></ion-icon><span class="text nav-text">Home</span></a>
                     </li>
                     <!-- TRANSACTION LIST LINK -->
                     <li class="nav-link">
-                        <a href="requester-view.html">
+                        <a href="requester-view.php">
                             <ion-icon name="document-outline"></ion-icon><span class="text nav-text">View Requests</span></a>
                     </li>
                     <!-- UPLOADING LINK -->
                     <li class="nav-link">
-                        <a href="requester-add.html">
+                        <a href="requester-add.php">
                             <ion-icon name="document-attach-outline"></ion-icon><span class="text nav-text">Add Requests</span></a>
                     </li>
                     <!-- TRACKING LINK -->
                     <li class="nav-link">
-                        <a href="requester-track.html">
+                        <a href="requester-track.php">
                             <ion-icon name="document-text-outline"></ion-icon><span class="text nav-text">Track Requests</span></a>
                     </li>
                 </ul>
@@ -72,16 +72,18 @@ include('includes/requester.php');
     <section class="home">
         <!-- HEADER -->
         <div class="top">
-            <div class="search-box">
-                <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
-                <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
-                <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
-            </div>
+            <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
+            <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon></div>
         </div>
         <div class="home-content">
             <div class="overview">
+                
                 <div class="title">
                     <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Request History</span>
+                    <div class="search-box">
+                        <ion-icon class="search-icon" name="search-outline"></ion-icon>
+                        <input type="search" id="searchInput" placeholder="Search..." onkeydown="handleSearch(event)">
+                    </div>
                 <!-- filter-->
                 <div class="filter-box">
                     <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
@@ -151,6 +153,12 @@ include('includes/requester.php');
                                 $sql .= " ORDER BY document.UploadDate DESC";
                                 break;
                         }
+                    }
+
+                    // Searching
+                    if (isset($_GET['search'])) {
+                        $searchTerm = $_GET['search']; 
+                        $sql .= " WHERE document.fileName LIKE '%$searchTerm%'";
                     }
 
                     $result = $conn->query($sql);

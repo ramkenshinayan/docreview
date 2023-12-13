@@ -20,6 +20,7 @@
 	--tran-05: all 0.5s ease;
 }
 
+
 /* SORT&FILTER*/
 .filter-box{
     margin-left: 750px;
@@ -110,25 +111,27 @@
     width: 10px;
 }
 
-.searchbar {
+/* .text {
+    width: 400px;
+} */
+
+.search-box {
     height: 5vh;
-    float: right;
-    margin-right: 50px;
     width: 30vh;
     display: flex;
     cursor: pointer;
     padding: 10px 20px;
-    background-color: #ffffff;
+    background-color: var(--primary-color-light);
     border-radius: 30px;
     align-items: center;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.searchbar:hover input {
+.search-box:hover input {
     width: 400px;
 }
 
-.searchbar input {
+.search-box  input {
     width: 0;
     outline: none;
     border: none;
@@ -137,8 +140,8 @@
     background: transparent;
 }
 
-.searchbar ion-icon {
-    color: black;
+.search-box ion-icon {
+    color: var(--box1-color);
     font-size: 20px;
 }
 

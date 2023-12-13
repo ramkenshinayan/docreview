@@ -201,8 +201,56 @@ const sort = document.querySelector(".sort-box"),
 		console.log(data);
 	};	
 
-
     updateReviews(data);
+
+	function handleSearch(event) {
+		if (event.key === 'Enter') {
+			const searchInput = document.getElementById('searchInput');
+			const searchTerm = searchInput.value.trim();
+	
+			// Update the URL parameter for search
+			updateSearchParameter('search', searchTerm);
+	
+			// Trigger the popstate event to handle the change without a page reload
+			history.pushState({ searchTerm: searchTerm }, null, window.location.href);
+			window.dispatchEvent(new Event('popstate'));
+		}
+	}	
+	
+	const updateSearchParameter = (key, value) => {
+		const urlParams = new URLSearchParams(window.location.search);
+	
+		if (value) {
+			urlParams.set(key, value);
+		} else {
+			urlParams.delete(key);
+		}
+	
+		const newUrl = window.location.pathname + '?' + urlParams.toString();
+	
+		// Use pushState to change the URL and add a new entry to the browser history
+		history.pushState({ searchTerm: value }, null, newUrl);
+	
+		// Log the updated URL for debugging purposes
+		console.log('Updated URL:', newUrl);
+		location.reload();
+		updateReviews(data);
+		console.log(data);
+	};
+	
+	// Function to handle state changes
+	const handleStateChange = (event) => {
+		const searchTerm = event.state && event.state.searchTerm;
+		updateReviews(data, searchTerm);
+	};
+
+	// Add an event listener for the popstate event
+	window.addEventListener('popstate', handleStateChange);
+
+	// Call the handleStateChange function on initial load
+	document.addEventListener('DOMContentLoaded', () => {
+		handleStateChange({ state: history.state });
+	});
 
 	function updateReviews(reviews) {
 		const reviewsContainer = document.querySelector('.history');
@@ -254,5 +302,13 @@ const sort = document.querySelector(".sort-box"),
 			reviewsContainer.innerHTML = '<p>No reviews available</p>';
 		}
 	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const searchTerm = urlParams.get('search');
+	
+		// Call updateReviews with the initial search term
+		updateReviews(data);
+	});	
 
   
