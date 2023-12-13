@@ -105,13 +105,6 @@ include('includes/requester.php');
                 <div class="progress-bar"><span class="indicator"></span></div>
             </div>
           
-            <div class="label">
-                <p id="reviewer-1"></p>
-                <p id="reviewer-2"></p>
-                <p id="reviewer-3"></p>
-                <p id="reviewer-4"></p>
-                <p id="reviewer-5"></p>
-            </div>
           </div>
             <!-- TRACKING CONTETN-->
             <div class="content">
@@ -148,7 +141,40 @@ include('includes/requester.php');
                         echo ' const data = ' . $jsonData . ';';
                         echo '</script>';
                       } 
-                    }                      
+                    }  
+                    
+                    if (isset($_POST["upload"])) {
+                      if (!empty($_FILES["file"]["name"])) {
+                          $fileName = basename($_FILES["file"]["name"]);
+                          $allowTypes = array('pdf', 'doc', 'docx');
+                          if (in_array($fileType, $allowTypes)) {
+                              
+                              $version = 1; 
+                              $checkVersionQuery = "SELECT MAX(version) as maxVersion FROM document WHERE documentId = '$documentId'";
+                              $result = $conn->query($checkVersionQuery);
+                  
+                              $tmpName = $_FILES["file"]["tmp_name"];
+                              $fp = fopen($tmpName, "r");
+                              $content = fread($fp, 16777215);
+                              $content = addslashes($content);
+                              fclose($fp);
+                  
+                              $update = $conn->query("UPDATE document SET version = '$result+1', content =  '$content' WHERE documentId = '$documentId';");
+                              $update = $conn->("UPDATE reviewsequence AS rs JOIN reviewtransaction AS rt ON rs.reviewId = rt.reviewId JOIN document AS d ON rt.documentId = d.documentId
+                              SET rs.Status = 'ongoing' WHERE d.documentId = '$documentId';");
+
+                              if ($update) {
+                                  $statusMsg = $fileName . " has been uploaded successfully.";
+                              } else {
+                                  $statusMsg = "File upload failed, try again.";
+                              }
+                          } else {
+                              $statusMsg = 'Only PDF, DOC, & DOCX files are allowed.';
+                          }
+                      } else {
+                          $statusMsg = 'No file selected.';
+                      }
+                    }
                   ?>
                   <div id="upload-container" class="wrapper">
                     <h3 class="status">You have not selected a document.</h3>
