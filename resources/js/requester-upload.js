@@ -3,8 +3,12 @@ const form = document.querySelector("form"),
   progressArea = document.querySelector(".progress-area"),
   uploadedArea = document.querySelector(".uploaded-area");
 
+let fileInProgress = false;
+
 form.addEventListener("click", () => {
-  fileInput.click();
+  if (!fileInProgress) {
+    fileInput.click();
+  }
 });
 
 fileInput.onchange = ({ target }) => {
@@ -53,19 +57,25 @@ function uploadFile(name) {
                             </div>
                             <ion-icon name="checkmark-outline"></ion-icon>
                             <div class="removefile">
-                            <button onclick="removeFile(this);">Remove</button>
+                              <button onclick="removeFile(this);">Remove</button>
                             </div>
                           </li>`;
       uploadedArea.classList.remove("onprogress");
       uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
+      fileInput.disabled = false; 
     }
   });
+
+  xhr.addEventListener("loadend", () => {
+    form.disabled = false;
+  });
+
   var data = new FormData(form);
   data.append("uploadDate", new Date().toLocaleString()); 
   xhr.send(data);
-  form.disabled = "true";
-  // fileInput.disabled = true;
-  form.style.cursor = 'default';
+  form.disabled = true;
+  fileInput.disabled = true;
+  fileInProgress = true; 
 }
 
 function removeFile(file) {
@@ -76,87 +86,87 @@ function removeFile(file) {
   form.style.cursor = 'pointer';
 };
 
-document.getElementById('closeModalButton').addEventListener('click', function () {
-  // Replace 'your-homepage.html' with the actual URL of your homepage
-  window.location.href = 'request-home.html';
-});
+// document.getElementById('closeModalButton').addEventListener('click', function () {
+//   // Replace 'your-homepage.html' with the actual URL of your homepage
+//   window.location.href = 'request-home.html';
+// });
 
-document.addEventListener('DOMContentLoaded', function() {
-  const allDropdowns = document.querySelectorAll('.seq');
-  const chosenOptions = new Set();
-  let chosenReviewerDropdowns = 0;
-  let chosenNameOfReviewerDropdowns = 0;
+// document.addEventListener('DOMContentLoaded', function() {
+//   const allDropdowns = document.querySelectorAll('.seq');
+//   const chosenOptions = new Set();
+//   let chosenReviewerDropdowns = 0;
+//   let chosenNameOfReviewerDropdowns = 0;
 
-  allDropdowns.forEach(function(seq, index) {
-    const dropdownItems = seq.querySelectorAll('.dropdown-item');
-    const reviewerTitleBtn = seq.querySelector('.custom-dropdown-btn');
-    const nameOfReviewerBtn = seq.querySelector('#name-of-reviewer-btn');
-    const nameOfReviewerDropdown = seq.querySelector('#name-of-reviewer-dropdown');
-    const subsequentDropdowns = document.querySelectorAll(`.seq:nth-child(n + ${index + 2}) .dropdown-item`);
+//   allDropdowns.forEach(function(seq, index) {
+//     const dropdownItems = seq.querySelectorAll('.dropdown-item');
+//     const reviewerTitleBtn = seq.querySelector('.custom-dropdown-btn');
+//     const nameOfReviewerBtn = seq.querySelector('#name-of-reviewer-btn');
+//     const nameOfReviewerDropdown = seq.querySelector('#name-of-reviewer-dropdown');
+//     const subsequentDropdowns = document.querySelectorAll(`.seq:nth-child(n + ${index + 2}) .dropdown-item`);
 
-    dropdownItems.forEach(function(item) {
-      item.addEventListener('click', function(event) {
-        const selectedReviewer = event.target.textContent;
+//     dropdownItems.forEach(function(item) {
+//       item.addEventListener('click', function(event) {
+//         const selectedReviewer = event.target.textContent;
 
-        // Check if the user has chosen in the previous reviewer dropdowns
-        if (chosenReviewerDropdowns < index || chosenNameOfReviewerDropdowns < index) {
-          alert("Please choose in the previous reviewer and name of reviewer first.");
-          return;
-        }
+//         // Check if the user has chosen in the previous reviewer dropdowns
+//         if (chosenReviewerDropdowns < index || chosenNameOfReviewerDropdowns < index) {
+//           alert("Please choose in the previous reviewer and name of reviewer first.");
+//           return;
+//         }
 
-        if (!chosenOptions.has(selectedReviewer) && chosenReviewerDropdowns <= index) {
-          chosenOptions.add(selectedReviewer);
-          chosenReviewerDropdowns = index + 1;
+//         if (!chosenOptions.has(selectedReviewer) && chosenReviewerDropdowns <= index) {
+//           chosenOptions.add(selectedReviewer);
+//           chosenReviewerDropdowns = index + 1;
 
-          reviewerTitleBtn.textContent = selectedReviewer;
+//           reviewerTitleBtn.textContent = selectedReviewer;
 
-          // Fetch reviewer names from the database
-          const reviewerNames = getReviewerNamesFromDatabase(selectedReviewer);
+//           // Fetch reviewer names from the database
+//           const reviewerNames = getReviewerNamesFromDatabase(selectedReviewer);
 
-          // Populate the name of reviewer dropdown
-          nameOfReviewerDropdown.innerHTML = '';
-          reviewerNames.forEach(function(name) {
-            const li = document.createElement('li');
-            li.innerHTML = `<a class="dropdown-item">${name}</a>`;
-            li.addEventListener('click', function() {
-              nameOfReviewerBtn.textContent = name; // Update the title with the selected name
-              chosenNameOfReviewerDropdowns = index + 1;
-            });
-            nameOfReviewerDropdown.appendChild(li);
-          });
+//           // Populate the name of reviewer dropdown
+//           nameOfReviewerDropdown.innerHTML = '';
+//           reviewerNames.forEach(function(name) {
+//             const li = document.createElement('li');
+//             li.innerHTML = `<a class="dropdown-item">${name}</a>`;
+//             li.addEventListener('click', function() {
+//               nameOfReviewerBtn.textContent = name; // Update the title with the selected name
+//               chosenNameOfReviewerDropdowns = index + 1;
+//             });
+//             nameOfReviewerDropdown.appendChild(li);
+//           });
 
-          dropdownItems.forEach(function(dropdownItem) {
-            if (dropdownItem.textContent === selectedReviewer) {
-              dropdownItem.style.pointerEvents = 'none';
-              dropdownItem.style.color = 'grey';
-            }
-          });
+//           dropdownItems.forEach(function(dropdownItem) {
+//             if (dropdownItem.textContent === selectedReviewer) {
+//               dropdownItem.style.pointerEvents = 'none';
+//               dropdownItem.style.color = 'grey';
+//             }
+//           });
 
-          subsequentDropdowns.forEach(function(subsequentItem) {
-            if (subsequentItem.textContent === selectedReviewer) {
-              subsequentItem.style.pointerEvents = 'none';
-              subsequentItem.style.color = 'grey';
-            }
-          });
-        }
-      });
-    });
-  });
-});
+//           subsequentDropdowns.forEach(function(subsequentItem) {
+//             if (subsequentItem.textContent === selectedReviewer) {
+//               subsequentItem.style.pointerEvents = 'none';
+//               subsequentItem.style.color = 'grey';
+//             }
+//           });
+//         }
+//       });
+//     });
+//   });
+// });
 
-function getReviewerNamesFromDatabase(reviewer) {
-  // For this example, returning a static list of names
-  if (reviewer === 'Unit') {
-    return ['John Doe', 'Jane Smith'];
-  } else if (reviewer === 'Office of the Vice President for Academic Affairs') {
-    return ['Alice Johnson', 'Bob Williams'];
-  } else if (reviewer === 'Office of the Vice President for Finance') {
-    return ['Eva Brown', 'Michael Davis'];
-  } else if (reviewer === 'Office for Legal Affairs') {
-    return ['Olivia Wilson', 'William Garcia'];
-  } else if (reviewer === 'Office of the Vice President for Administration') {
-    return ['Sophia Martinez', 'David Rodriguez'];
-  } else {
-    return [];
-  }
-}
+// function getReviewerNamesFromDatabase(reviewer) {
+//   // For this example, returning a static list of names
+//   if (reviewer === 'Unit') {
+//     return ['John Doe', 'Jane Smith'];
+//   } else if (reviewer === 'Office of the Vice President for Academic Affairs') {
+//     return ['Alice Johnson', 'Bob Williams'];
+//   } else if (reviewer === 'Office of the Vice President for Finance') {
+//     return ['Eva Brown', 'Michael Davis'];
+//   } else if (reviewer === 'Office for Legal Affairs') {
+//     return ['Olivia Wilson', 'William Garcia'];
+//   } else if (reviewer === 'Office of the Vice President for Administration') {
+//     return ['Sophia Martinez', 'David Rodriguez'];
+//   } else {
+//     return [];
+//   }
+// }
