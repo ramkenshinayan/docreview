@@ -160,21 +160,54 @@ section .details span {
 	margin: 10px;
 }
 
-  .office-select,
-  .reviewer-dropdown {
+  .table tr td :nth-child(2) {
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 10%;
+  }
+  .office-select {
+	border-collapse: collapse;
+	table-layout: fixed;
+	height: 50px;
+	width: 100%;
     background-color: var(--box1-color);
 	text-align: center;
 	border-radius: 5px;
-	margin-left: 200px;
 	margin-top: 14px;
-	width: 372px; /* Set your desired width */
-	height: 40px; /* Set your desired height */
   }
+  .reviewer-dropdown {
+	border-collapse: collapse;
+	table-layout: fixed;
+	height: 50px;
+	width: 100%;
+    background-color: var(--box1-color);
+	text-align: center;
+	border-radius: 5px;
+	margin-top: 14px;
 
+  }
   .table thead tr th {
 	text-align: center;
-
   }
+
+  
+
+  @media only screen and (max-width: 767px) {
+	/* .table, .office-select, .reviewer-dropdown {
+		border-collapse: collapse;
+		table-layout: fixed;
+		margin-left: 0;
+		width: 100%;
+	} */
+
+	/* .office-select, .reviewer-dropdown {
+		margin-left: 0;
+		width: 190px;
+		height: 50px;
+	} */
+  }
+
+  
 
 form button[type="submit"] {
 	background-color: var(--primary-color);
