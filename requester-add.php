@@ -88,7 +88,7 @@ include('includes/requester.php');
         <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
       </div>
     </div>
-    <div class="home-content">
+    <div class="home-content-add">
       <div class="title">
         <ion-icon name="document-text-outline" class="content-icon"></ion-icon>
         <span class="text">Upload Document</span>
