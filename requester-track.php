@@ -103,7 +103,7 @@ include('includes/requester.php');
             <!-- TRACKING CONTETN-->
             <div class="content">
                 <?php
-                    $sql = "SELECT DISTINCT reviewtransaction.reviewId, reviewtransaction.*, document.fileName AS DocumentName, 
+                    $sql = "SELECT DISTINCT reviewtransaction.documentId, reviewtransaction.*, document.fileName AS DocumentName, 
                     document.uploadDate as UploadDate, document.content FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId;";
                     $result = $conn->query($sql);
  

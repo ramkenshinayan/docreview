@@ -108,7 +108,7 @@ include('includes/requester.php');
             <div class="history">              
                 <?php
                 try {
-                    $sql = "SELECT reviewtransaction.*, document.fileName AS DocumentName, document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId";
+                    $sql = "SELECT DISTINCT reviewtransaction.*, document.fileName AS DocumentName, document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId";
 
                     // Filtering
                     $conditions = array(); 

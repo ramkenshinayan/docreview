@@ -32,30 +32,32 @@ if (isset($_POST["upload"])) {
 
             $insert = $conn->query("INSERT INTO document (documentId, email, fileName, version, fileType, uploadDate, content) 
                                         VALUES ('$documentId', '$email', '$fileName', '$version', '$fileType', '$date' ,'$content')");
-            $insert = $conn->query("INSERT INTO reviewtransaction (reviewId, documentId, email, status, approvedDate) 
-                                        VALUES ('$documentId', '$documentId', '$email', 'ongoing', 'Y-m-d')");
-            
-            for ($i = 1; $i <= 5; $i++) {
-                $selectedOffice = $_POST["officeSelect" . $i];
-        
            
-                $dataSql = "SELECT email FROM organization WHERE officeName = ?";
-                    
-                $dataStmt = $conn->prepare($dataSql);
-                $dataStmt->bind_param("s", $selectedOffice);
-                $dataStmt->execute();
-                $dataResult = $dataStmt->get_result();
-                    
-                $dataRow = $dataResult->fetch_assoc();
-                $revEmail = $dataRow["email"];
+           $totalOffices = isset($_POST['total_offices']) ? $_POST['total_offices'] : 0;
+
+           for ($i = 1; $i <= $totalOffices; $i++) {
+                $reviewerEmailKey = 'reviewer_email_' . $i;
+        
+                $selectedReviewerName = isset($_POST[$reviewerEmailKey]) ? $_POST[$reviewerEmailKey] : '';
+            
+                $reviewerNameParts = explode(' ', $selectedReviewerName);
+                $firstName = $reviewerNameParts[0];
+                $lastName = $reviewerNameParts[1];
+            
+                $reviewerEmailQuery = "SELECT email FROM users WHERE firstName = '$firstName' AND lastName = '$lastName'";
+                $reviewerResult = $conn->query($reviewerEmailQuery);
+            
+                if ($reviewerResult && $row = $reviewerResult->fetch_assoc()) {
+                    $revEmail = $row['email'];
+                } else {
+                    $revEmail = ''; 
+                }
                 $sequenceOrder = $i;
-                    
-                $dataStmt->close();
-                    
-                $status = ($i == 1) ? 'ongoing' : 'standby';
+                $approvedDate = '0000-00-00';                     
+                $status = 'pending';
                
-                $insert =  $conn->query("INSERT INTO reviewsequence (reviewId, email, sequenceOrder, Status) 
-                                        VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status')");
+                $insert =  $conn->query("INSERT INTO reviewtransaction (documentId, email, sequenceOrder, status, approvedDate) 
+                                        VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status', '$approvedDate')");
                 
             }        
 
