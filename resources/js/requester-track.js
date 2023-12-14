@@ -7,18 +7,16 @@ const indicator = document.querySelector('.indicator');
 const container = document.querySelector('.container');
 const rightContainer = document.querySelector('.right-container');
 const wrapperContainer = document.getElementById('upload-container');
+const approval = document.getElementById('approvals');
 
 checkRadio();
 
 function checkRadio() {
-    const radioButtons = document.querySelectorAll('input[name="radioGroup"]');
-    radioButtons.forEach(radioButton => {
-    const documentNameDisplay = document.querySelector('.content h3');
-
-    radioButton.addEventListener('change', function () {
+	approval.addEventListener('change', function (event) {
+		const selectedRadioButton = event.target;
         let queryString = '';
-        if (this.checked) {
-            const labelContent = document.querySelector(`label[for="${this.id}"]`).innerText;
+		if (selectedRadioButton.type === 'radio' && selectedRadioButton.checked) {
+            const labelContent = document.querySelector(`label[for="${selectedRadioButton.id}"]`).innerText;
             const documentName = labelContent.split('\n')[0].trim(); 
             const documentId = labelContent.split('\n')[1].trim();
 
@@ -26,10 +24,11 @@ function checkRadio() {
             history.pushState({}, null, `?${queryString}`);
             
             rightContainer.style.backgroundColor = '#38B6FF';
+            
+            console.log(data);
             trackingDoc(data, documentId);
-        }
-    });
-});
+		}
+	});
 }
 
 function trackingDoc(data, documentId){

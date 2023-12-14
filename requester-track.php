@@ -124,11 +124,11 @@ include('includes/requester.php');
                         if ($result && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $data[] = array(
-                                    'documentId' => $row['documentId'],
+                                    'documentId' => $row['rt.documentId'],
                                     'minOrder' => $row['minSequenceOrder'],
-                                    'status' => $row['status'],
-                                    'officeName' => $row['officeName'],
-                                    'pdfContent' => base64_encode($row['content'])
+                                    'status' => $row['rt.status'],
+                                    'officeName' => $row['org.officeName'],
+                                    'pdfContent' => base64_encode($row['d.content'])
                                 );
                             }
                         }
@@ -181,7 +181,7 @@ include('includes/requester.php');
         </div>
         <!-- DOCUMENT LIST -->
         <div class="left-container">
-        <form method="POST" action="requester-track.php">
+        <form id="approvals" method="POST" action="requester-track.php">
         <?php
           $sql = "SELECT reviewtransaction.documentId, MIN(reviewtransaction.sequenceOrder) AS minSequenceOrder, 
           MIN(reviewtransaction.status) AS status, MIN(document.fileName) AS DocumentName, 
