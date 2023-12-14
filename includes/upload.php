@@ -4,7 +4,6 @@ require("db.php");
 $statusMsg = '';
 $email = $_SESSION["user"];
 $date = date("Y-m-d"); 
-$documentId = $_POST['documentId'];
 
 if (isset($_POST["upload"])) {
     if (!empty($_FILES["file"]["name"])) {
@@ -34,9 +33,25 @@ if (isset($_POST["upload"])) {
             $insert = $conn->query("INSERT INTO document (documentId, email, fileName, version, fileType, uploadDate, content) 
                                         VALUES ('$documentId', '$email', '$fileName', '$version', '$fileType', '$date' ,'$content')");
            
-            for ($i = 1; $i <= 5; $i++) {
-                
-                $revEmail = $_POST["reviewerEmail$i"];
+           $totalOffices = isset($_POST['total_offices']) ? $_POST['total_offices'] : 0;
+
+           for ($i = 1; $i <= $totalOffices; $i++) {
+                $reviewerEmailKey = 'reviewer_email_' . $i;
+        
+                $selectedReviewerName = isset($_POST[$reviewerEmailKey]) ? $_POST[$reviewerEmailKey] : '';
+            
+                $reviewerNameParts = explode(' ', $selectedReviewerName);
+                $firstName = $reviewerNameParts[0];
+                $lastName = $reviewerNameParts[1];
+            
+                $reviewerEmailQuery = "SELECT email FROM users WHERE firstName = '$firstName' AND lastName = '$lastName'";
+                $reviewerResult = $conn->query($reviewerEmailQuery);
+            
+                if ($reviewerResult && $row = $reviewerResult->fetch_assoc()) {
+                    $revEmail = $row['email'];
+                } else {
+                    $revEmail = ''; 
+                }
                 $sequenceOrder = $i;
                 $approvedDate = '0000-00-00';                     
                 $status = 'pending';

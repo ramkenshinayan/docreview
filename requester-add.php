@@ -94,7 +94,7 @@ include('includes/requester.php');
         <span class="text">Upload Document</span>
       </div>
       <div class="wrapper">
-        <form id="upbox" action="includes/upload.php" method="post" enctype="multipart/form-data">
+        <form id="upbox" action="includes/upload.php" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm()">
           <div class="file-upload">
             <input class="file-input" type="file" name="file" accept=".doc, .docx, .pdf" hidden>
             <ion-icon name="cloud-upload-outline"></ion-icon>
@@ -181,6 +181,7 @@ include('includes/requester.php');
         </div>
     </div>
   </div>  
+
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -194,6 +195,7 @@ include('includes/requester.php');
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <script>
     var reviewersData = <?php echo json_encode($reviewersData); ?>;
     var selectedOffices = [];
@@ -206,16 +208,40 @@ include('includes/requester.php');
                 return '<option>' + name + '</option>';
             }).join('');
 
-            // Replace the existing dropdown with the reviewer names dropdown
             $(this).closest('tr').find('.reviewer-names').html('<select class="reviewer-dropdown">' + '<option value="" selected>Select Reviewer Name</option>' + reviewerHtml + '</select>');
 
-            // Disable the selected office in all other dropdowns, excluding "Select Office"
             $(".office-select").not(this).find("option[value='" + selectedOffice + "']").prop("disabled", true);
         });
 
-        // Trigger change event on page load to initialize default dropdown
         $(".office-select").change();
     });
+
+    function onSubmitForm() {
+    var counter = 0;
+    var isValid = true;  
+
+    $(".office-select").each(function (index) {
+        var selectedOffice = $(this).val();
+        var selectedReviewerEmail = $(this).closest('tr').find('.reviewer-dropdown').val();
+
+        if (selectedOffice !== '' && selectedReviewerEmail !== '') {
+            counter++;
+
+            $("#upbox").append("<input type='hidden' name='office_" + counter + "' value='" + selectedOffice + "'>");
+            $("#upbox").append("<input type='hidden' name='reviewer_email_" + counter + "' value='" + selectedReviewerEmail + "'>");
+        } else {
+            isValid = false;  
+        }
+    });
+
+    $("#upbox").append("<input type='hidden' name='total_offices' value='" + counter + "'>");
+
+    if (!isValid) {
+        alert("Please select first an office and the reviewers before submitting.");
+    }
+
+    return isValid;  
+}
   </script>
 
 </body>
