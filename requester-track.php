@@ -100,27 +100,31 @@ include('includes/requester.php');
                 <div class="progress-bar"><span class="indicator"></span></div>
             </div>
           </div>
-            <!-- TRACKING CONTETN-->
+            <!-- TRACKING CONTENT-->
             <div class="content">
                 <?php
-                    $sql = "SELECT DISTINCT reviewtransaction.documentId, reviewtransaction.*, document.fileName AS DocumentName, 
-                    document.uploadDate as UploadDate, document.content FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId;";
+                    $sql = "SELECT reviewtransaction.documentId, reviewtransaction.*, document.fileName AS DocumentName, 
+                    document.uploadDate as UploadDate, document.content 
+                    FROM reviewtransaction 
+                    JOIN document ON reviewtransaction.documentId = document.documentId;";
                     $result = $conn->query($sql);
  
                     while ($row = $result->fetch_assoc()) {
                       $documentId = $row['documentId'];
                       if ($documentId !== null) {
-                        $sql = "SELECT MIN(rs.sequenceOrder) AS minSequenceOrder, rs.status, rs.reviewId, org.officeName, d.content 
-                        FROM reviewsequence rs JOIN organization org ON rs.email = org.email JOIN reviewtransaction rt ON rs.reviewId = rt.reviewId
-                        JOIN document d ON rt.documentId = d.documentId WHERE (rs.status = 'Pending' OR rs.status = 'Disapproved')
-                        GROUP BY rs.reviewId, rs.status, org.officeName, d.content;";
+                        $sql = "SELECT MIN(rt.sequenceOrder) AS minSequenceOrder, rt.status, rt.documentId, org.officeName, d.content 
+                        FROM reviewtransaction rt 
+                        JOIN organization org ON rt.email = org.email
+                        JOIN document d ON rt.documentId = d.documentId 
+                        WHERE (rt.status = 'Pending' OR rt.status = 'Disapproved')
+                        GROUP BY rt.documentId, rt.status, org.officeName, d.content;";
                         $result = $conn->query($sql);
   
                         $data = array();
                         if ($result && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $data[] = array(
-                                    'reviewId' => $row['reviewId'],
+                                    'documentId' => $row['documentId'],
                                     'minOrder' => $row['minSequenceOrder'],
                                     'status' => $row['status'],
                                     'officeName' => $row['officeName'],
@@ -154,8 +158,8 @@ include('includes/requester.php');
                               fclose($fp);
                   
                               $update = $conn->query("UPDATE document SET version = '$result+1', content =  '$content' WHERE documentId = '$documentId';");
-                              $update = $conn->query("UPDATE reviewsequence AS rs JOIN reviewtransaction AS rt ON rs.reviewId = rt.reviewId JOIN document 
-                              AS d ON rt.documentId = d.documentId SET rs.Status = 'ongoing' WHERE d.documentId = '$documentId';");
+                              $update = $conn->query("UPDATE reviewtransaction AS rt ON rt.documentId JOIN document 
+                              AS d ON rt.documentId = d.documentId SET rt.status = 'Pending' WHERE d.documentId = '$documentId';");
 
                               if ($update) {
                                   $statusMsg = $fileName . " has been uploaded successfully.";
@@ -179,19 +183,23 @@ include('includes/requester.php');
         <div class="left-container">
         <form method="POST" action="requester-track.php">
         <?php
-          $sql = "SELECT DISTINCT reviewtransaction.reviewId, reviewtransaction.*, document.fileName AS DocumentName, document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId;";
-
+          $sql = "SELECT reviewtransaction.documentId, MIN(reviewtransaction.sequenceOrder) AS minSequenceOrder, 
+          MIN(reviewtransaction.status) AS status, MIN(document.fileName) AS DocumentName, 
+          MIN(document.uploadDate) as UploadDate
+          FROM reviewtransaction 
+          JOIN document ON reviewtransaction.documentId = document.documentId
+          GROUP BY reviewtransaction.documentId;";
+  
           $result = $conn->query($sql);
           $counter = 1;
-
+          
           while ($row = $result->fetch_assoc()) {
-            $documentId = $row['documentId'];
-            echo '<input type="radio" id="radioButton' . $counter . '" name="radioGroup">';
-            echo '<label for="radioButton' . $counter . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
-            $counter++;
-          } 
+              $documentId = $row['documentId'];
+              echo '<input type="radio" id="radioButton' . $counter . '" name="radioGroup">';
+              echo '<label for="radioButton' . $counter . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
+              $counter++;
+          }
         ?>
-        </div>
         </form>
         </div>
     </div>
