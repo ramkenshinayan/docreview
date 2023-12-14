@@ -324,14 +324,15 @@ body.dark .switch::before {
 
 .top .profile-details{
 	float: right;
-	 display: flex;
-	 align-items: center;
-	 background: var(--primary-color-light);
-	 border: 1px solid #EFEEF1;
-	 border-radius: 10px;
-	 height: 50px;
-	 min-width: 190px;
-	 padding: 0 15px 0 2px;
+	display: flex;
+	align-items: center;
+	margin-right: 35px;
+	background: var(--primary-color-light);
+	border: 1px solid #EFEEF1;
+	border-radius: 10px;
+	height: 50px;
+	min-width: 190px;
+	padding: 0 15px 0 2px;
 }
 
 .profile-details img{
@@ -351,6 +352,40 @@ body.dark .switch::before {
 }
 
 .profile-details .profile-icon{
+	font-size: 20px;
+	color: #12CC44;
+}
+
+.top .profile-details-alone{
+	position: absolute; /*or fixed*/
+    right: 50px;
+	display: flex;
+	align-items: center;
+	background: var(--primary-color-light);
+	border: 1px solid #EFEEF1;
+	border-radius: 10px;
+	height: 50px;
+	min-width: 190px;
+	padding: 0 15px 0 2px;
+}
+
+.profile-details-alone img{
+	margin-left: 5px;
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.profile-details-alone .user_name{
+	font-size: 15px;
+	font-weight: 500;
+	color: var(--primary-color);
+	margin: 0 10px;
+	white-space: nowrap;
+}
+
+.profile-details-alone .profile-icon{
 	font-size: 20px;
 	color: #12CC44;
 }

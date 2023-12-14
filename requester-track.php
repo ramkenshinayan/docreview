@@ -84,8 +84,11 @@ include('includes/requester.php');
     <div class="top">
       <div class="search-box">
         <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
-        <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
-        <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon>
+        <div class="profile-details">
+          <img src="assets/school.png" alt="">
+          <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
+          <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
+        </div>
     </div>
     </div>
     <div class="home-content">
