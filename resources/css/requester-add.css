@@ -190,7 +190,10 @@ section .details span {
 	text-align: center;
   }
 
-  
+  option {
+	color: var(--text-color);
+	background-color: var(--sidebar-color);
+  }
 
   @media only screen and (max-width: 767px) {
 	/* .table, .office-select, .reviewer-dropdown {
