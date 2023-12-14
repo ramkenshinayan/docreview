@@ -117,18 +117,18 @@ include('includes/requester.php');
                         JOIN organization org ON rt.email = org.email
                         JOIN document d ON rt.documentId = d.documentId 
                         WHERE (rt.status = 'Pending' OR rt.status = 'Disapproved')
-                        GROUP BY rt.documentId, rt.status, org.officeName, d.content;";
+                        GROUP BY rt.documentId";
                         $result = $conn->query($sql);
   
                         $data = array();
                         if ($result && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 $data[] = array(
-                                    'documentId' => $row['rt.documentId'],
+                                    'documentId' => $row['documentId'],
                                     'minOrder' => $row['minSequenceOrder'],
-                                    'status' => $row['rt.status'],
-                                    'officeName' => $row['org.officeName'],
-                                    'pdfContent' => base64_encode($row['d.content'])
+                                    'status' => $row['status'],
+                                    'officeName' => $row['officeName'],
+                                    'pdfContent' => base64_encode($row['content'])
                                 );
                             }
                         }

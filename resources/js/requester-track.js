@@ -25,7 +25,6 @@ function checkRadio() {
             
             rightContainer.style.backgroundColor = '#38B6FF';
             
-            console.log(data);
             trackingDoc(data, documentId);
 		}
 	});
@@ -33,11 +32,13 @@ function checkRadio() {
 
 function trackingDoc(data, documentId){
     data.forEach(review =>{
-        console.log(review.reviewId);
+        console.log(review.documentId);
         console.log(documentId);
-        if(documentId == review.reviewId){
+        if(documentId == review.documentId){
           if(review.status === 'Pending'){
                 pending(review);
+                console.log(data);
+                console.log(documentId);
             } else if (review.status === 'Disapproved') {
                 disapproved(review);
             }
