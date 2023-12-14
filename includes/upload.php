@@ -4,6 +4,7 @@ require("db.php");
 $statusMsg = '';
 $email = $_SESSION["user"];
 $date = date("Y-m-d"); 
+$documentId = $_POST['documentId'];
 
 if (isset($_POST["upload"])) {
     if (!empty($_FILES["file"]["name"])) {
@@ -32,30 +33,16 @@ if (isset($_POST["upload"])) {
 
             $insert = $conn->query("INSERT INTO document (documentId, email, fileName, version, fileType, uploadDate, content) 
                                         VALUES ('$documentId', '$email', '$fileName', '$version', '$fileType', '$date' ,'$content')");
-            $insert = $conn->query("INSERT INTO reviewtransaction (reviewId, documentId, email, status, approvedDate) 
-                                        VALUES ('$documentId', '$documentId', '$email', 'ongoing', 'Y-m-d')");
-            
-            for ($i = 1; $i <= 5; $i++) {
-                $selectedOffice = $_POST["officeSelect" . $i];
-        
            
-                $dataSql = "SELECT email FROM organization WHERE officeName = ?";
-                    
-                $dataStmt = $conn->prepare($dataSql);
-                $dataStmt->bind_param("s", $selectedOffice);
-                $dataStmt->execute();
-                $dataResult = $dataStmt->get_result();
-                    
-                $dataRow = $dataResult->fetch_assoc();
-                $revEmail = $dataRow["email"];
+            for ($i = 1; $i <= 5; $i++) {
+                
+                $revEmail = $_POST["reviewerEmail$i"];
                 $sequenceOrder = $i;
-                    
-                $dataStmt->close();
-                    
-                $status = ($i == 1) ? 'ongoing' : 'standby';
+                $approvedDate = '0000-00-00';                     
+                $status = 'pending';
                
-                $insert =  $conn->query("INSERT INTO reviewsequence (reviewId, email, sequenceOrder, Status) 
-                                        VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status')");
+                $insert =  $conn->query("INSERT INTO reviewtransaction (documentId, email, sequenceOrder, status, approvedDate) 
+                                        VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status', '$approvedDate')");
                 
             }        
 
