@@ -160,12 +160,12 @@ section .details span {
 	margin: 10px;
 }
 
-  .table tr td :nth-child(2) {
+.table tr td :nth-child(2) {
 	border-collapse: collapse;
 	table-layout: fixed;
 	width: 10%;
-  }
-  .office-select {
+}
+.office-select {
 	border-collapse: collapse;
 	table-layout: fixed;
 	height: 50px;
@@ -174,8 +174,8 @@ section .details span {
 	text-align: center;
 	border-radius: 5px;
 	margin-top: 14px;
-  }
-  .reviewer-dropdown {
+}
+.reviewer-dropdown {
 	border-collapse: collapse;
 	table-layout: fixed;
 	height: 50px;
@@ -185,15 +185,15 @@ section .details span {
 	border-radius: 5px;
 	margin-top: 14px;
 
-  }
-  .table thead tr th {
+}
+.table thead tr th {
 	text-align: center;
-  }
+}
 
-  option {
+option {
 	color: var(--text-color);
 	background-color: var(--sidebar-color);
-  }
+}
 
   @media only screen and (max-width: 767px) {
 	/* .table, .office-select, .reviewer-dropdown {
