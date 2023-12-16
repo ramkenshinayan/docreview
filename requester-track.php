@@ -120,7 +120,7 @@ include('includes/requester.php');
                         FROM reviewtransaction rt 
                         JOIN organization org ON rt.email = org.email
                         JOIN document d ON rt.documentId = d.documentId 
-                        WHERE (rt.status = 'Pending' OR rt.status = 'Disapproved') AND email = '$email'
+                        WHERE (rt.status = 'Pending' OR rt.status = 'Disapproved') AND d.email = '$email'
                         GROUP BY rt.documentId";
                         $result = $conn->query($sql);
   
