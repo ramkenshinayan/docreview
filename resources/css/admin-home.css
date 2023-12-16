@@ -144,7 +144,7 @@ body.dark {
 
 
 .container-table td {
-    background-color: var(--text-color);
+    background-color: var(--sidebar-color);
     padding: 10px;
     border-bottom: 1px solid #ccc;
     font-weight: bold;
