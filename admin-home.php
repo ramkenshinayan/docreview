@@ -39,12 +39,6 @@ include("includes/admin.php");
               <span class="text nav-text">Home</span>
             </a>
           </li>
-          <li class="nav-link">
-            <a href="#manage">
-              <ion-icon name="people-outline"></ion-icon>
-              <span class="text nav-text">Manage Users</span>
-            </a>
-          </li>
         </ul>
       </div>
       <div class="bottom-content">
@@ -69,14 +63,14 @@ include("includes/admin.php");
   </nav>
   <section class="home" id="home">
     <div class="top">
-      <div class="profile-details">
-        <img src="assets/slu_logo.png" alt="">
-        <span class="user_name">
-          <?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?>
-          <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
+      <div class="profile-details-alone">
+        <img src="assets/school.png" alt="">
+        <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
+        <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
       </div>
     </div>
-    <div class="home-content">
+    </div>
+    <div class="home-content-add">
       <div class="overview">
         <div class="title">
           <ion-icon name="bar-chart-outline" class="content-icon"></ion-icon>
