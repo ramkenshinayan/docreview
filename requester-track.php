@@ -183,12 +183,12 @@ include('includes/requester.php');
         <div class="left-container">
         <form id="approvals" method="POST" action="requester-track.php">
         <?php
+          $email = $_SESSION["user"];
           $sql = "SELECT reviewtransaction.documentId, MIN(reviewtransaction.sequenceOrder) AS minSequenceOrder, 
           MIN(reviewtransaction.status) AS status, MIN(document.fileName) AS DocumentName, 
           MIN(document.uploadDate) as UploadDate
           FROM reviewtransaction 
-          JOIN document ON reviewtransaction.documentId = document.documentId
-          GROUP BY reviewtransaction.documentId;";
+          JOIN document ON reviewtransaction.documentId = document.documentId WHERE document.email = '$email'";
   
           $result = $conn->query($sql);
           $counter = 1;
