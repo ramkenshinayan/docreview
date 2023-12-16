@@ -272,7 +272,7 @@ const sort = document.querySelector(".sort-box"),
 	
 				content.appendChild(nameHeader);
 				content.appendChild(uploadDateParagraph);
-				content.appendChild(reviewDateParagraph);
+				
 	
 				const statusHeader = document.createElement('h3');
 				statusHeader.classList.add('status');
