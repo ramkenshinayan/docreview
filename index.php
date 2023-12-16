@@ -71,8 +71,9 @@ if (isset($_SESSION["user"])) {
             <ion-icon name="document-attach-outline"></ion-icon>
           </div>
           <h3>Upload Document</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique, est vel tristique dignissim, eros
-            dolor pharetra ipsum, id volutpat mauris velit et lorem. Morbi non efficitur libero.</p>
+          <p>The requester is required to upload a document, 
+                wherein they will provide a file or document as part of the submission or request 
+                process.</p>
         </div>
       </div>
       <!-- COLUMN TWO -->
@@ -82,8 +83,8 @@ if (isset($_SESSION["user"])) {
             <ion-icon name="add-circle-outline"></ion-icon>
           </div>
           <h3>Select Department</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique, est vel tristique dignissim, eros
-            dolor pharetra ipsum, id volutpat mauris velit et lorem. Morbi non efficitur libero.</p>
+          <p>The requester is required to choose a specific department that will undertake 
+                the comprehensive review and evaluation of the document they have previously uploaded.</p>
         </div>
       </div>
       <!-- COLUMN THREE -->
@@ -93,8 +94,8 @@ if (isset($_SESSION["user"])) {
             <ion-icon name="checkmark-done-circle-outline"></ion-icon>
           </div>
           <h3>Approval Review</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique, est vel tristique dignissim, eros
-            dolor pharetra ipsum, id volutpat mauris velit et lorem. Morbi non efficitur libero.</p>
+          <p>The requester is required to patiently wait for the approval of the document from the designated reviewers they have selected. 
+            During this waiting period, the requester can track the progress of the document they have uploaded.</p>
         </div>
       </div>
     </div>
