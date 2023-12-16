@@ -77,19 +77,13 @@ const sort = document.querySelector(".sort-box"),
         item.addEventListener("click", () => {
             const sortValue = item.textContent.trim();
 
-            // Update the URL parameter for sort
             updateSortUrlParameter('sort', [sortValue]);
 
-            // Remove "selected" class from all items
             sortItems.forEach(otherItem => otherItem.classList.remove("selected"));
 
-            // Add "selected" class to the clicked item
             item.classList.add("selected");
-
-            // Save the selected sort item in local storage
             localStorage.setItem('selectedSortItem', sortValue);
 
-            // Update the reviews
             updateReviews(data);
         });
     });
@@ -101,28 +95,29 @@ const sort = document.querySelector(".sort-box"),
         "Disapproved": "filter3"
     };
 
-    filterItems.forEach(item => {
-        item.addEventListener("click", () => {
-            const filterValue = item.textContent.trim();
-            const selectedFilterKey = filterMappings[filterValue];
-            const selectedFilters = getUrlParameter(selectedFilterKey) || [];
-
-            // Toggle the filter
-            const updatedFilters = selectedFilters.includes(filterValue)
-                ? selectedFilters.filter(value => value !== filterValue)
-                : [...selectedFilters, filterValue];
-
-            updateFilterUrlParameter(selectedFilterKey, updatedFilters);
-
-            // Toggle the "selected" class
-            item.classList.toggle("selected", updatedFilters.includes(filterValue));
-
-            // Save all selected filter items in local storage
-            localStorage.setItem('selectedFilterItems', JSON.stringify(updatedFilters));
-
-            updateReviews(data);
-        });
-    });
+	filterItems.forEach(item => {
+		item.addEventListener("click", () => {
+			const filterValue = item.textContent.trim();
+			const selectedFilterKey = filterMappings[filterValue];
+			let selectedFilters = getUrlParameter(selectedFilterKey) || [];
+	
+			if (!selectedFilters.length) {
+				localStorage.setItem("selectedFilterItems", JSON.stringify([]));
+			}
+	
+			const updatedFilters = selectedFilters.includes(filterValue)
+				? selectedFilters.filter(value => value !== filterValue)
+				: [...selectedFilters, filterValue];
+	
+			updateFilterUrlParameter(selectedFilterKey, updatedFilters);
+	
+			item.classList.toggle("selected", updatedFilters.includes(filterValue));
+	
+			localStorage.setItem("selectedFilterItems", JSON.stringify(updatedFilters));
+	
+			updateReviews(data);
+		});
+	});
 
     //retain filter/sort selection
     document.addEventListener('DOMContentLoaded', () => {
@@ -179,6 +174,7 @@ const sort = document.querySelector(".sort-box"),
 	
 		const newUrl = window.location.pathname + '?' + urlParams.toString();
 		history.pushState(null, null, newUrl);
+		location.reload();
 	};
 
 	const updateSortUrlParameter = (key, values) => {
@@ -196,7 +192,7 @@ const sort = document.querySelector(".sort-box"),
 	
 		const newUrl = window.location.pathname + '?' + urlParams.toString();
 		history.pushState(null, null, newUrl);
-		// location.reload();
+		location.reload();
 		updateReviews(data);
 		console.log(data);
 	};	
@@ -228,14 +224,10 @@ const sort = document.querySelector(".sort-box"),
 	
 		const newUrl = window.location.pathname + '?' + urlParams.toString();
 	
-		// Use pushState to change the URL and add a new entry to the browser history
 		history.pushState({ searchTerm: value }, null, newUrl);
-	
-		// Log the updated URL for debugging purposes
-		console.log('Updated URL:', newUrl);
+
 		location.reload();
 		updateReviews(data);
-		console.log(data);
 	};
 	
 	// Function to handle state changes
@@ -276,14 +268,6 @@ const sort = document.querySelector(".sort-box"),
 				uploadDateSpan.textContent = new Date(review.UploadDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 	
 				uploadDateParagraph.appendChild(uploadDateSpan);
-	
-				const reviewDateParagraph = document.createElement('p');
-				reviewDateParagraph.textContent = 'Review Date: ';
-	
-				const reviewDateSpan = document.createElement('span');
-				reviewDateSpan.textContent = new Date(review.ReviewDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-	
-				reviewDateParagraph.appendChild(reviewDateSpan);
 	
 				content.appendChild(nameHeader);
 				content.appendChild(uploadDateParagraph);

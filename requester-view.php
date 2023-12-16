@@ -146,16 +146,16 @@ include('includes/requester.php');
                         $sortValue = $_GET['sort'];
                         switch ($sortValue) {
                             case 'Name (A-Z)':
-                                $sql .= " ORDER BY document.fileName ASC";
+                                $sql .= " ORDER BY d.fileName ASC";
                                 break;
                             case 'Name (Z-A)':
-                                $sql .= " ORDER BY document.fileName DESC";
+                                $sql .= " ORDER BY d.fileName DESC";
                                 break;
                             case 'Date (ASC)':
-                                $sql .= " ORDER BY document.UploadDate ASC";
+                                $sql .= " ORDER BY d.UploadDate ASC";
                                 break;
                             case 'Date (DESC)':
-                                $sql .= " ORDER BY document.UploadDate DESC";
+                                $sql .= " ORDER BY d.UploadDate DESC";
                                 break;
                         }
                     }
@@ -163,7 +163,7 @@ include('includes/requester.php');
                     // Searching
                     if (isset($_GET['search'])) {
                         $searchTerm = $_GET['search']; 
-                        $sql .= " AND document.fileName LIKE '%$searchTerm%'";
+                        $sql .= " AND d.fileName LIKE '%$searchTerm%'";
                     }
 
                     $result = $conn->query($sql);
@@ -185,7 +185,6 @@ include('includes/requester.php');
                     $jsonData = json_encode($data);
                     echo '<script>';
                     echo ' var data = ' . $jsonData . ';';
-                    echo ' var sqlquery =  " ' . $sql . ' " ;';
                     echo '</script>';
                 } catch (Exception $e) {
                     header('HTTP/1.1 500 Internal Server Error');
