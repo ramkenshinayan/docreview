@@ -21,7 +21,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 10%;
+    padding: 30px 5%;
     background: white;
 }
 
@@ -36,12 +36,10 @@ header {
     font-family: "Montserrat", sans-serif;
     color: #38B6FF;
     position: relative;
-    width: 590px;
+    max-width: 330px;
     height: 120px;
     margin-top: -60px;
-    margin-left: 150px;
     background: white;
-    border-radius: 8px;
     font-size: 0;
     display: flex;
 }
@@ -60,65 +58,45 @@ header {
 }
 
 .nav a:hover {
-    border-bottom: 2px solid black;
-    background-color: 38B6FF;
-    color: white;
+     background-color: #38B6FF;
+     color: white;
 }
 
 .nav .animation {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    z-index: 0;
-    background: #38B6FF;
-    border-radius: 0px 0px 20px 20px;
-    transition: all .5s ease 0s;
-}
+     position: absolute;
+     height: 100%;
+     top: 0;
+     z-index: 0;
+     background: #38B6FF;
+     border-radius: 0px 0px 20px 20px;
+     transition: all .5s ease 0s;
+ }
 
 .nav a:nth-child(1) {
-    width: 100px;
+     width: 100px;
 }
 
-.nav .start-home,
-a:nth-child(1):hover~.animation {
-    width: 100px;
-    left: 0;
+.nav .a:nth-child(1):hover ~ .animation {
+     width: 100px;
+     left: 0;
 }
 
 .nav a:nth-child(2) {
     width: 110px;
 }
 
-.nav a:nth-child(2):hover~.animation {
-    width: 110px;
-    left: 100px;
+.nav a:nth-child(2):hover ~ .animation {
+     width: 110px;
+     left: 100px;
 }
 
 .nav a:nth-child(3) {
-    width: 100px;
+     width: 100px;
 }
 
-.nav a:nth-child(3):hover~.animation {
-    width: 100px;
-    left: 210px;
-}
-
-.nav a:nth-child(4) {
-    width: 160px;
-}
-
-.nav a:nth-child(4):hover~.animation {
-    width: 160px;
-    left: 310px;
-}
-
-.nav a:nth-child(5) {
-    width: 120px;
-}
-
-.nav a:nth-child(5):hover~.animation {
-    width: 120px;
-    left: 470px;
+.nav a:nth-child(3):hover ~ .animation {
+     width: 100px;
+     left: 210px;
 }
 
 .cta-button {
@@ -130,25 +108,24 @@ a:nth-child(1):hover~.animation {
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 50px;
-    margin-left: 10%;
+    margin-left: 5%;
     transition: all 0.3 ease 0s;
     color: #38B6FF;
     font-size: 16px;
     text-decoration: none;
-
 }
 
-.cta-button:hover {
-    background-color: #38B6FF;
-    color: #fff;
-}
+    .cta-button:hover {
+        background-color: #38B6FF;
+        color: #fff;
+    }
 
 .check-btn {
     font-size: 30px;
     color: #38B6FF;
     float: left;
     line-height: 80px;
-    margin-right: 40px;
+    margin-right: 20px;
     cursor: pointer;
     display: none;
 }
@@ -157,68 +134,75 @@ a:nth-child(1):hover~.animation {
     display: none;
 }
 
-@media (max-width: 952px) {
+@media (max-width: 767px) {
     .logo {
-        font-size: 30px;
-        padding-left: 50px;
+        font-size: 20px;
+        padding-left: 20px;
     }
 
     .nav li a {
-        font-size: 16px;
+        font-size: 14px;
     }
-}
 
-@media (max-width: 858px) {
     .cta-button {
         display: block;
+        margin-left: 5%
     }
 
     .check-btn {
         display: block;
-        margin-top: -10px;
+        margin-top: 0;
+        margin-top: 10px;
     }
 
     .nav {
         position: absolute;
+        z-index: 1;
         display: inline-block;
-        width: 70%;
+        width: 80%;
         height: 100vh;
         background: #38B6FF;
+        border-radius: 10px;
         top: 80px;
-        left: 100%;
+        left: -80%;
         text-align: center;
         transition: all .5s;
     }
 
-    .nav li a {
-        margin: 60px 0;
-        line-height: 30px;
-    }
+        .nav li a {
+            margin: 60px 0;
+            line-height: 30px;
+        }
 
-    .nav li a {
-        font-size: 20px;
-    }
+        .nav li a {
+            font-size: 20px;
+        }
 
-    a:hover,
-    a.active {
+    a:hover, a.active {
         background: none;
         color: white;
     }
 
-    #check:checked~ul {
-        left: 0;
+    #check:not(:checked) + .check-btn ~ .nav {
+        display: none;
+    }
+
+    #check:checked + .check-btn ~ .nav {
+        left: -13%;
+        transition: all .5s ease 0;
     }
 }
 
 .wrapper {
     font-family: "Montserrat", sans-serif;
     position: absolute;
-    width: 500px;
+    width: 80%;
+    max-width: 500px;
     height: 440px;
     margin-top: auto;
     margin-bottom: auto;
     margin-right: auto;
-    margin-left: 700px;
+    margin-left: 10%;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
@@ -234,11 +218,12 @@ a:nth-child(1):hover~.animation {
 
 .wrapper.active-popup {
     transform: scale(1);
+    z-index: 1;
 }
 
 .wrapper.active {
     height: 520px;
-}
+ }
 
 .wrapper .form-box {
     width: 100%;
@@ -248,22 +233,11 @@ a:nth-child(1):hover~.animation {
 .wrapper .form-box.login {
     transition: transform .18s ease;
     transform: translateX(0);
-}
+ }
 
 .wrapper.active .form-box.login {
     transition: none;
     transform: translateX(-500px);
-}
-
-.wrapper .form-box.register {
-    position: absolute;
-    transition: none;
-    transform: translateX(500px);
-}
-
-.wrapper.active .form-box.register {
-    transition: none;
-    transform: translateX(0px);
 }
 
 .wrapper .icon-close {
@@ -286,9 +260,11 @@ a:nth-child(1):hover~.animation {
     background: #ae0c00;
 }
 
-@media (max-width: 858px) {
+@media (max-width: 767px) {
     .wrapper {
-        display: absolute;
+        width: 90%;
+        position: absolute;
+        margin-left: 5%;
     }
 }
 
@@ -318,8 +294,8 @@ a:nth-child(1):hover~.animation {
     transition: .5s;
 }
 
-.input-box input:focus~label,
-.input-box input:valid~label {
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
     top: -5px;
 }
 
@@ -343,28 +319,6 @@ a:nth-child(1):hover~.animation {
     line-height: 57px;
 }
 
-.remember-forgot {
-    font-size: .9rem;
-    color: #162938;
-    font-weight: 500;
-    margin: -15px 0 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.remember-forgot label input {
-    accent-color: #38B6FF;
-    margin-right: 3px;
-}
-
-.remember-forgot a {
-    color: #162938;
-    text-decoration: none;
-}
-
-.remember-forgot a:hover {
-    text-decoration: underline;
-}
 
 .btn {
     width: 100%;
@@ -384,27 +338,11 @@ a:nth-child(1):hover~.animation {
     color: #fff;
 }
 
-.login-register {
-    font-size: .9rem;
-    color: #162938;
-    text-align: center;
-    font-weight: 500;
-    margin: 25px 0 10px;
-}
 
-.login-register p a {
-    color: #162938;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.login-register p a:hover {
-    text-decoration: underline;
-}
 
 .hero {
     background: url('../../assets/bg.png') center/cover no-repeat;
-    min-width: 100vh;
+    min-width: 100vw;
     min-height: 130vh;
     margin-top: -180px;
     display: flex;
@@ -412,7 +350,6 @@ a:nth-child(1):hover~.animation {
     justify-content: center;
     align-items: flex-start;
     padding: 0 20px;
-
 }
 
 .hero h2 {
@@ -452,7 +389,7 @@ a:nth-child(1):hover~.animation {
 }
 
 
-@media (max-width: 858px) {
+@media (max-width: 767px) {
     .hero h2 {
         position: absolute;
         display: block;
@@ -467,29 +404,27 @@ a:nth-child(1):hover~.animation {
         position: absolute;
         width: 90%;
         height: 100vh;
-        margin-top: 800px;
+        margin-top: 900px;
         text-align: left;
         transition: all .5s;
     }
 
     .ctas-button {
         position: absolute;
-        margin-top: 100px;
+        margin-top: 350px;
         transition: all .5s;
     }
-
 }
 
 .request {
     background: url('../../assets/bg-1.png') center/cover no-repeat;
     min-height: 155vh;
-    min-width: 100vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     padding: 0 20px;
-
 }
 
 .row {
@@ -497,12 +432,12 @@ a:nth-child(1):hover~.animation {
     flex-wrap: wrap;
 }
 
-.row h1 {
+.request h1 {
     font-family: "Montserrat", sans-serif;
     font-size: 3rem;
     width: 200px;
     text-align: center;
-    margin: -80px 17.2em 80px;
+    margin: 80px auto;
     font-weight: 600;
     color: #070024;
 }
@@ -519,7 +454,8 @@ a:nth-child(1):hover~.animation {
     background-repeat: no-repeat;
     background-position: 0 0.62em;
     box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.15);
-    border-radius: 2em;
+    border-radius: 3em;
+    align-items: flex-start;
     transition: 0.5s;
 }
 
@@ -589,233 +525,36 @@ a:nth-child(1):hover~.animation {
     }
 }
 
-.tracker {
-    background: url('../../assets/bg-2.png') center/cover no-repeat;
-    font-family: "Montserrat", sans-serif;
-    min-height: 155vh;
-    min-width: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0 20px;
+@media screen and (max-width: 767px) {
 
-}
-
-.tracker h2 {
-    font-size: 3rem;
-    margin: -30px 16.8em 80px;
-    color: #070024;
-
-}
-
-.steps {
-    position: relative;
-    align-items: center;
-    max-width: 1000px;
-    margin-left: 200px;
-
-}
-
-.container {
-    padding: 10px 50px;
-    margin-left: 300px;
-    position: relative;
-    width: 50%;
-    animation: movedown 1s linear forwards;
-    opacity: 0;
-}
-
-@keyframes movedown {
-    0% {
-        opacity: 1;
-        transform: translateY(-30px);
+    .row h1 {
+        margin-left: 250px;
     }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0px);
+    .card {
+        width: 85%;
+        flex-direction: column;
+        padding: 2em 2em;
     }
 }
-
-.container:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.container:nth-child(2) {
-    animation-delay: 1s;
-}
-
-.container:nth-child(3) {
-    animation-delay: 2s;
-}
-
-.text-box {
-    padding: 20px 30px;
-    background: #fff;
-    position: relative;
-    border-radius: 20px;
-    font-size: 15px;
-    box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.15);
-
-}
-
-.left-container {
-    left: 0;
-}
-
-.right-container {
-    left: 50%;
-}
-
-.container .icon-track {
-    position: absolute;
-    font-size: 2.5em;
-    height: 1em;
-    width: 1em;
-    background-color: white;
-    color: #38B6FF;
-    border-radius: 50%;
-    right: -20px;
-    top: 60px;
-    z-index: 10;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.right-container .icon-track {
-    left: -20px;
-}
-
-.text-box h1 {
-    font-weight: 600;
-}
-
-.text-box small {
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.left-container-arrow {
-    height: 0;
-    width: 0;
-    position: absolute;
-    top: 55px;
-    z-index: 1;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 15px solid white;
-    right: -15px;
-}
-
-.right-container-arrow {
-    height: 0;
-    width: 0;
-    position: absolute;
-    top: 55px;
-    z-index: 1;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-right: 15px solid white;
-    left: -15px;
-}
-
-@media screen and (max-width: 600px) {
-    .steps {
-        margin: 50px auto;
-    }
-
-    .container {
-        width: 100%;
-        padding-left: 80px;
-        padding-right: 25px;
-    }
-
-    .text-box {
-        font-size: 13px;
-    }
-
-    .text-box small {
-        margin-bottom: 10px;
-    }
-
-    .right-container {
-        left: 0;
-    }
-
-    .left-container .icon-track,
-    .right-container .icon-track {
-        left: 10px;
-    }
-
-    .left-container-arrow,
-    .right-container-arrow {
-        border-right: 15px solid white;
-        border-left: 0;
-        left: -15px;
-    }
-}
-
-.about-us {
-    background: url('../../assets/bg-3.png') center/cover no-repeat;
-    min-height: 125vh;
-    min-width: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-
-.about-us h2 {
-    font-family: "Montserrat", sans-serif;
-    font-size: 3rem;
-    margin: 30px 100px 0 800px;
-    color: #070024;
-}
-
-.about-us img {
-    float: left;
-    margin-top: 40px;
-    margin-left: 150px;
-    margin-right: 40px;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.about-us h3 {
-    font-family: "Montserrat", sans-serif;
-    font-size: 3rem;
-    margin-right: 10px;
-    margin-bottom: 1.5rem;
-    animation: fadeIn 2s;
-}
-
-
-.about-us p {
-    font-size: 20px;
-    margin: auto;
-    margin-top: 40px;
-    width: 70%;
-}
-
-.text-box2 {
-    color: black;
-    font-family: "Montserrat", sans-serif;
-}
-
 
 footer {
     font-family: "Montserrat", sans-serif;
     font-size: 14px;
     text-align: center;
-    background: linear-gradient(to right, #38B6FF, #2D82B4);
-    color: white;
+    background-color: rgb(223, 246, 255);
+    color: black;
     padding-bottom: 20px;
 }
 
-footer h2 {
-    font-size: 16px;
-    padding-top: 30px;
-    margin-bottom: 25px;
+    footer h2 {
+        font-size: 16px;
+        padding-top: 30px;
+        margin-bottom: 25px;
+    }
+
+@media screen and (max-width: 767px) {
+    footer {
+        padding: 50px 50px 50px 50px;
+    }
 }
