@@ -67,6 +67,7 @@ header {
 
 .sidebar.close .text{
 	opacity: 0;
+	pointer-events: none;
 }
 
 .sidebar .image {
