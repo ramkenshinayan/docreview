@@ -168,6 +168,9 @@ include('includes/requester.php');
             <span class="number" id="total-documents"><?php echo $recentUploads ?></span>
           </div>
       </div>
+      <?php
+        include("footer.html");
+      ?>
   </section>
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
