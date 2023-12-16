@@ -62,9 +62,7 @@ if (isset($_SESSION["user"])) {
   </section>
   <!-- REQUEST SECTION -->
   <section class="request" id="request">
-    <div class="row">
-      <h1>Request</h1>
-    </div>
+    <h1>Request</h1>
     <div class="row">
       <!-- COLUMN ONE -->
       <div class="column">
@@ -101,60 +99,7 @@ if (isset($_SESSION["user"])) {
       </div>
     </div>
   </section>
-  <!-- TRACKER SECTION -->
-  <section class="tracker" id="tracker">
-    <h2>Tracker</h2>
-    <div class="steps">
-      <div class="container left-container">
-        <div class="icon-track">
-          <ion-icon name="people-circle"></ion-icon>
-        </div>
-        <div class="text-box">
-          <h1>Approval of Request</h1>
-          <small>1st step</small>
-          <p>Your request was sent to the reviewers.</p>
-          <span class="left-container-arrow"></span>
-        </div>
-      </div>
-      <div class="container right-container">
-        <div class="icon-track">
-          <ion-icon name="people-circle"></ion-icon>
-        </div>
-        <div class="text-box">
-          <h1>Reviewed by Departments</h1>
-          <small>2nd step</small>
-          <p>Your request is still under review.</p>
-          <span class="right-container-arrow"></span>
-        </div>
-      </div>
-      <div class="container left-container">
-        <div class="icon-track">
-          <ion-icon name="people-circle"></ion-icon>
-        </div>
-        <div class="text-box">
-          <h1>Notified of Approval</h1>
-          <small>3rd step</small>
-          <p>Your request was successfully reviewed.</p>
-          <span class="left-container-arrow"></span>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ABOUT US SECTION -->
-  <section class="about-us" id="about-us">
-    <div class="text-box2">
-      <h2>About Us</h2>
-      <img src="assets/school.png">
-      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-        when an unknown printer took a galley of type and scrambled it to make a type
-        specimen book. It has survived not only five centuries, but also the leap into
-        electronic typesetting, remaining essentially unchanged. It was popularised
-        in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-        passages, and more recently with desktop publishing software like Aldus
-        PageMaker including versions of Lorem Ipsum. </p>
-    </div>
-  </section>
+  
   <?php
   include("footer.html");
   ?>
