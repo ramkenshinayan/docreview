@@ -232,8 +232,7 @@ form p{
 }
 
 .right-container {
-    width: 68%;
-    margin-right: 34px;
+    width: 69%;
     float: right;
     background-color: var(--primary-color-light);
     border-radius: 0 10px 10px 0;
@@ -243,18 +242,16 @@ form p{
 
 /* RADIO BUTTONS */
 .left-container {
-    width: 30%;
+    width: 30.9%;
     float: left;
     height: 95%;
     background-color: var(--primary-color-light);
 	border-radius: 20px;
     margin-bottom: 20px;
-  
 }
 
 .left-container {
 	background-color: var(--primary-color-light);
-	
     border-bottom: 1px solid #DDDDDD;
 	border-radius: 10px 0 0 10px;
 	color: var(--text-color);
