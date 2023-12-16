@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 14, 2023 at 09:51 PM
+-- Generation Time: Dec 16, 2023 at 03:47 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `finaldb`
 --
+CREATE DATABASE IF NOT EXISTS `ff` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `ff`;
 
 -- --------------------------------------------------------
 
@@ -98,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `reviewtransaction` (
   `documentId` int NOT NULL,
   `email` varchar(25) NOT NULL,
   `sequenceOrder` int NOT NULL,
-  `status` enum('Approved','Pending','Disapproved') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `status` enum('Approved','Ongoing','Standby','Disapproved') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `approvedDate` date NOT NULL,
   KEY `documentID` (`documentId`),
   KEY `revtransemail` (`email`)
@@ -110,10 +112,10 @@ CREATE TABLE IF NOT EXISTS `reviewtransaction` (
 
 INSERT INTO `reviewtransaction` (`documentId`, `email`, `sequenceOrder`, `status`, `approvedDate`) VALUES
 (1, 'rev@rev1.com', 1, 'Approved', '0000-00-00'),
-(1, 'rev@rev2.com', 2, 'Pending', '0000-00-00'),
-(1, 'rev@rev3.com', 3, 'Pending', '0000-00-00'),
-(1, 'rev@rev4.com', 4, 'Pending', '0000-00-00'),
-(1, 'rev@rev5.com', 5, 'Pending', '0000-00-00');
+(1, 'rev@rev2.com', 2, 'Ongoing', '0000-00-00'),
+(1, 'rev@rev3.com', 3, 'Standby', '0000-00-00'),
+(1, 'rev@rev4.com', 4, 'Standby', '0000-00-00'),
+(1, 'rev@rev5.com', 5, 'Standby', '0000-00-00');
 
 -- --------------------------------------------------------
 
