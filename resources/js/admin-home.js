@@ -5,21 +5,6 @@
 	modeSwitch = body.querySelector(".mode"),
 	modeText = body.querySelector(".mode-text");
 
-
-	toggle.addEventListener("click", () => {
-		sidebar.classList.toggle("close");
-	});
-
-	modeSwitch.addEventListener("click", () => {
-		body.classList.toggle("dark");
-
-		if (body.classList.contains("dark")) {
-			modeText.innerText = "Light Mode";
-		} else {
-			modeText.innerText = "Dark Mode";
-		}
-	});
-
 	document.addEventListener('DOMContentLoaded', function () {
 		//Add User
 		document.getElementById('addUserBtn').addEventListener('click', function () {
