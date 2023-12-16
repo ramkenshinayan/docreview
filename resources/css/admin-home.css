@@ -143,3 +143,8 @@ body.dark {
     border-bottom: 1px solid #ccc;
     font-weight: bold;
 }
+
+.container-table button:hover{
+    background-color: var(--sidebar-color);
+    color: var(--text-color);
+}
