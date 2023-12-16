@@ -152,4 +152,5 @@ body.dark {
 
 .container-table button:hover{
     background-color: var(--sidebar-color);
+    color: #000;
 }
