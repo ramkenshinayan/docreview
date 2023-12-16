@@ -91,7 +91,8 @@ include('includes/requester.php');
                         <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
                         <ul class="filter-select">
                             <li class="filter-items">Approved</li>
-                            <li class="filter-items">Pending</li>
+                            <li class="filter-items">Ongoing</li>
+                            <li class="filter-items">Standby</li>
                             <li class="filter-items">Disapproved</li>
                         </ul>
                     </div>

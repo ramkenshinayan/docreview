@@ -91,8 +91,9 @@ const sort = document.querySelector(".sort-box"),
 	//filtered
     const filterMappings = {
         "Approved": "filter1",
-        "Pending": "filter2",
-        "Disapproved": "filter3"
+        "Ongoing": "filter2",
+		"Standby": "filter3",
+        "Disapproved": "filter4"
     };
 
 	filterItems.forEach(item => {
