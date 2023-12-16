@@ -112,8 +112,10 @@ include('includes/requester.php');
             <!--transactions-->
             <div class="history">              
                 <?php
+                $email = $_SESSION["user"];
                 try {
-                    $sql = "SELECT DISTINCT document.*, document.fileName AS DocumentName, document.uploadDate as UploadDate FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId";
+                    $sql = "SELECT DISTINCT d.documentId, d.fileName AS DocumentName, d.uploadDate as UploadDate, rt.approvedDate, rt.status
+                    FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId WHERE rt.sequenceOrder = 5 AND d.email = '$email'";
 
                     // Filtering
                     $conditions = array(); 
@@ -136,7 +138,7 @@ include('includes/requester.php');
                     }
 
                     if (!empty($conditions)) {
-                        $sql .= " WHERE " . implode(" OR ", $conditions);
+                        $sql .= " AND " . implode(" OR ", $conditions);
                     }
 
                     // Sorting
@@ -161,7 +163,7 @@ include('includes/requester.php');
                     // Searching
                     if (isset($_GET['search'])) {
                         $searchTerm = $_GET['search']; 
-                        $sql .= " WHERE document.fileName LIKE '%$searchTerm%'";
+                        $sql .= " AND document.fileName LIKE '%$searchTerm%'";
                     }
 
                     $result = $conn->query($sql);
