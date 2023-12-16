@@ -82,13 +82,13 @@ include('includes/requester.php');
   </nav>
   <section class="home">
     <div class="top">
-      <div class="profile-details">
+      <div class="profile-details-alone">
         <img src="assets/school.png" alt="">
         <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
         <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
       </div>
     </div>
-    <div class="home-content">
+    <div class="home-content-add">
       <div class="title">
         <ion-icon name="document-text-outline" class="content-icon"></ion-icon>
         <span class="text">Upload Document</span>

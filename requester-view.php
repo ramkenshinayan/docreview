@@ -70,36 +70,41 @@ include('includes/requester.php');
     <section class="home">
         <!-- HEADER -->
         <div class="top">
-            <div class="profile-details"><img src="assets/school.png" alt=""><span class="user_name">Juan Dela Cruz</span>
-            <ion-icon class="profile-icon" name="radio-button-on-outline"></ion-icon></div>
+            <div class="search-box">
+                <ion-icon class="search-icon" name="search-outline"></ion-icon>
+                <input type="search", id="searchInput", placeholder="Search...", onkeydown="handleSearch(event)">
+            </div>
+            <div class="profile-details">
+                <img src="assets/school.png" alt="">
+                <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
+                <ion-icon name="radio-button-on-outline" class="profile-icon"></ion-icon>
+            </div>
         </div>
         <div class="home-content">
             <div class="overview">
                 
                 <div class="title">
                     <ion-icon class="content-icon" name="bar-chart-outline"></ion-icon><span class="text">Request History</span>
-                    <div class="search-box">
-                        <ion-icon class="search-icon" name="search-outline"></ion-icon>
-                        <input type="search" id="searchInput" placeholder="Search..." onkeydown="handleSearch(event)">
+             
+                    <!-- filter-->
+                    <div class="filter-box">
+                        <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
+                        <ul class="filter-select">
+                            <li class="filter-items">Approved</li>
+                            <li class="filter-items">Pending</li>
+                            <li class="filter-items">Disapproved</li>
+                        </ul>
                     </div>
-                <!-- filter-->
-                <div class="filter-box">
-                    <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
-                    <ul class="filter-select">
-                        <li class="filter-items">Approved</li>
-                        <li class="filter-items">Pending</li>
-                        <li class="filter-items">Disapproved</li>
-                    </ul>
-                </div>
-                <!-- sort-->
-                <div class="sort-box">
-                    <div class="sort-btn">Sort<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
-                    <ul class="sort-select">
-                        <li class="sort-items">Name (A-Z)</li>
-                        <li class="sort-items">Name (Z-A)</li>
-                        <li class="sort-items">Date (ASC)</li>
-                        <li class="sort-items">Date (DESC)</li>
-                    </ul>
+                    <!-- sort-->
+                    <div class="sort-box">
+                        <div class="sort-btn">Sort<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
+                        <ul class="sort-select">
+                            <li class="sort-items">Name (A-Z)</li>
+                            <li class="sort-items">Name (Z-A)</li>
+                            <li class="sort-items">Date (ASC)</li>
+                            <li class="sort-items">Date (DESC)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>        
             </div>
