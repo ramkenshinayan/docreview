@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION["user"])) {
     if ($_SESSION["role"] == "Admin") {
-        echo 'Login Successful';
+        // echo 'Login Successful';
     } else {
         echo '<script>
             alert("Not allowed.");
@@ -34,7 +34,7 @@ $offlineUsers = $offlineUsersResult->num_rows;
 // Add User
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_user'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $password = generateRandomPassword();
     $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
     $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
     $role = mysqli_real_escape_string($conn, $_POST['role']);
@@ -57,22 +57,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_user'])) {
     }
 }
 
+function generateRandomPassword() {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $password = '';
+    for ($i = 0; $i < 4; $i++) {
+        $password .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $password;
+}
+
 // Update User
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_user'])) {
     $originalEmail = mysqli_real_escape_string($conn, $_POST['original_email']);
     $updatedEmail = mysqli_real_escape_string($conn, $_POST['updated_email']);
-    $updatedPassword = mysqli_real_escape_string($conn, $_POST['password']);
     $updatedFirstName = mysqli_real_escape_string($conn, $_POST['firstName']);
     $updatedLastName = mysqli_real_escape_string($conn, $_POST['lastName']);
     $updatedRole = mysqli_real_escape_string($conn, $_POST['role']);
 
-    $sql = "UPDATE users SET 
-            email='$updatedEmail',
-            password='$updatedPassword',
-            firstName='$updatedFirstName',
-            lastName='$updatedLastName',
-            role='$updatedRole'
-            WHERE email='$originalEmail'";
+    $sql = "UPDATE users SET email='$updatedEmail', firstName='$updatedFirstName', lastName='$updatedLastName', role='$updatedRole' WHERE email='$originalEmail'";
 
     if ($conn->query($sql) === TRUE) {
         echo "User updated successfully!";
