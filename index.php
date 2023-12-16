@@ -72,19 +72,26 @@ if (isset($_SESSION["user"])) {
           </div>
           <h3>Upload Document</h3>
           <p>The requester is required to upload a document, 
-                wherein they will provide a file or document as part of the submission or request 
-                process.</p>
+             wherein they will provide a file or document as part of the submission or request 
+             process.
+            <br>
+            <br> 
+            <br> 
+          </p>
         </div>
-      </div>
-      <!-- COLUMN TWO -->
+      </div>  
+      <!-- COLUMN TWO --> 
       <div class="column">
         <div class="card">
           <div class="icon-req">
             <ion-icon name="add-circle-outline"></ion-icon>
           </div>
           <h3>Select Department</h3>
-          <p>The requester is required to choose a specific department that will undertake 
-                the comprehensive review and evaluation of the document they have previously uploaded.</p>
+          <p>The requester is required to choose specific department that will undertake 
+             the comprehensive review and evaluation of the document they have previously uploaded.
+            <br>
+            <br>
+          </p>
         </div>
       </div>
       <!-- COLUMN THREE -->
@@ -94,8 +101,9 @@ if (isset($_SESSION["user"])) {
             <ion-icon name="checkmark-done-circle-outline"></ion-icon>
           </div>
           <h3>Approval Review</h3>
-          <p>The requester is required to patiently wait for the approval of the document from the designated reviewers they have selected. 
-            During this waiting period, the requester can track the progress of the document they have uploaded.</p>
+          <p>The requester is required to patiently wait for the approval of the document from the designated reviewers they have selected. During this waiting period, 
+            the requester can track the progress of the document they have uploaded.
+          </p>
         </div>
       </div>
     </div>
