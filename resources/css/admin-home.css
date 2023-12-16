@@ -130,12 +130,18 @@ body.dark {
 
 .container-table tr:nth-child(even) td {
     background-color: var(--primary-color-light);
+    color: var(--text-color)
+}
+
+.container-table tr:nth-child(odd) td {
+    color: var(--text-color)
 }
 
 .container-table tr:hover td {
     background-color: var(--primary-color);
-    color: var(--body-color);
+    color: var(--sidebar-color);
 }
+
 
 .container-table td {
     background-color: var(--sidebar-color);
