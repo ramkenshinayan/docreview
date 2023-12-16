@@ -567,3 +567,23 @@ body.dark .switch::before {
 a.get-started-btn {
     text-decoration: none;
 }
+
+footer {
+	font-family: "Montserrat", sans-serif;
+	font-size: 12px;
+	text-align: center;
+	background-color: var(--body-color);
+	padding-bottom: 10px;
+}
+
+footer h2 {
+	font-size: 14px;
+	padding-top: 40px;
+	margin-bottom: 15px;
+}
+
+@media screen and (max-width: 767px) {
+	footer {
+		padding: 50px 50px 50px 50px;
+	}
+}
