@@ -106,6 +106,7 @@ include('includes/requester.php');
             <!-- TRACKING CONTENT-->
             <div class="content">
                 <?php
+                    $email = $_SESSION["user"];
                     $sql = "SELECT reviewtransaction.documentId, reviewtransaction.*, document.fileName AS DocumentName, 
                     document.uploadDate as UploadDate, document.content 
                     FROM reviewtransaction 
@@ -119,7 +120,7 @@ include('includes/requester.php');
                         FROM reviewtransaction rt 
                         JOIN organization org ON rt.email = org.email
                         JOIN document d ON rt.documentId = d.documentId 
-                        WHERE (rt.status = 'Pending' OR rt.status = 'Disapproved')
+                        WHERE (rt.status = 'Pending' OR rt.status = 'Disapproved') AND email = '$email'
                         GROUP BY rt.documentId";
                         $result = $conn->query($sql);
   
