@@ -71,7 +71,9 @@ include('includes/requester.php');
         <!-- HEADER -->
         <div class="top">
             <div class="search-box">
-            <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
+                <ion-icon class="search-icon" name="search-outline"></ion-icon>
+                <input type="search", id="searchInput", placeholder="Search...", onkeydown="handleSearch(event)">
+            </div>
             <div class="profile-details">
                 <img src="assets/school.png" alt="">
                 <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
