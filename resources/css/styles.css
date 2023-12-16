@@ -58,8 +58,10 @@ header {
 }
 
 .nav a:hover {
-     background-color: #38B6FF;
-     color: white;
+    border-radius: 10px;
+    background-color: #38B6FF;
+    color: white;
+    transition: all .5s ease 0s;
 }
 
 .nav .animation {
@@ -73,7 +75,7 @@ header {
  }
 
 .nav a:nth-child(1) {
-     width: 100px;
+     width: 150px;
 }
 
 .nav .a:nth-child(1):hover ~ .animation {
