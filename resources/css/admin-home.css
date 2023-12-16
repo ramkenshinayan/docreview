@@ -92,7 +92,7 @@ body.dark {
     display: block;
 }
 
-.container-table button {
+.home-content-add .container-table button {
     width: 100px;
     padding: 5px 10px;
     margin-left: 10px;
@@ -102,3 +102,44 @@ body.dark {
     color: var(--body-color);
 }
 
+.home-content-add .container-table {
+    border-collapse: collapse;
+    width: 840px;
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.home-content-add .container-table th {
+    background-color: var(--primary-color);
+    color: var(--sidebar-color);
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid #ccc;
+}
+
+.container-table tr:nth-child(even) td {
+    background-color: var(--primary-color-light);
+}
+
+.container-table tr:hover td {
+    background-color: var(--primary-color);
+    color: var(--body-color);
+}
+
+.container-table td {
+    background-color: var(--sidebar-color);
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
