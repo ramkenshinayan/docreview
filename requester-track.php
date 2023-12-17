@@ -144,28 +144,36 @@ include('includes/requester.php');
                         echo '</script>';
                       } 
                     }  
-                    
                     if (isset($_POST["upload"])) {
                       if (!empty($_FILES["file"]["name"])) {
                           $fileName = basename($_FILES["file"]["name"]);
+                          $targetFilePath = "upload/" . $fileName;
+                          $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
                           $allowTypes = array('pdf', 'doc', 'docx');
                           if (in_array($fileType, $allowTypes)) {
-                              
-                              $version = 1; 
-                              $checkVersionQuery = "SELECT MAX(version) as maxVersion FROM document WHERE documentId = '$documentId'";
-                              $result = $conn->query($checkVersionQuery);
+                              $date = date("Y-m-d");
+                              $checkVersionQuery = "SELECT MAX(version)+1 as maxVersion FROM document WHERE documentId = '$documentId'";
+                              $versionResult = $conn->query($checkVersionQuery);
+                             
                   
                               $tmpName = $_FILES["file"]["tmp_name"];
                               $fp = fopen($tmpName, "r");
                               $content = fread($fp, 16777215);
                               $content = addslashes($content);
                               fclose($fp);
-                  
-                              $update = $conn->query("UPDATE document SET version = '$result+1', content =  '$content' WHERE documentId = '$documentId';");
-                              $update = $conn->query("UPDATE reviewtransaction AS rt ON rt.documentId JOIN document 
-                              AS d ON rt.documentId = d.documentId SET rt.status = 'Pending' WHERE d.documentId = '$documentId';");
 
-                              if ($update) {
+                              if ($versionResult) {
+                                $versionData = $versionResult->fetch_assoc();
+                                $version = (string) $versionData['maxVersion'];
+                                $insert = $conn->query("INSERT INTO document (documentId, email, fileName, version, fileType, uploadDate, content) 
+                                                          VALUES ('$documentId', '$email', '$fileName', '$version', '$fileType', '$date' ,'$content')");
+                                $update = $conn->query("UPDATE reviewtransaction AS rt 
+                                                              JOIN document AS d ON rt.documentId = d.documentId 
+                                                              SET rt.status = 'Ongoing' 
+                                                              WHERE d.documentId = '$documentId' AND rt.status = 'Disapproved';");
+                              }
+                  
+                              if ($insert && $update) {
                                   $statusMsg = $fileName . " has been uploaded successfully.";
                               } else {
                                   $statusMsg = "File upload failed, try again.";

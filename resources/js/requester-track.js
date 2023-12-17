@@ -12,10 +12,10 @@ const approval = document.getElementById('approvals');
 checkRadio();
 
 function checkRadio() {
-	approval.addEventListener('change', function (event) {
-		const selectedRadioButton = event.target;
+    approval.addEventListener('change', function (event) {
+        const selectedRadioButton = event.target;
         let queryString = '';
-		if (selectedRadioButton.type === 'radio' && selectedRadioButton.checked) {
+        if (selectedRadioButton.type === 'radio' && selectedRadioButton.checked) {
             const labelContent = document.querySelector(`label[for="${selectedRadioButton.id}"]`).innerText;
             const documentName = labelContent.split('\n')[0].trim(); 
             const documentId = labelContent.split('\n')[1].trim();
@@ -24,11 +24,15 @@ function checkRadio() {
             history.pushState({}, null, `?${queryString}`);
             
             rightContainer.style.backgroundColor = '#38B6FF';
-            
+
+            // Update the hidden input field with the selected documentId
+            selectedRadioButton.value = documentId;
+
             trackingDoc(data, documentId);
-		}
-	});
+        }
+    });
 }
+
 
 function trackingDoc(data, documentId){
     data.forEach(review =>{
@@ -84,48 +88,59 @@ function disapproved(data) {
 
     var statusText = document.createElement('h3');
     statusText.textContent = `Your Document has been Disapproved by the ` + data.officeName;
-
+    
     var reupParaEl = document.createElement('p');
     var reupTextEl = document.createTextNode('Please reupload your revised document.');
     reupParaEl.appendChild(reupTextEl);
-
-    var form = document.createElement('form');
-    form.action = 'includes/upload.php';
-    form.method = 'post';
-    form.enctype = 'multipart/form-data';
-
+    // Create the form element with id "upbox" and set its attributes
+    var formElement = document.createElement('form');
+    formElement.id = 'upbox';
+    formElement.action = 'requester-track.php';
+    formElement.method = 'post';
+    formElement.enctype = 'multipart/form-data';
+    formElement.onsubmit = function() {
+        return onSubmitForm();
+    };
+    
+    // Create the div with class "file-upload"
+    var fileUploadDiv = document.createElement('div');
+    fileUploadDiv.className = 'file-upload';
+    
+    // Create the input element with class "file-input" and set its attributes
     var fileInput = document.createElement('input');
+    fileInput.className = 'file-input';
     fileInput.type = 'file';
     fileInput.name = 'file';
     fileInput.accept = '.doc, .docx, .pdf';
-    fileInput.classList.add('file-input');
-    fileInput.hidden = true;
-
+    
+    // Create the ion-icon element
     var ionIcon = document.createElement('ion-icon');
-    ionIcon.name = 'cloud-upload-outline';
-
-    var paragraph = document.createElement('p');
-    paragraph.textContent = 'Browse File to Upload';
-
-    var lineBreak = document.createElement('br');
-
-    var submitBtn = document.createElement('button');
-    var submitText = document.createTextNode('Submit');
-
-    var viewText = document.createElement('p');
-    viewText.textContent = 'View the needed revisions below.';
-
-    submitBtn.appendChild(submitText);
+    ionIcon.setAttribute('name', 'cloud-upload-outline');
+    
+    // Create the paragraph element
+    var paragraphElement = document.createElement('p');
+    paragraphElement.textContent = 'Browse File to Upload';
+    
+    // Append the input, ion-icon, and paragraph elements to the file-upload div
+    fileUploadDiv.appendChild(fileInput);
+    fileUploadDiv.appendChild(ionIcon);
+    fileUploadDiv.appendChild(paragraphElement);
+    
+    // Create the button with id "subbtn" and set its attributes
+    var submitButton = document.createElement('button');
+    submitButton.id = 'subbtn';
+    submitButton.type = 'submit';
+    submitButton.name = 'upload';
+    submitButton.textContent = 'Submit';
+    
+    // Append the file-upload div and the submit button to the form
+    formElement.appendChild(fileUploadDiv);
+    formElement.appendChild(submitButton);
 
     uploadContainer.appendChild(statusText);
     uploadContainer.appendChild(reupParaEl);
-    form.appendChild(fileInput);
-    form.appendChild(ionIcon);
-    form.appendChild(paragraph);
-    form.appendChild(lineBreak);
-    uploadContainer.appendChild(form);
-    uploadContainer.appendChild(submitBtn);
-    uploadContainer.appendChild(viewText);
+    uploadContainer.appendChild(formElement);
+
 
     const iframe = document.createElement('iframe');
     iframe.src = `data:application/pdf;base64,${data.pdfContent}`;
