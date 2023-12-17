@@ -112,19 +112,36 @@ function disapproved(data) {
     fileInput.type = 'file';
     fileInput.name = 'file';
     fileInput.accept = '.doc, .docx, .pdf';
+
+    // Hide the label
+    fileInput.style.display = 'none';
     
     // Create the ion-icon element
     var ionIcon = document.createElement('ion-icon');
     ionIcon.setAttribute('name', 'cloud-upload-outline');
     
-    // Create the paragraph element
-    var paragraphElement = document.createElement('p');
-    paragraphElement.textContent = 'Browse File to Upload';
-    
+    // Create the label element
+    var labelElement = document.createElement('label');
+    labelElement.textContent = 'Browse File to Upload';
+
+    // Set the 'for' attribute of the label to the ID of the file input
+    labelElement.setAttribute('for', 'fileInput');
+
+    // Set an ID for the file input
+    fileInput.id = 'fileInput';
+
+    // Append the file input to the label
+    labelElement.appendChild(fileInput);
+
+    // Add an event listener to the label to trigger the hidden file input when clicked
+    labelElement.addEventListener('click', function() {
+        fileInput.click();
+    });
+
     // Append the input, ion-icon, and paragraph elements to the file-upload div
     fileUploadDiv.appendChild(fileInput);
     fileUploadDiv.appendChild(ionIcon);
-    fileUploadDiv.appendChild(paragraphElement);
+    fileUploadDiv.appendChild(labelElement);
     
     // Create the button with id "subbtn" and set its attributes
     var submitButton = document.createElement('button');
@@ -155,7 +172,7 @@ function disapproved(data) {
         }
     });
     indicator.style.width = `${((data.minOrder - 1) / (circles.length - 1)) * 100}%`;
-}
+}   
 
 function clearContainer() {
     var uploadContainer = document.getElementById('upload-container');
