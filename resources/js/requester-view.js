@@ -89,94 +89,103 @@ const sort = document.querySelector(".sort-box"),
     });
 
 	//filtered
-    const filterMappings = {
-        "Approved": "filter1",
-        "Ongoing": "filter2",
+	const filterMappings = {
+		"Approved": "filter1",
+		"Ongoing": "filter2",
 		"Standby": "filter3",
-        "Disapproved": "filter4"
-    };
-
+		"Disapproved": "filter4"
+	};
+	
 	filterItems.forEach(item => {
 		item.addEventListener("click", () => {
 			const filterValue = item.textContent.trim();
 			const selectedFilterKey = filterMappings[filterValue];
-			let selectedFilters = getUrlParameter(selectedFilterKey) || [];
+			let selectedFilters = JSON.parse(localStorage.getItem(selectedFilterKey)) || [];
 	
-			if (!selectedFilters.length) {
-				localStorage.setItem("selectedFilterItems", JSON.stringify([]));
-			}
-	
-			const updatedFilters = selectedFilters.includes(filterValue)
+			selectedFilters = selectedFilters.includes(filterValue)
 				? selectedFilters.filter(value => value !== filterValue)
 				: [...selectedFilters, filterValue];
 	
-			updateFilterUrlParameter(selectedFilterKey, updatedFilters);
+			updateFilterUrlParameter(selectedFilterKey, selectedFilters);
 	
-			item.classList.toggle("selected", updatedFilters.includes(filterValue));
+			item.classList.toggle("selected", selectedFilters.includes(filterValue));
 	
-			localStorage.setItem("selectedFilterItems", JSON.stringify(updatedFilters));
+			store(selectedFilterKey, selectedFilters);
+			highlightSelection();
 	
 			updateReviews(data);
 		});
 	});
+	
+	function store(key, selectedFilterValues) {
+		localStorage.setItem(key, JSON.stringify(selectedFilterValues));
+	}
+	
+	// retain filter/sort selection
+	document.addEventListener('DOMContentLoaded', () => {
+		const selectedSortValue = localStorage.getItem('selectedSortItem');
+		if (selectedSortValue) {
+			const selectedSortItem = [...sortItems].find(item => item.textContent.trim() === selectedSortValue);
+			if (selectedSortItem) {
+				selectedSortItem.classList.add('selected');
+			}
+		}
 
-    //retain filter/sort selection
-    document.addEventListener('DOMContentLoaded', () => {
-        const selectedSortValue = localStorage.getItem('selectedSortItem');
-        if (selectedSortValue) {
-            const selectedSortItem = [...sortItems].find(item => item.textContent.trim() === selectedSortValue);
-            if (selectedSortItem) {
-                selectedSortItem.classList.add('selected');
-            }
-        }
+		const selectedFilterItems = JSON.parse(localStorage.getItem('selectedFilterItems')) || [];
+		selectedFilterItems.forEach(selectedFilterValue => {
+			const selectedFilterItem = [...filterItems].find(item => item.textContent.trim() === selectedFilterValue);
+			if (selectedFilterItem) {
+				selectedFilterItem.classList.add('selected');
+			}
+		});
 
-        const selectedFilterItems = JSON.parse(localStorage.getItem('selectedFilterItems')) || [];
-        selectedFilterItems.forEach(selectedFilterValue => {
-            const selectedFilterItem = [...filterItems].find(item => item.textContent.trim() === selectedFilterValue);
-            if (selectedFilterItem) {
-                selectedFilterItem.classList.add('selected');
-            }
-        });
-    });
+		setTimeout(() => {
+			highlightSelection();
+		}, 0);
+	});
 
-	// highlight selected filters
 	const highlightSelection = () => {
-		const selectedFilters = getUrlParameter('filter');
+		const filterMappings = {
+			"Approved": "filter1",
+			"Ongoing": "filter2",
+			"Standby": "filter3",
+			"Disapproved": "filter4"
+		};
+
+		const selectedFilterItems = JSON.parse(localStorage.getItem('selectedFilterItems')) || [];
 
 		const filterItems = document.querySelectorAll('.filter-items');
 		filterItems.forEach(item => {
-			if (selectedFilters && selectedFilters.includes(item.textContent)) {
-				item.classList.add('selected');
-			} else {
-				item.classList.remove('selected');
-			}
+			const filterValue = item.textContent.trim();
+			const selectedFilterKey = filterMappings[filterValue];
+			const selectedFilters = JSON.parse(localStorage.getItem(selectedFilterKey)) || [];
+			const isSelected = selectedFilters.includes(filterValue);
+			item.classList.toggle('selected', isSelected);
 		});
 	};
+
 
     const getUrlParameter = (name) => {
         const urlParams = new URLSearchParams(window.location.search);
         const paramValues = urlParams.getAll(name);
         return paramValues.length === 0 ? null : paramValues;
     };
-    
-
 	const updateFilterUrlParameter = (key, values) => {
 		const urlParams = new URLSearchParams(window.location.search);
 	
+		// Remove all existing values for the key
 		urlParams.delete(key);
 	
-		if (values) {
-			values.forEach((value, index) => {
-				if (value.trim() !== "") {
-					urlParams.append(key, value);
-				}
-			});
-		}
+		// Add the new values as separate parameters
+		values.forEach(value => {
+			urlParams.append(key, value);
+		});
 	
 		const newUrl = window.location.pathname + '?' + urlParams.toString();
 		history.pushState(null, null, newUrl);
 		location.reload();
 	};
+	
 
 	const updateSortUrlParameter = (key, values) => {
 		const urlParams = new URLSearchParams(window.location.search);
