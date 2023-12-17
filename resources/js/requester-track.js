@@ -114,41 +114,19 @@ function disapproved(data) {
     fileInput.name = 'file';
     fileInput.accept = '.doc, .docx, .pdf';
 
-    // Create the paragraph element
-    var paragraphElement = document.createElement('p');
-    paragraphElement.textContent = 'Browse File to Upload';
-
-    // // Hide the label
-    // fileInput.style.display = 'none';
-    
     // Create the ion-icon element
     var ionIcon = document.createElement('ion-icon');
     ionIcon.setAttribute('name', 'cloud-upload-outline');
-    
-    // // Create the label element
-    // var labelElement = document.createElement('label');
-    // labelElement.textContent = 'Browse File to Upload';
 
-    // // Set the 'for' attribute of the label to the ID of the file input
-    // labelElement.setAttribute('for', 'fileInput');
-
-    // // Set an ID for the file input
-    // fileInput.id = 'fileInput';
-
-    // // Append the file input to the label
-    // labelElement.appendChild(fileInput);
-
-    // // Add an event listener to the label to trigger the hidden file input when clicked
-    // labelElement.addEventListener('click', function() {
-    //     fileInput.click();
-    // });
+      // Create the paragraph element
+      var paragraphElement = document.createElement('p');
+      paragraphElement.textContent = 'Browse File to Upload';  
 
     // Append the input, ion-icon, and paragraph elements to the file-upload div
     fileUploadDiv.appendChild(fileInput);
     fileUploadDiv.appendChild(ionIcon);
-    // fileUploadDiv.appendChild(labelElement);
     fileUploadDiv.appendChild(paragraphElement);
-    
+
     // Create the button with id "subbtn" and set its attributes
     var submitButton = document.createElement('button');
     submitButton.id = 'subbtn';
