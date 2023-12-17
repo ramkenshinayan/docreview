@@ -54,7 +54,7 @@ if (isset($_POST["upload"])) {
                 }
                 $sequenceOrder = $i;
                 $approvedDate = '0000-00-00';                     
-                $status = 'pending';
+                $status = ($i == 1) ? 'Ongoing' : 'Standby'; 
                
                 $insert =  $conn->query("INSERT INTO reviewtransaction (documentId, email, sequenceOrder, status, approvedDate) 
                                         VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status', '$approvedDate')");
