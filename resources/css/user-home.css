@@ -49,7 +49,7 @@ header {
 	padding: 20px 15px;
 	background: var(--sidebar-color);
 	transition: var(--tran-05);
-	z-index: 1;
+	z-index: 10000;
 }
 
 .sidebar.close {
@@ -285,7 +285,7 @@ body.dark .switch::before {
 	align-items: center;
 	background: var(--sidebar-color);
 	transition: var(--tran-05);
-	z-index: 0;
+	z-index: 9999;
 }
 
 .sidebar.close ~ .home .top {
