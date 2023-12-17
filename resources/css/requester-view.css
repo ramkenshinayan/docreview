@@ -165,14 +165,14 @@
     display: block;
 	float: right;
 	text-align: center;
-	border-radius: 25px;
+	border-radius: 20px;
 	background-color: var(--primary-color);
-	padding: 20px;
-    margin-top: 11px;
+	padding: 35px 70px;
+    bottom: 5px;
 	margin-left: auto;
 
 }
-
+/* 
 .sbox {
     border-radius: 10px;
     background-color: rgb(223, 223, 223);
@@ -182,7 +182,7 @@
     text-align: center;
     right: 50px;
     top: 10px;
-}
+} */
 
 .history {
     margin: 10px;
