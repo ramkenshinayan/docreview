@@ -33,16 +33,13 @@ function checkRadio() {
     });
 }
 
-
 function trackingDoc(data, documentId){
     data.forEach(review =>{
         console.log(review.documentId);
         console.log(documentId);
-        if(documentId == review.documentId){
-          if(review.status === 'Pending'){
+        if(documentId === review.documentId){
+          if(review.status === 'Ongoing'){
                 pending(review);
-                console.log(data);
-                console.log(documentId);
             } else if (review.status === 'Disapproved') {
                 disapproved(review);
             }
