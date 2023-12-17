@@ -184,6 +184,10 @@ include('includes/requester.php');
                       } else {
                           $statusMsg = 'No file selected.';
                       }
+                      echo "<script>
+                            alert('$statusMsg');
+                            location.reload();
+                            </script>";
                     }
                   ?>
                   <div id="upload-container" class="wrapper">
