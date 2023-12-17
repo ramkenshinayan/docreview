@@ -163,3 +163,52 @@ function clearContainer() {
         uploadContainer.removeChild(uploadContainer.firstChild);
     }
 }
+
+function handleSearch(event) {
+    if (event.key === 'Enter') {
+        const searchInput = document.getElementById('searchInput');
+        const searchTerm = searchInput.value.trim();
+
+        // Update the URL parameter for search
+        updateSearchParameter('search', searchTerm);
+
+        // Trigger the popstate event to handle the change without a page reload
+        history.pushState({ searchTerm: searchTerm }, null, window.location.href);
+        window.dispatchEvent(new Event('popstate'));
+    }
+}	
+
+const updateSearchParameter = (key, value) => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (value) {
+        urlParams.set(key, value);
+    } else {
+        urlParams.delete(key);
+    }
+
+    const newUrl = window.location.pathname + '?' + urlParams.toString();
+
+    // Use pushState to change the URL and add a new entry to the browser history
+    history.pushState({ searchTerm: value }, null, newUrl);
+
+    // Log the updated URL for debugging purposes
+    console.log('Updated URL:', newUrl);
+    location.reload();
+    // updateReviews(data);
+    console.log(data);
+};
+
+// Function to handle state changes
+const handleStateChange = (event) => {
+    const searchTerm = event.state && event.state.searchTerm;
+    // updateReviews(data, searchTerm);
+};
+
+// Add an event listener for the popstate event
+window.addEventListener('popstate', handleStateChange);
+
+// Call the handleStateChange function on initial load
+document.addEventListener('DOMContentLoaded', () => {
+    handleStateChange({ state: history.state });
+});
