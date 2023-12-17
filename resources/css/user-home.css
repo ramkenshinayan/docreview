@@ -109,6 +109,7 @@ header {
 .sidebar .image-text img {
 	width: 50px;
 	border-radius: 6px;
+	margin-right: 19px;
 }
 
 .sidebar header .image-text {
