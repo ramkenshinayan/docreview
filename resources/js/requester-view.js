@@ -285,7 +285,7 @@ const sort = document.querySelector(".sort-box"),
 	
 				const statusHeader = document.createElement('h3');
 				statusHeader.classList.add('status');
-				statusHeader.textContent = review.ApprovalStatus;
+				statusHeader.textContent = review.Status;
 	
 				reviewBox.appendChild(content);
 				reviewBox.appendChild(statusHeader);
