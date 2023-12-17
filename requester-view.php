@@ -114,7 +114,9 @@ include('includes/requester.php');
                 <?php
                 $email = $_SESSION["user"];
                 try {
-                    $sql = "SELECT DISTINCT d.documentId, d.fileName AS DocumentName, d.uploadDate AS UploadDate, rt.approvedDate, CASE WHEN rt.status = 'Standby' THEN 'Ongoing' ELSE rt.status END AS status FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId WHERE rt.sequenceOrder = 5 AND d.email = '$email'";
+                    $sql = "SELECT d.documentId, d.fileName AS DocumentName, MAX(rt.approvedDate) AS approvedDate, CASE WHEN MAX(rt.status) = 'Standby' THEN 'Ongoing' ELSE MAX(rt.status) END AS status
+                    FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId
+                    WHERE rt.sequenceOrder = 5 AND d.email = '$email' GROUP BY d.documentId";
 
                     // Filtering
                     $conditions = array(); 
