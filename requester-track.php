@@ -83,7 +83,7 @@ include('includes/requester.php');
     <!-- HEADER -->
     <div class="top">
       <div class="search-box">
-        <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search" placeholder="Search..."></div>
+        <ion-icon class="search-icon" name="search-outline"></ion-icon><input type="search", id="searchInput", placeholder="Search...", onkeydown="handleSearch(event)"></div>
         <div class="profile-details">
           <img src="assets/school.png" alt="">
           <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
@@ -201,15 +201,24 @@ include('includes/requester.php');
           MIN(document.uploadDate) as UploadDate
           FROM reviewtransaction 
           JOIN document ON reviewtransaction.documentId = document.documentId WHERE document.email = '$email'";
-  
+
+          if (isset($_GET['search'])) {
+            $searchTerm = $_GET['search']; 
+            $sql .= " AND document.fileName LIKE '%$searchTerm%'";
+          } 
+
           $result = $conn->query($sql);
           $counter = 1;
           
-          while ($row = $result->fetch_assoc()) {
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
               $documentId = $row['documentId'];
               echo '<input type="radio" id="radioButton' . $counter . '" name="radioGroup">';
               echo '<label for="radioButton' . $counter . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
               $counter++;
+            }
+          } else {
+            echo '<p>No results found</p>';
           }
         ?>
         </form>
