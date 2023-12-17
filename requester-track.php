@@ -207,6 +207,7 @@ include('includes/requester.php');
           $result = $conn->query($sql);
           $counter = 1;
           
+          
           if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
               $documentId = $row['documentId'];
