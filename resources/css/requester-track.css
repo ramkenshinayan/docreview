@@ -185,7 +185,6 @@
 }
 .wrapper form{
     display: flex;
-    cursor: pointer;
     margin: 20px 0;
     align-items: center;
     margin-left:100px;
@@ -221,6 +220,7 @@ form p{
     color: var(--primary-color-light);
     border: none;
     border-radius: 10px;
+    margin-top: 10px;
     cursor: pointer;
 }
 .content {
