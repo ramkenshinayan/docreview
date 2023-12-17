@@ -196,11 +196,8 @@ include('includes/requester.php');
         <form id="approvals" method="POST" action="requester-track.php">
         <?php
           $email = $_SESSION["user"];
-          $sql = "SELECT reviewtransaction.documentId, MIN(reviewtransaction.sequenceOrder) AS minSequenceOrder, 
-          MIN(reviewtransaction.status) AS status, MIN(document.fileName) AS DocumentName, 
-          MIN(document.uploadDate) as UploadDate
-          FROM reviewtransaction 
-          JOIN document ON reviewtransaction.documentId = document.documentId WHERE document.email = '$email'";
+          $sql = "SELECT * FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId
+          WHERE status = 'Ongoing' AND document.email = '$email'";
 
           if (isset($_GET['search'])) {
             $searchTerm = $_GET['search']; 
@@ -210,11 +207,12 @@ include('includes/requester.php');
           $result = $conn->query($sql);
           $counter = 1;
           
+          
           if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
               $documentId = $row['documentId'];
               echo '<input type="radio" id="radioButton' . $counter . '" name="radioGroup">';
-              echo '<label for="radioButton' . $counter . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
+              echo '<label for="radioButton' . $counter . '">' . $row['fileName'] . '<br>' . $row['documentId'] . '</label>';
               $counter++;
             }
           } else {

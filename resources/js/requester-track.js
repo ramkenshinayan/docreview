@@ -89,6 +89,10 @@ function disapproved(data) {
     var reupParaEl = document.createElement('p');
     var reupTextEl = document.createTextNode('Please reupload your revised document.');
     reupParaEl.appendChild(reupTextEl);
+
+    var revParaEl = document.createElement('p');
+    var revTextEl = document.createTextNode('View the comments about your document below.');
+    revParaEl.appendChild(revTextEl);
     // Create the form element with id "upbox" and set its attributes
     var formElement = document.createElement('form');
     formElement.id = 'upbox';
@@ -159,6 +163,7 @@ function disapproved(data) {
     uploadContainer.appendChild(statusText);
     uploadContainer.appendChild(reupParaEl);
     uploadContainer.appendChild(formElement);
+    uploadContainer.appendChild(revTextEl);
 
 
     const iframe = document.createElement('iframe');
