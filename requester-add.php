@@ -162,9 +162,11 @@ include('includes/requester.php');
         </div>
       </div>
     </div>
+    <div class="footer">
     <?php
     include("footer.html");
     ?>
+    </div>
   </section>
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
