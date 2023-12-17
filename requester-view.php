@@ -109,7 +109,11 @@ include('includes/requester.php');
                 </div>
             </div>        
             </div>
-                
+            
+            <div>
+                <h3 class= "status sbox">
+            </div>
+
             <!--transactions-->
             <div class="history">              
                 <?php
