@@ -565,6 +565,7 @@ body.dark .switch::before {
 }
 
 .banner button{
+	cursor: pointer;
     display: block;
     width: 200px;
     height: 35px;
@@ -598,4 +599,8 @@ footer h2 {
 	footer {
 		padding: 50px 50px 50px 50px;
 	}
+}
+
+footer {
+	color: var(--text-color);
 }

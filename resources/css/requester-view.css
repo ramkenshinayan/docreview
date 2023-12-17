@@ -46,6 +46,7 @@
     border-radius: 18px;
     cursor: pointer;
     background-color: var(--primary-color-light);
+    color: var(--text-color);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     z-index: -1;
 }
@@ -88,6 +89,7 @@
     border-radius: 15px;
     align-items: center;
     background: var(--primary-color-light);
+    color: var(--text-color);
 }
 
 .filter {
@@ -98,12 +100,14 @@
     border-radius: 15px;
     align-items: center;
     background: var(--primary-color-light);
+    
 }
 
 
 .filter-items:hover, .sort-items:hover{
     background: var(--primary-color);
     transition: all 0.3s ease 0s;
+    
 }
 
 .sort-btn .icon img,
@@ -158,6 +162,7 @@
 }
 .content{
 	width: 70%;
+    color: var(--text-color);
 	float:left;
 }
 .status {
@@ -238,4 +243,8 @@ tbody {
 			}
 		}
 	}
+}
+
+footer {
+    color: var(--text-color);
 }

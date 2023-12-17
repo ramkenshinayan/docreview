@@ -194,9 +194,12 @@ include('includes/requester.php');
                 ?>
             </div>
         </div>
+
+        <div class="footer">
        <?php
         include("footer.html");
        ?>
+       </div>
     </section>
     <!-- CUSTOM JS-->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
