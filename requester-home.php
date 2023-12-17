@@ -95,7 +95,7 @@ include('includes/requester.php');
         </div>
         <div class="banner">
           <h3>Welcome Back, <span><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span> ! <span>
-              <a href="requester-view.php" class="get-started-btn">
+              <a href="requester-add.php" class="get-started-btn">
               <button type="button">Get Started</button>
               </a></span></h3>
           <img src="assets\home-img.png" alt="home">
