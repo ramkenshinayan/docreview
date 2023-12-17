@@ -116,12 +116,12 @@ include('includes/requester.php');
                     while ($row = $result->fetch_assoc()) {
                       $documentId = $row['documentId'];
                       if ($documentId !== null) {
-                        $sql = "SELECT MIN(rt.sequenceOrder) AS minSequenceOrder, rt.status, rt.documentId, org.officeName, d.content 
-                        FROM reviewtransaction rt 
-                        JOIN organization org ON rt.email = org.email
-                        JOIN document d ON rt.documentId = d.documentId 
-                        WHERE (rt.status = 'Ongoing' OR rt.status = 'Disapproved') AND d.email = '$email'
-                        GROUP BY rt.documentId";
+                        $sql = "SELECT MIN(rt.sequenceOrder) AS minSequenceOrder, rt.status, rt.documentId, org.officeName, d.content
+                              FROM reviewtransaction rt JOIN organization org ON rt.email = org.email JOIN document d ON rt.documentId = d.documentId
+                              JOIN ( SELECT documentId, MAX(version) AS maxVersion FROM document GROUP BY documentId) maxVersions 
+                              ON d.documentId = maxVersions.documentId AND d.version = maxVersions.maxVersion
+                              WHERE (rt.status = 'Ongoing' OR rt.status = 'Disapproved') AND d.email = '$email'
+                              GROUP BY rt.documentId ";
                         $result = $conn->query($sql);
   
                         $data = array();
@@ -196,8 +196,12 @@ include('includes/requester.php');
         <form id="approvals" method="POST" action="requester-track.php">
         <?php
           $email = $_SESSION["user"];
-          $sql = "SELECT * FROM reviewtransaction JOIN document ON reviewtransaction.documentId = document.documentId
-          WHERE status = 'Ongoing' AND document.email = '$email'";
+          $sql = "SELECT document.documentId, document.fileName
+          FROM reviewtransaction
+          JOIN document ON reviewtransaction.documentId = document.documentId
+          WHERE (reviewtransaction.status = 'Ongoing' OR reviewtransaction.status = 'Disapproved')
+                AND document.email = '$email'
+          GROUP BY document.documentId";
 
           if (isset($_GET['search'])) {
             $searchTerm = $_GET['search']; 
