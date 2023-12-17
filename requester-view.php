@@ -91,8 +91,7 @@ include('includes/requester.php');
                         <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
                         <ul class="filter-select">
                             <li class="filter-items">Approved</li>
-                            <li class="filter-items">Ongoing</li>
-                            <li class="filter-items">Standby</li>
+                            <li class="filter-items">Ongoing</li>                          
                             <li class="filter-items">Disapproved</li>
                         </ul>
                     </div>
@@ -110,15 +109,12 @@ include('includes/requester.php');
             </div>        
             </div>
             
-          
-
             <!--transactions-->
             <div class="history">              
                 <?php
                 $email = $_SESSION["user"];
                 try {
-                    $sql = "SELECT d.documentId, d.fileName AS DocumentName, d.uploadDate as UploadDate, rt.approvedDate, rt.status
-                    FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId WHERE rt.sequenceOrder = 5 AND d.email = '$email'";
+                    $sql = "SELECT DISTINCT d.documentId, d.fileName AS DocumentName, d.uploadDate AS UploadDate, rt.approvedDate, CASE WHEN rt.status = 'Standby' THEN 'Ongoing' ELSE rt.status END AS status FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId WHERE rt.sequenceOrder = 5 AND d.email = '$email'";
 
                     // Filtering
                     $conditions = array(); 

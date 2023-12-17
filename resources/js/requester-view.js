@@ -92,8 +92,7 @@ const sort = document.querySelector(".sort-box"),
 	const filterMappings = {
 		"Approved": "filter1",
 		"Ongoing": "filter2",
-		"Standby": "filter3",
-		"Disapproved": "filter4"
+		"Disapproved": "filter3"
 	};
 	
 	filterItems.forEach(item => {
@@ -148,8 +147,7 @@ const sort = document.querySelector(".sort-box"),
 		const filterMappings = {
 			"Approved": "filter1",
 			"Ongoing": "filter2",
-			"Standby": "filter3",
-			"Disapproved": "filter4"
+			"Disapproved": "filter3"
 		};
 
 		const selectedFilterItems = JSON.parse(localStorage.getItem('selectedFilterItems')) || [];
