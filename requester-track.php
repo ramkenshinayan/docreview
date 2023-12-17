@@ -207,11 +207,12 @@ include('includes/requester.php');
           $result = $conn->query($sql);
           $counter = 1;
           
+          
           if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
               $documentId = $row['documentId'];
               echo '<input type="radio" id="radioButton' . $counter . '" name="radioGroup">';
-              echo '<label for="radioButton' . $counter . '">' . $row['DocumentName'] . '<br>' . $row['documentId'] . '</label>';
+              echo '<label for="radioButton' . $counter . '">' . $row['fileName'] . '<br>' . $row['documentId'] . '</label>';
               $counter++;
             }
           } else {
