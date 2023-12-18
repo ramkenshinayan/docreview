@@ -108,6 +108,7 @@ function disapproved(data) {
     // Create the div with class "file-upload"
     var fileUploadDiv = document.createElement('div');
     fileUploadDiv.className = 'file-upload';
+
     
     // Create the input element with class "file-input" and set its attributes
     var fileInput = document.createElement('input');
@@ -115,19 +116,35 @@ function disapproved(data) {
     fileInput.type = 'file';
     fileInput.name = 'file';
     fileInput.accept = '.doc, .docx, .pdf';
+    fileInput.style.display = 'none'; // Hide the file input
+
 
     // Create the ion-icon element
     var ionIcon = document.createElement('ion-icon');
     ionIcon.setAttribute('name', 'cloud-upload-outline');
+    ionIcon.style.cursor = 'pointer';
 
-      // Create the paragraph element
-      var paragraphElement = document.createElement('p');
-      paragraphElement.textContent = 'Browse File to Upload';  
+    ionIcon.addEventListener('click', function () {
+        fileInput.click(); 
+    });
+
+    // Create the paragraph element
+    var paragraphElement = document.createElement('p');
+    paragraphElement.textContent = 'Browse File to Upload';  
+
+    var fileNameDisplay = document.createElement('span');
+    fileNameDisplay.textContent = ''; 
+
+    fileInput.addEventListener('change', function () {
+        const fileName = fileInput.files[0] ? fileInput.files[0].name : '';
+        fileNameDisplay.textContent = fileName; 
+    });
 
     // Append the input, ion-icon, and paragraph elements to the file-upload div
-    fileUploadDiv.appendChild(fileInput);
     fileUploadDiv.appendChild(ionIcon);
+    fileUploadDiv.appendChild(fileInput);
     fileUploadDiv.appendChild(paragraphElement);
+    fileUploadDiv.appendChild(fileNameDisplay); 
 
     // Create the button with id "subbtn" and set its attributes
     var submitButton = document.createElement('button');
