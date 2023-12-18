@@ -37,6 +37,8 @@ function trackingDoc(data, documentId){
     data.forEach(review =>{
         console.log(review.documentId);
         console.log(documentId);
+        console.log(review.status);
+
         if(documentId === review.documentId){
           if(review.status === 'Ongoing'){
                 pending(review);
