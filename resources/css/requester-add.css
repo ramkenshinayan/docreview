@@ -165,6 +165,7 @@ section .details span {
 	table-layout: fixed;
 	width: 10%;
 }
+
 .office-select {
 	border-collapse: collapse;
 	color: var(--text-color);
@@ -176,6 +177,7 @@ section .details span {
 	border-radius: 5px;
 	margin-top: 14px;
 }
+
 .reviewer-dropdown {
 	border-collapse: collapse;
 	color: var(--text-color);
@@ -186,10 +188,16 @@ section .details span {
 	text-align: center;
 	border-radius: 5px;
 	margin-top: 14px;
-
 }
 .table thead tr th {
 	text-align: center;
+	color: var(--text-color);
+	background-color: var(--sidebar-color);
+}
+
+.table td {
+	color: var(--text-color);
+	background-color: var(--sidebar-color);
 }
 
 option {
