@@ -116,29 +116,35 @@ include('includes/requester.php');
         $pendingResult = $conn->query("SELECT COUNT(d.documentId) AS pendingDocumentCount
         FROM document d
         JOIN reviewtransaction rt ON d.documentId = rt.documentId
-        WHERE rt.status = 'Pending';
-        ");
-        $pending = $pendingResult->num_rows;
+        WHERE rt.status = 'Ongoing' AND d.email = '$userEmail'"
+        );
+        $pendingRow = $pendingResult->fetch_assoc();
+        $pending = $pendingRow['pendingDocumentCount'];
+
 
         $rejectedResult = $conn->query("SELECT COUNT(d.documentId) AS rejectedDocumentCount
         FROM document d
         JOIN reviewtransaction rt ON d.documentId = rt.documentId
-        WHERE rt.status = 'Disapproved';"
+        WHERE rt.status = 'Disapproved' AND d.email = '$userEmail'"
         ); 
-        $rejected = $rejectedResult->num_rows;
+        $rejectedRow = $rejectedResult->fetch_assoc();
+        $rejected = $rejectedRow['rejectedDocumentCount'];
 
         $approvedResult = $conn->query("SELECT COUNT(d.documentId) AS approvedDocumentCount
         FROM document d
         JOIN reviewtransaction rt ON d.documentId = rt.documentId
-        WHERE rt.status = 'Approved';
-        ");
-        $approved = $approvedResult->num_rows;
+        WHERE rt.status = 'Approved' AND d.email = '$userEmail'"
+        );
+        $approvedRow = $approvedResult->fetch_assoc();
+        $approved = $approvedRow['approvedDocumentCount'];
 
-        $totalDocumentsResult = $conn->query("SELECT COUNT(documentId) FROM document WHERE email = '$userEmail'; ");
-        $totalDocuments = $totalDocumentsResult->num_rows;
-
-        $recentUploadsResult = $conn->query("SELECT COUNT(documentId) FROM document WHERE email = '$userEmail' AND uploadDate BETWEEN CURDATE() - INTERVAL 1 WEEK AND CURDATE();");
-        $recentUploads = $recentUploadsResult->num_rows;
+        $totalDocumentsResult = $conn->query("SELECT COUNT(documentId) AS totalDocumentCount FROM document WHERE email = '$userEmail'; ");
+        $totalDocumentsRow = $totalDocumentsResult->fetch_assoc();
+        $totalDocuments = $totalDocumentsRow['totalDocumentCount'];
+        
+        $recentUploadsResult = $conn->query("SELECT COUNT(documentId) AS recentUploadsCount FROM document WHERE email = '$userEmail' AND uploadDate BETWEEN CURDATE() - INTERVAL 1 WEEK AND CURDATE();");
+        $recentUploadsRow = $recentUploadsResult->fetch_assoc();
+        $recentUploads = $recentUploadsRow['recentUploadsCount'];
 
       ?>
       <div class="boxes">
