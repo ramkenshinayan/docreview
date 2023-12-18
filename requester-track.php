@@ -116,23 +116,23 @@ include('includes/requester.php');
                     while ($row = $result->fetch_assoc()) {
                       $documentId = $row['documentId'];
                       if ($documentId !== null) {
-                        $sql = "SELECT MIN(rt.sequenceOrder) AS minSequenceOrder, rt.status, rt.documentId, org.officeName, d.content
+                        $innerSql  = "SELECT MIN(rt.sequenceOrder) AS minSequenceOrder, rt.status, rt.documentId, org.officeName, d.content
                               FROM reviewtransaction rt JOIN organization org ON rt.email = org.email JOIN document d ON rt.documentId = d.documentId
                               JOIN ( SELECT documentId, MAX(version) AS maxVersion FROM document GROUP BY documentId) maxVersions 
                               ON d.documentId = maxVersions.documentId AND d.version = maxVersions.maxVersion
                               WHERE (rt.status = 'Ongoing' OR rt.status = 'Disapproved') AND d.email = '$email'
                               GROUP BY rt.documentId ";
-                        $result = $conn->query($sql);
+                        $innerResult = $conn->query($innerSql); // Use a different variable name for inner query result
   
                         $data = array();
-                        if ($result && $result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
+                        if ($innerResult  && $innerResult ->num_rows > 0) {
+                            while ($innerRow  = $innerResult ->fetch_assoc()) {
                                 $data[] = array(
-                                    'documentId' => $row['documentId'],
-                                    'minOrder' => $row['minSequenceOrder'],
-                                    'status' => $row['status'],
-                                    'officeName' => $row['officeName'],
-                                    'pdfContent' => base64_encode($row['content'])
+                                    'documentId' => $innerRow ['documentId'],
+                                    'minOrder' => $innerRow ['minSequenceOrder'],
+                                    'status' => $innerRow ['status'],
+                                    'officeName' => $innerRow ['officeName'],
+                                    'pdfContent' => base64_encode($innerRow ['content'])
                                 );
                             }
                         }
@@ -174,7 +174,12 @@ include('includes/requester.php');
                               }
                   
                               if ($insert && $update) {
-                                  $statusMsg = $fileName . " has been uploaded successfully.";
+                                  $successMessage  = $fileName . " has been uploaded successfully.";
+                                  echo "<script>
+                                  alert('$successMessage');
+                                  window.location.href='requester-track.php';
+                                  </script>";
+                                  exit; 
                               } else {
                                   $statusMsg = "File upload failed, try again.";
                               }
@@ -184,10 +189,13 @@ include('includes/requester.php');
                       } else {
                           $statusMsg = 'No file selected.';
                       }
-                      echo "<script>
-                            alert('$statusMsg');
-                            location.reload();
-                            </script>";
+                    }
+                      if (!empty($successMessage)) {
+                        echo "<script>
+                                alert('$successMessage');
+                                window.location.reload(); // Reload the page on successful upload
+                              </script>";
+                        exit; 
                     }
                   ?>
                   <div id="upload-container" class="wrapper">
