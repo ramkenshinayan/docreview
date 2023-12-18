@@ -15,12 +15,12 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `finaldb`
 --
-CREATE DATABASE IF NOT EXISTS `finaldb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `finaldb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `finaldb`;
 
 -- --------------------------------------------------------
@@ -48,10 +48,10 @@ CREATE TABLE IF NOT EXISTS `comments` (
 DROP TABLE IF EXISTS `document`;
 CREATE TABLE IF NOT EXISTS `document` (
   `documentId` int NOT NULL,
-  `email` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `fileName` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `email` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `fileName` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `version` int NOT NULL,
-  `fileType` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `fileType` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `uploadDate` date NOT NULL,
   `content` mediumblob NOT NULL,
   PRIMARY KEY (`documentId`,`version`),
@@ -73,10 +73,10 @@ INSERT INTO `document` (`documentId`, `email`, `fileName`, `version`, `fileType`
 
 DROP TABLE IF EXISTS `organization`;
 CREATE TABLE IF NOT EXISTS `organization` (
-  `email` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `officeName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `email` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `officeName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `organization`
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `reviewtransaction` (
   `documentId` int NOT NULL,
   `email` varchar(25) NOT NULL,
   `sequenceOrder` int NOT NULL,
-  `status` enum('Approved','Ongoing','Standby','Disapproved') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `status` enum('Approved','Ongoing','Standby','Disapproved') CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   `approvedDate` date NOT NULL,
   PRIMARY KEY (`documentId`,`email`),
   KEY `documentID` (`documentId`),
@@ -130,8 +130,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(25) NOT NULL,
   `firstName` varchar(30) NOT NULL,
   `lastName` varchar(30) NOT NULL,
-  `role` enum('Admin','Reviewer','Requester') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `status` enum('Online','Offline') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `role` enum('Admin','Reviewer','Requester') CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
+  `status` enum('Online','Offline') CHARACTER SET utf8mb3 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 

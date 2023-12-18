@@ -53,6 +53,7 @@ if (isset($_POST["upload"])) {
                     $revEmail = ''; 
                 }
                 $sequenceOrder = $i;
+                
                 $approvedDate = '0000-00-00';                     
                 $status = ($i == 1) ? 'Ongoing' : 'Standby'; 
                

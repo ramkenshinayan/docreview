@@ -91,7 +91,8 @@ include('includes/requester.php');
                         <div class="filter-btn">Filter<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span></div>
                         <ul class="filter-select">
                             <li class="filter-items">Approved</li>
-                            <li class="filter-items">Ongoing</li>                          
+                            <li class="filter-items">Ongoing</li>      
+                            <li class="filter-items">Standby</li>                         
                             <li class="filter-items">Disapproved</li>
                         </ul>
                     </div>
@@ -114,13 +115,12 @@ include('includes/requester.php');
                 <?php
                 $email = $_SESSION["user"];
                 try {
-                    $sql = "SELECT d.documentId, d.fileName AS DocumentName, MAX(rt.approvedDate) AS approvedDate, CASE WHEN MAX(rt.status) = 'Standby' THEN 'Ongoing' ELSE MAX(rt.status) END AS status
-                    FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId
-                    WHERE rt.sequenceOrder = 5 AND d.email = '$email' GROUP BY d.documentId";
+                    $sql = "  SELECT d.documentId, d.fileName AS DocumentName, d.uploadDate as UploadDate, rt.approvedDate, rt.status
+                    FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId WHERE rt.sequenceOrder = 5 AND d.email = '$email'";
 
                     // Filtering
                     $conditions = array(); 
-                    $filterParameters = array('filter1', 'filter2', 'filter3');
+                    $filterParameters = array('filter1', 'filter2', 'filter3', 'filter4');
 
                     foreach ($filterParameters as $param) {
                         if (isset($_GET[$param])) {

@@ -475,6 +475,7 @@ body.dark .switch::before {
 	font-weight: 500;
 	color: var(--text-color);
 	margin-left: 20px;
+	margin-right: 400px;
 }
 
 .home-content .boxes {
