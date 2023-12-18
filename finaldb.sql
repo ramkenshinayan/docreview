@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 16, 2023 at 03:47 PM
+-- Generation Time: Dec 17, 2023 at 10:56 AM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `finaldb`
 --
+CREATE DATABASE IF NOT EXISTS `finaldb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `finaldb`;
 
 -- --------------------------------------------------------
 
@@ -52,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `document` (
   `fileType` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `uploadDate` date NOT NULL,
   `content` mediumblob NOT NULL,
-  PRIMARY KEY (`documentId`),
+  PRIMARY KEY (`documentId`,`version`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -100,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `reviewtransaction` (
   `sequenceOrder` int NOT NULL,
   `status` enum('Approved','Ongoing','Standby','Disapproved') CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `approvedDate` date NOT NULL,
+  PRIMARY KEY (`documentId`,`email`),
   KEY `documentID` (`documentId`),
   KEY `revtransemail` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
