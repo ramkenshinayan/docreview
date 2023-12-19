@@ -5,14 +5,12 @@ if (isset($_SESSION["user"])) {
         // echo 'Login Successful';
     } else {
         echo '<script>
-            alert("Not allowed.");
             window.location.href="index.php";
             </script>';
         include("logout.php");
     }
 } else {
     echo '<script>
-    alert("Log in first.");
     window.location.href="index.php";
     </script>';
 }
