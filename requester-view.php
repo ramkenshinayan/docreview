@@ -115,8 +115,10 @@ include('includes/requester.php');
                 <?php
                 $email = $_SESSION["user"];
                 try {
-                    $sql = "  SELECT d.documentId, d.fileName AS DocumentName, d.uploadDate as UploadDate, rt.approvedDate, rt.status
-                    FROM reviewtransaction AS rt JOIN document AS d ON rt.documentId = d.documentId WHERE rt.sequenceOrder = 5 AND d.email = '$email'";
+                    $sql = "  SELECT DISTINCT d.documentId, d.fileName AS DocumentName, d.uploadDate as UploadDate, rt.approvedDate, rt.status
+                    FROM reviewtransaction AS rt 
+                    JOIN document AS d ON rt.documentId = d.documentId 
+                    WHERE rt.sequenceOrder = 5 AND d.email = '$email'";
 
                     // Filtering
                     $conditions = array(); 
@@ -139,7 +141,7 @@ include('includes/requester.php');
                     }
 
                     if (!empty($conditions)) {
-                        $sql .= " AND " . implode(" OR ", $conditions);
+                        $sql .= " AND (" . implode(" OR ", $conditions) . ")";
                     }
 
                     // Sorting

@@ -189,6 +189,7 @@ section .details span {
 	border-radius: 5px;
 	margin-top: 14px;
 }
+
 .table thead tr th {
 	text-align: center;
 	color: var(--text-color);
@@ -198,6 +199,10 @@ section .details span {
 .table td {
 	color: var(--text-color);
 	background-color: var(--sidebar-color);
+}
+
+.table tbody {
+  background-color: var(--sidebar-color);
 }
 
 option {

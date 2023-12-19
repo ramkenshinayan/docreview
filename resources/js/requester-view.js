@@ -73,20 +73,24 @@ const sort = document.querySelector(".sort-box"),
 	}
   
 	// sort
-    sortItems.forEach(item => {
-        item.addEventListener("click", () => {
-            const sortValue = item.textContent.trim();
-
-            updateSortUrlParameter('sort', [sortValue]);
-
-            sortItems.forEach(otherItem => otherItem.classList.remove("selected"));
-
-            item.classList.add("selected");
-            localStorage.setItem('selectedSortItem', sortValue);
-
-            updateReviews(data);
-        });
-    });
+	sortItems.forEach(item => {
+		item.addEventListener("click", () => {
+			const sortValue = item.textContent.trim();
+	
+			// Toggle selection
+			if (item.classList.contains("selected")) {
+				item.classList.remove("selected");
+				updateSortUrlParameter('sort', []); // Remove sort parameter
+			} else {
+				sortItems.forEach(otherItem => otherItem.classList.remove("selected"));
+				item.classList.add("selected");
+				localStorage.setItem('selectedSortItem', sortValue);
+				updateSortUrlParameter('sort', [sortValue]);
+			}
+	
+			updateReviews(data);
+		});
+	});
 
 	//filtered
 	const filterMappings = {
@@ -148,7 +152,7 @@ const sort = document.querySelector(".sort-box"),
 		const filterMappings = {
 			"Approved": "filter1",
 			"Ongoing": "filter2",
-			"Standby": "filter2",
+			"Standby": "filter3",
 			"Disapproved": "filter4"
 		};
 
@@ -170,6 +174,7 @@ const sort = document.querySelector(".sort-box"),
         const paramValues = urlParams.getAll(name);
         return paramValues.length === 0 ? null : paramValues;
     };
+	
 	const updateFilterUrlParameter = (key, values) => {
 		const urlParams = new URLSearchParams(window.location.search);
 	

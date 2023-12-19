@@ -54,8 +54,8 @@ function uploadFile(name) {
                                 <span class="name">${name} • Uploaded</span>
                                 <span class="size">${fileSize}</span>
                               </div>
-                              <button style="margin-left: 500px;" onclick="removeFile(this);">Remove</button>
-                            </div>
+                              <button style="position: absolute; right: 15%; background-color: var(--primary-color); color: white; border: none; border-radius: 10px; cursor: pointer; width: 100px; height: 35px; margin-top: 20px;" onclick="removeFile(this);">Remove</button>
+                              </div>
                             <ion-icon name="checkmark-outline"></ion-icon>
                           </li>`;
       uploadedArea.classList.remove("onprogress");
