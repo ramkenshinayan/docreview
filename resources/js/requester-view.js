@@ -93,7 +93,7 @@ const sort = document.querySelector(".sort-box"),
 		"Approved": "filter1",
 		"Ongoing": "filter2",
 		"Standby": "filter3",
-		"Disapproved": "filter3"
+		"Disapproved": "filter4"
 	};
 	
 	filterItems.forEach(item => {
