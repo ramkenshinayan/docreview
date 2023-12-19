@@ -113,17 +113,17 @@ include("includes/admin.php");
               <tbody>
                 <?php
                 while ($row = $result->fetch_assoc()) {
-                  echo "<tr>";
-                  echo "<td>" . $row["email"] . "</td>";
-                  echo "<td>" . $row["firstName"] . "</td>";
-                  echo "<td>" . $row["lastName"] . "</td>";
-                  echo "<td>" . $row["role"] . "</td>";
-                  echo "<td>" . $row["status"] . "</td>";
-                  echo "<td>";
-                  echo "<button class='update-user-btn' data-email='" . $row["email"] . "'>Update</button>";
-                  echo "<button class='delete-user-btn' data-email='" . $row["email"] . "'>Delete</button>";
-                  echo "</td>";
-                  echo "</tr>";
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["firstName"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["lastName"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["role"]) . "</td>";
+                echo "<td>" . htmlspecialchars($row["status"]) . "</td>";
+                echo "<td>";
+                echo "<button class='update-user-btn' data-email='" . htmlspecialchars($row["email"]) . "'>Update</button>";
+                echo "<button class='delete-user-btn' data-email='" . htmlspecialchars($row["email"]) . "'>Delete</button>";
+                echo "</td>";
+                echo "</tr>";
                 }
                 ?>
               </tbody>

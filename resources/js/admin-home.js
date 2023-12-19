@@ -43,10 +43,10 @@
 		}
 
 		function saveNewUser() {
-			let newEmail = document.querySelector('input[name="newEmail"]').value;
-			let newFirstName = document.querySelector('input[name="newFirstName"]').value;
-			let newLastName = document.querySelector('input[name="newLastName"]').value;
-			let newRole = document.querySelector('select[name="newRole"]').value;
+			let newEmail = encodeURIComponent(document.querySelector('input[name="newEmail"]').value);
+			let newFirstName = encodeURIComponent(document.querySelector('input[name="newFirstName"]').value);
+			let newLastName = encodeURIComponent(document.querySelector('input[name="newLastName"]').value);
+			let newRole = encodeURIComponent(document.querySelector('select[name="newRole"]').value);
 
 			let xhr = new XMLHttpRequest();
 			xhr.open('POST', 'includes/admin.php', true);
@@ -100,10 +100,10 @@
 				</td>`;
 
 				row.querySelector('.save-user-btn').addEventListener('click', function () {
-					let updatedEmail = row.querySelector('input[name="email"]').value;
-					let updatedFirstName = row.querySelector('input[name="firstName"]').value;
-					let updatedLastName = row.querySelector('input[name="lastName"]').value;
-					let updatedRole = row.querySelector('select[name="role"]').value;
+					let updatedEmail = encodeURIComponent(row.querySelector('input[name="email"]').value);
+					let updatedFirstName = encodeURIComponent(row.querySelector('input[name="firstName"]').value);
+					let updatedLastName = encodeURIComponent(row.querySelector('input[name="lastName"]').value);
+					let updatedRole = encodeURIComponent(row.querySelector('select[name="role"]').value);
 		
 					let xhr = new XMLHttpRequest();
 					xhr.open('POST', 'includes/admin.php', true);
