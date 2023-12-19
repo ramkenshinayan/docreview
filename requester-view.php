@@ -53,7 +53,7 @@ include('includes/requester.php');
             <div class="bottom-content">
                 <!-- LOGOUT -->
                 <li>
-                    <a href="#">
+                    <a href="includes/logout.php">
                         <ion-icon name="log-out-outline"></ion-icon><span class="text nav-text">Logout</span></a>
                 </li>
                 <!-- TOGGLE MODES -->

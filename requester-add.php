@@ -13,7 +13,6 @@ include('includes/requester.php');
   <title>SLU Document Review Tracker</title>
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="resources/css/user-home.css" rel="stylesheet">
   <link href="resources/css/requester-add.css" rel="stylesheet">
 </head>
@@ -110,7 +109,6 @@ include('includes/requester.php');
                 <tr>
                     <th></th>
                     <th>Office Name</th>
-                    <th>Reviewer Names</th>
                 </tr>
             </thead>
             <tbody>
@@ -119,7 +117,6 @@ include('includes/requester.php');
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     $count = 1;
-                    $reviewersData = [];
                     while ($row = $result->fetch_assoc()) {
                         if ($count > 5) {
                             break; 
@@ -131,7 +128,6 @@ include('includes/requester.php');
                         while ($reviewerRow = $reviewerResult->fetch_assoc()) {
                             $reviewers[] = $reviewerRow["firstName"] . ' ' . $reviewerRow["lastName"];
                         }
-                        $reviewersData[$officeName] = $reviewers;
                         echo "<tr>";
                         echo "<td>$count</td>";
                         echo "<td>";
@@ -146,9 +142,6 @@ include('includes/requester.php');
                             echo "<option value='$currentOffice'>$currentOffice</option>";
                         }
                         echo "</select>";
-                        echo "</td>";
-                        echo "<td>";
-                        echo "<span class='reviewer-names'></span>";
                         echo "</td>";
                         echo "</tr>";
                         $count++;
@@ -168,86 +161,70 @@ include('includes/requester.php');
     ?>
     </div>
   </section>
-  <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="uploadModalLabel">File Upload Status</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                File Uploaded Successfully
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalButton">Close</button>
-            </div>
-        </div>
-    </div>
-  </div>  
+
 
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <!-- <script src="resources/js/requester-home.js"></script> -->
   <script src="resources/js/requester-upload.js"></script>
   <script src="resources/js/requester-add.js"></script>
   <script src="resources/js/user-home.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<script>
-    var reviewersData = <?php echo json_encode($reviewersData); ?>;
-    var selectedOffices = [];
 
-    $(document).ready(function () {
-        $(".office-select").change(function () {
-            var selectedOffice = $(this).val();
-            var reviewerNames = reviewersData[selectedOffice] || [];
-            var reviewerHtml = reviewerNames.map(function (name) {
-                return '<option>' + name + '</option>';
-            }).join('');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var selectedOffices = [];
 
-            $(this).closest('tr').find('.reviewer-names').html('<select class="reviewer-dropdown">' + '<option value="" selected>Select Reviewer Name</option>' + reviewerHtml + '</select>');
+        document.querySelectorAll('.office-select').forEach(function (select) {
+            select.addEventListener('change', function () {
+                var selectedOffice = this.value;
 
-            $(".office-select").not(this).find("option[value='" + selectedOffice + "']").prop("disabled", true);
+                document.querySelectorAll('.office-select').forEach(function (otherSelect) {
+                    if (otherSelect !== select) {
+                        var option = otherSelect.querySelector("option[value='" + selectedOffice + "']");
+                        if (option) {
+                            option.disabled = true;
+                        }
+                    }
+                });
+            });
         });
 
-        $(".office-select").change();
-    });
+        function onSubmitForm() {
+            var counter = 0;
+            var isValid = true;
 
-    function onSubmitForm() {
-    var counter = 0;
-    var isValid = true;  
+            document.querySelectorAll('.office-select').forEach(function (select, index) {
+                var selectedOffice = select.value;
 
-    $(".office-select").each(function (index) {
-        var selectedOffice = $(this).val();
-        var selectedReviewerEmail = $(this).closest('tr').find('.reviewer-dropdown').val();
+                if (selectedOffice !== '') {
+                    counter++;
+                    document.getElementById('upbox').insertAdjacentHTML('beforeend', "<input type='hidden' name='office_" + counter + "' value='" + selectedOffice + "'>");
+                } else {
+                    isValid = false;
+                }
+            });
 
-        if (selectedOffice !== '' && selectedReviewerEmail !== '') {
-            counter++;
+            document.getElementById('upbox').insertAdjacentHTML('beforeend', "<input type='hidden' name='total_offices' value='" + counter + "'>");
 
-            $("#upbox").append("<input type='hidden' name='office_" + counter + "' value='" + selectedOffice + "'>");
-            $("#upbox").append("<input type='hidden' name='reviewer_email_" + counter + "' value='" + selectedReviewerEmail + "'>");
-        } else {
-            isValid = false;  
+            if (!isValid) {
+                alert("Please select first an office and the reviewers before submitting.");
+            }
+
+            return isValid;
         }
+
+        document.getElementById('upbox').addEventListener('submit', function () {
+            return onSubmitForm();
+        });
     });
-
-    $("#upbox").append("<input type='hidden' name='total_offices' value='" + counter + "'>");
-
-    if (!isValid) {
-        alert("Please select first an office and the reviewers before submitting.");
-    }
-
-    return isValid;  
-}
-  </script>
+</script>
 
 </body>
 </html>

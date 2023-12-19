@@ -36,31 +36,29 @@ if (isset($_POST["upload"])) {
            $totalOffices = isset($_POST['total_offices']) ? $_POST['total_offices'] : 0;
 
            for ($i = 1; $i <= $totalOffices; $i++) {
-                $reviewerEmailKey = 'reviewer_email_' . $i;
-        
-                $selectedReviewerName = isset($_POST[$reviewerEmailKey]) ? $_POST[$reviewerEmailKey] : '';
-            
-                $reviewerNameParts = explode(' ', $selectedReviewerName);
-                $firstName = $reviewerNameParts[0];
-                $lastName = $reviewerNameParts[1];
-            
-                $reviewerEmailQuery = "SELECT email FROM users WHERE firstName = '$firstName' AND lastName = '$lastName'";
-                $reviewerResult = $conn->query($reviewerEmailQuery);
-            
-                if ($reviewerResult && $row = $reviewerResult->fetch_assoc()) {
-                    $revEmail = $row['email'];
+                $officeKey = 'office_' . $i;
+
+                $selectedOffice = isset($_POST[$officeKey]) ? $_POST[$officeKey] : '';
+                
+                if ($selectedOffice != '') {
+                    $reviewerEmailQuery = "SELECT email FROM organization WHERE officeName = '$selectedOffice'";
+                    $reviewerResult = $conn->query($reviewerEmailQuery);
+                    
+                    if ($reviewerResult->num_rows > 0) {
+                        $row = $reviewerResult->fetch_assoc();
+                        $revEmail = $row['email'];
+                        $sequenceOrder = $i;
+                        $approvedDate = '0000-00-00';                     
+                        $status = ($i == 1) ? 'Ongoing' : 'Standby'; 
+                        $insert =  $conn->query("INSERT INTO reviewtransaction (documentId, email, sequenceOrder, status, approvedDate) 
+                                                VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status', '$approvedDate')");
+                    } else {
+                        echo "Error: No email found for office '$selectedOffice'";
+                    }
                 } else {
-                    $revEmail = ''; 
+                    echo "Error: Office not set for iteration $i";
                 }
-                $sequenceOrder = $i;
-                
-                $approvedDate = '0000-00-00';                     
-                $status = ($i == 1) ? 'Ongoing' : 'Standby'; 
-               
-                $insert =  $conn->query("INSERT INTO reviewtransaction (documentId, email, sequenceOrder, status, approvedDate) 
-                                        VALUES ('$documentId', '$revEmail', '$sequenceOrder', '$status', '$approvedDate')");
-                
-            }        
+           }        
 
             if ($insert) {
                 $statusMsg = $fileName . " has been uploaded successfully.";
