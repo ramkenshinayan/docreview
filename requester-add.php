@@ -95,11 +95,11 @@ include('includes/requester.php');
       <div class="wrapper">
         <form id="upbox" action="includes/upload.php" method="post" enctype="multipart/form-data" onsubmit="return onSubmitForm()">
           <div class="file-upload">
-            <input class="file-input" type="file" name="file" accept=".doc, .docx, .pdf" hidden>
+          <input id="fileInput" class="file-input" type="file" name="file" accept=".doc, .docx, .pdf" hidden>
             <ion-icon name="cloud-upload-outline"></ion-icon>
             <p>Browse File to Upload</p><br>
           </div>
-          <button id="subbtn" type="submit" name="upload">Submit</button>
+          <button id="subbtn" type="submit" name="upload" style="display: none;">Submit </button> 
         </form>
         <section class="progress-area"></section>
         <section class="uploaded-area"></section>
@@ -153,6 +153,9 @@ include('includes/requester.php');
             </tbody>
           </table>
         </div>
+        <form id="upbox2" onsubmit="return onSubmitForm()">
+          <button id="subbtn2" type="submit" name="upload">Submit</button>
+        </form>
       </div>
     </div>
     <div class="footer">
@@ -168,18 +171,17 @@ include('includes/requester.php');
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <!-- <script src="resources/js/requester-home.js"></script> -->
   <script src="resources/js/requester-upload.js"></script>
   <script src="resources/js/requester-add.js"></script>
   <script src="resources/js/user-home.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
         var selectedOffices = [];
+        
 
         document.querySelectorAll('.office-select').forEach(function (select) {
             select.addEventListener('change', function () {
@@ -223,6 +225,11 @@ include('includes/requester.php');
         document.getElementById('upbox').addEventListener('submit', function () {
             return onSubmitForm();
         });
+    });
+
+    document.getElementById('subbtn2').addEventListener('click', function (event) {
+      event.preventDefault(); 
+      document.getElementById('subbtn').click(); 
     });
 </script>
 

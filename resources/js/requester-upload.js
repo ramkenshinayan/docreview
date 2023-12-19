@@ -54,11 +54,9 @@ function uploadFile(name) {
                                 <span class="name">${name} • Uploaded</span>
                                 <span class="size">${fileSize}</span>
                               </div>
+                              <button style="margin-left: 500px;" onclick="removeFile(this);">Remove</button>
                             </div>
                             <ion-icon name="checkmark-outline"></ion-icon>
-                            <div class="removefile">
-                              <button onclick="removeFile(this);">Remove</button>
-                            </div>
                           </li>`;
       uploadedArea.classList.remove("onprogress");
       uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
@@ -84,4 +82,6 @@ function removeFile(file) {
   fileInput.value = "";
   fileInput.disabled = false;
   form.style.cursor = 'pointer';
+  fileInProgress = false; // Reset fileInProgress flag
 };
+

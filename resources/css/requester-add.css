@@ -221,8 +221,7 @@ option {
   }
 
   
-
-form button[type="submit"] {
+  form button[type="submit"] {
 	background-color: var(--primary-color);
 	color: white;
 	padding: 10px 20px;
@@ -232,7 +231,7 @@ form button[type="submit"] {
 	width: 150px;
 	height: 50px;
 	margin-top: 20px;
-}
+  }
 
 .seqOrder {
 	margin-top: 50px;
