@@ -75,6 +75,6 @@ if (isset($_POST["upload"])) {
 
 echo "<script>
         alert('$statusMsg');
-        window.location.href='../requester-home.php';
+        window.location.href='../requester-add.php';
         </script>";
 ?>

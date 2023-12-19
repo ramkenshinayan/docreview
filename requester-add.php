@@ -154,7 +154,7 @@ include('includes/requester.php');
           </table>
         </div>
         <form id="upbox2" onsubmit="return onSubmitForm()">
-          <button id="subbtn2" type="submit" name="upload">Submit</button>
+          <button id="subbtn2" type="submit" name="upload" disabled>Submit</button>
         </form>
       </div>
     </div>
@@ -164,7 +164,6 @@ include('includes/requester.php');
     ?>
     </div>
   </section>
-
 
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -176,62 +175,6 @@ include('includes/requester.php');
   <script src="resources/js/user-home.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectedOffices = [];
-        
-
-        document.querySelectorAll('.office-select').forEach(function (select) {
-            select.addEventListener('change', function () {
-                var selectedOffice = this.value;
-
-                document.querySelectorAll('.office-select').forEach(function (otherSelect) {
-                    if (otherSelect !== select) {
-                        var option = otherSelect.querySelector("option[value='" + selectedOffice + "']");
-                        if (option) {
-                            option.disabled = true;
-                        }
-                    }
-                });
-            });
-        });
-
-        function onSubmitForm() {
-            var counter = 0;
-            var isValid = true;
-
-            document.querySelectorAll('.office-select').forEach(function (select, index) {
-                var selectedOffice = select.value;
-
-                if (selectedOffice !== '') {
-                    counter++;
-                    document.getElementById('upbox').insertAdjacentHTML('beforeend', "<input type='hidden' name='office_" + counter + "' value='" + selectedOffice + "'>");
-                } else {
-                    isValid = false;
-                }
-            });
-
-            document.getElementById('upbox').insertAdjacentHTML('beforeend', "<input type='hidden' name='total_offices' value='" + counter + "'>");
-
-            if (!isValid) {
-                alert("Please select first an office and the reviewers before submitting.");
-            }
-
-            return isValid;
-        }
-
-        document.getElementById('upbox').addEventListener('submit', function () {
-            return onSubmitForm();
-        });
-    });
-
-    document.getElementById('subbtn2').addEventListener('click', function (event) {
-      event.preventDefault(); 
-      document.getElementById('subbtn').click(); 
-    });
-</script>
 
 </body>
 </html>
