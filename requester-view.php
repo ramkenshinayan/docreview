@@ -205,6 +205,6 @@ include('includes/requester.php');
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="resources/js/user-home.js"></script>
-    <script src="resources\js\requester-view.js"></script>
+    <script src="resources/js/requester-view.js"></script>
 </body>
 </html>

@@ -13,7 +13,6 @@ include('includes/requester.php');
   <link rel="icon" type="image/png" href="assets/slu_logo.png">
   <!-- MAIN CSS -->
   <link href="resources\css\user-home.css" rel="stylesheet">
-  <link href="resources\css\requester-home.css" rel="stylesheet">
 </head>
 <body>
   <!-- SIDE BAR -->
@@ -183,7 +182,6 @@ include('includes/requester.php');
   <!-- CUSTOM JS -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <script src="resources/js/requester-home.js"></script>
   <script src="resources/js/user-home.js"></script>
 </body>
 </html>

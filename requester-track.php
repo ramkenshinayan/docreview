@@ -112,7 +112,9 @@ include('includes/requester.php');
                     FROM reviewtransaction 
                     JOIN document ON reviewtransaction.documentId = document.documentId;";
                     $result = $conn->query($sql);
- 
+                
+                    $data = array(); 
+
                     while ($row = $result->fetch_assoc()) {
                       $documentId = $row['documentId'];
                       if ($documentId !== null) {
@@ -122,9 +124,9 @@ include('includes/requester.php');
                               ON d.documentId = maxVersions.documentId AND d.version = maxVersions.maxVersion
                               WHERE (rt.status = 'Ongoing' OR rt.status = 'Disapproved') AND d.email = '$email'
                               GROUP BY rt.documentId ";
-                        $innerResult = $conn->query($innerSql); // Use a different variable name for inner query result
+                              
+                        $innerResult = $conn->query($innerSql); 
   
-                        $data = array();
                         if ($innerResult  && $innerResult ->num_rows > 0) {
                             while ($innerRow  = $innerResult ->fetch_assoc()) {
                                 $data[] = array(
@@ -137,13 +139,16 @@ include('includes/requester.php');
                             }
                         }
                         
-                        $jsonData = json_encode($data);
-
-                        echo '<script>';
-                        echo ' const data = ' . $jsonData . ';';
-                        echo '</script>';
+        
                       } 
                     }  
+
+                    $jsonData = json_encode($data);
+
+                    echo '<script>';
+                    echo ' const data = ' . $jsonData . ';';
+                    echo '</script>';
+
                     if (isset($_POST["upload"])) {
                       if (!empty($_FILES["file"]["name"])) {
                           $fileName = basename($_FILES["file"]["name"]);

@@ -103,6 +103,9 @@ include('includes/requester.php');
         </form>
         <section class="progress-area"></section>
         <section class="uploaded-area"></section>
+        <div>
+            <br>
+        </div>
         <div class="table-container">
           <table class="table">
             <thead>
