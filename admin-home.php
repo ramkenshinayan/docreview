@@ -63,6 +63,11 @@ include("includes/admin.php");
   </nav>
   <section class="home" id="home">
     <div class="top">
+      <div class="search-box">
+        <ion-icon class="search-icon" name="search-outline"></ion-icon>
+        <input type="search", id="searchInput", placeholder="Search...", onkeydown="handleSearch(event)">
+      </div>
+
       <div class="profile-details-alone">
         <img src="assets/school.png" alt="">
         <span class="user_name"><?php echo $_SESSION["fname"] . " " . $_SESSION["lname"]; ?></span>
@@ -97,7 +102,9 @@ include("includes/admin.php");
           <div class="title">
             <ion-icon name="people-outline" class="content-icon"></ion-icon>
             <span class="text">List of Users</span>
+            <button id="addUserBtn" class="add-user-btn">+</button>
           </div>
+          
           <div class="container-table">
             <table>
               <thead>
@@ -129,7 +136,6 @@ include("includes/admin.php");
               </tbody>
             </table>
           </div>
-          <button id="addUserBtn">+</button>
         </div>
   </section>
   <section class="manage" id="manage">

@@ -25,13 +25,10 @@
 						</select>
 					</td>
 					<td>Offline</td>
-					<td>
-						<button class='save-user-btn' id="saveNewUserBtn">Save</button>
-						<button class='cancel-update-btn' id="cancelNewUserBtn">Cancel</button>
-					</td>
+					<td><button class='save-user-btn' id="saveNewUserBtn">Save</button><button class='cancel-update-btn' id="cancelNewUserBtn">Cancel</button></td>
 				</tr>`;
 
-			document.querySelector('.container-table tbody').insertAdjacentHTML('beforeend', addUserForm);
+			document.querySelector('.container-table tbody').insertAdjacentHTML('afterbegin', addUserForm);
 
 			document.getElementById('saveNewUserBtn').addEventListener('click', function () {
 				saveNewUser();
@@ -63,10 +60,7 @@
 					}
 				}
 			};
-			xhr.send('add_user=true&email=' + encodeURIComponent(newEmail) +
-				'&firstName=' + encodeURIComponent(newFirstName) +
-				'&lastName=' + encodeURIComponent(newLastName) +
-				'&role=' + encodeURIComponent(newRole));
+		    xhr.send('add_user=true&email=' + newEmail + '&firstName=' + newFirstName + '&lastName=' + newLastName + '&role=' + newRole);
 		}
 
 		function cancelAddUser() {
@@ -94,10 +88,8 @@
 						<option value="Reviewer" ${role === 'Reviewer' ? 'selected' : ''}>Reviewer</option>
 					</select>
 				</td>
-				<td>
-					<button class='save-user-btn'>Save</button>
-					<button class='cancel-update-btn'>Cancel</button>
-				</td>`;
+				<td>${row.cells[4].textContent}</td>
+				<td><button class='save-user-btn'>Save</button><button class='cancel-update-btn'>Cancel</button></td>`;
 
 				row.querySelector('.save-user-btn').addEventListener('click', function () {
 					let updatedEmail = encodeURIComponent(row.querySelector('input[name="email"]').value);
@@ -114,11 +106,10 @@
 							location.reload();
 						}
 					};
-					xhr.send('update_user=true&original_email=' + encodeURIComponent(originalEmail) +
-						'&updated_email=' + encodeURIComponent(updatedEmail) +
-						'&firstName=' + encodeURIComponent(updatedFirstName) +
-						'&lastName=' + encodeURIComponent(updatedLastName) +
-						'&role=' + encodeURIComponent(updatedRole));
+					    xhr.send('update_user=true&original_email=' + originalEmail + '&updated_email=' + updatedEmail + 
+						'&firstName=' + updatedFirstName +
+						'&lastName=' + updatedLastName + 
+						'&role=' + updatedRole);
 					});
 		
 				row.querySelector('.cancel-update-btn').addEventListener('click', function () {
@@ -146,4 +137,26 @@
 			}
 		});
 	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function () {
+            filterUsers(searchInput.value.toLowerCase());
+        });
+
+        function filterUsers(searchTerm) {
+            const rows = document.querySelectorAll('.container-table tbody tr');
+            rows.forEach(function (row) {
+                const email = row.cells[0].textContent.toLowerCase();
+                const firstName = row.cells[1].textContent.toLowerCase();
+                const lastName = row.cells[2].textContent.toLowerCase();
+                const role = row.cells[3].textContent.toLowerCase();
+
+                const matches = email.includes(searchTerm) || firstName.includes(searchTerm) || lastName.includes(searchTerm) || role.includes(searchTerm);
+                row.style.display = matches ? '' : 'none';
+            });
+        }
+
+        // ... (your existing code)
+    });
 })();
